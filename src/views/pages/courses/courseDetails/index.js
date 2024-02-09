@@ -1,59 +1,65 @@
 import { ArrowBack, Telegram } from "@mui/icons-material";
-import { Avatar, Box, Button, CircularProgress, Typography, useTheme } from "@mui/material";
-import React, { useState } from "react";
+import {
+  Avatar,
+  Box,
+  Button,
+  CircularProgress,
+  Typography,
+  useTheme,
+} from "@mui/material";
+import React from "react";
 import { Link, useParams } from "react-router-dom";
 import useShowCourseDetails from "../../../../api/useShowCourseDetails";
-import Swicther from "../../../../components/Switcher";
-import useSwitchOpenOfCourse from "../../../../api/useSwitchOpenOfCourse";
-import useSwitchCourseVisibility from "../../../../api/useSwitchCourseVisibility";
-import ChapterRenderer from "./chaptersRenderer";
-import AddChapterForm from "./chaptersRenderer/components/AddChapterForm";
+import Tab from "@mui/material/Tab";
+import TabContext from "@mui/lab/TabContext";
+import TabList from "@mui/lab/TabList";
+import TabPanel from "@mui/lab/TabPanel";
+import DetailsTab from "./DetailsTab";
+import EditTab from "./EditTab";
+import DeleteTab from "./DeleteTab";
 
 const CourseDetails = () => {
-  const {course_id} = useParams();
+  const { course_id } = useParams();
   const courseDetails = useShowCourseDetails({ course_id });
-  const openSwitcher = useSwitchOpenOfCourse(courseDetails.refetch)
-  const visibleSwitcher = useSwitchCourseVisibility(courseDetails.refetch)
-  const [openAddChapterForm , setOpenAddChapterForm] = useState(false)
+  const [value, setValue] = React.useState("1");
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
   const theme = useTheme();
-
-  const addChapterFormClick = () => {
-    setOpenAddChapterForm((prev) => !prev)
+  if (courseDetails.isLoading) {
+    return (
+      <Box
+        sx={{
+          height: "calc(100vh - 64px)",
+          width: "100%",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+          <CircularProgress  />
+      </Box>
+    );
   }
 
-  const addChapterCloseHandler = () => {
-    setOpenAddChapterForm(false)
+  if(courseDetails.isError){
+    return "error"
   }
-
-  if(courseDetails.isLoading){
-    return <Box
-      sx={{
-        height : '100vh',
-        width : '100vw',
-        display : 'flex',
-        alignItems : 'center',
-        justifyContent : 'center'
-      }}
-    >
-      <CircularProgress />
-    </Box>
-  }
-
   return (
     <Box
       sx={{
-        position : 'relative',
-        overflow : 'hidden'
+        position: "relative",
+        overflow: "hidden",
       }}
     >
-      <CircularProgress 
+      <CircularProgress
         color="primary"
         sx={{
-          position : 'fixed',
-          transform : `translateX(-50%)`,
-          transition : '0.6s',
-          left : '50%',
-          top : courseDetails.isRefetching ? '30px' : '-100%',
+          position: "fixed",
+          transform: `translateX(-50%)`,
+          transition: "0.6s",
+          left: "50%",
+          top: courseDetails.isRefetching ? "30px" : "-100%",
         }}
       />
       <Typography
@@ -65,7 +71,7 @@ const CourseDetails = () => {
           display: "flex",
           alignItems: "center",
           gap: 2,
-          width : 'fit-content',
+          width: "fit-content",
           mb: 3,
         }}
         component={Link}
@@ -86,7 +92,7 @@ const CourseDetails = () => {
             fontWeight: "400",
             lineHeight: "49px",
             letterSpacing: "0em",
-            width : 'fit-content',
+            width: "fit-content",
             textAlign: "left",
             mb: 1,
           }}
@@ -100,7 +106,7 @@ const CourseDetails = () => {
             fontWeight: "400",
             textAlign: "left",
             color: "#8D8D8D",
-            width : 'fit-content',
+            width: "fit-content",
           }}
         >
           Course | Course Details
@@ -111,92 +117,56 @@ const CourseDetails = () => {
         sx={{
           display: "flex",
           alignItems: "center",
-          gap: 1,
-          mb : 3
+          justifyContent: "space-between",
         }}
       >
-        <Avatar src={courseDetails?.data?.data?.data?.image} srcSet={courseDetails?.data?.data?.data?.image}  />
-        <Typography
+        <Box
           sx={{
-            fontFamily: "Hacen Tunisia",
-            fontSize: "28px",
-            fontWeight: "400",
-            textAlign: "left",
-            color: theme.palette.primary.main,
+            display: "flex",
+            alignItems: "center",
+            gap: 1,
+            mb: 3,
           }}
         >
-          {courseDetails?.data?.data?.data?.name}
-        </Typography>
-      </Box>
-      <Box
-        sx={{
-          mb : 2
-        }}
-      >
-        <Button LinkComponent={'a'} href={courseDetails?.data?.data?.data?.telegram_channel_link} target="_blank" variant="contained" startIcon={<Telegram />}>{courseDetails?.data?.data?.data?.telegram_channel_link}</Button>
+          <Avatar
+            src={courseDetails?.data?.data?.data?.image}
+            srcSet={courseDetails?.data?.data?.data?.image}
+          />
+          <Typography
+            sx={{
+              fontFamily: "Hacen Tunisia",
+              fontSize: "28px",
+              fontWeight: "400",
+              textAlign: "left",
+              color: theme.palette.primary.main,
+            }}
+          >
+            {courseDetails?.data?.data?.data?.name}
+          </Typography>
+        </Box>
+        <Button
+          LinkComponent={"a"}
+          href={courseDetails?.data?.data?.data?.telegram_channel_link}
+          target="_blank"
+          variant="contained"
+          startIcon={<Telegram />}
+        >
+          {courseDetails?.data?.data?.data?.telegram_channel_link}
+        </Button>
       </Box>
 
-        <Box
-          sx={{
-            display : 'flex',
-            alignItems : 'center',
-            justifyContent : 'center',
-            width : 'fit-content',
-            gap : 3
-          }}
-        >
-          <Box
-            sx={{
-              display : 'flex',
-              alignItems : 'center',
-            justifyContent : 'center',
-            flexDirection : 'column'
-            }}
-          >
-            <Typography
-              sx={{
-                textAlign : 'center',
-                color : '#cdcdcd',
-                textTransform : 'capitalize',
-                fontSize : '18px'
-              }}
-            >
-              Free Course
-            </Typography>
-            <Swicther originalRow={{id : courseDetails?.data?.data?.data?.id , is_open : courseDetails?.data?.data?.data?.is_open}} switchermutate={openSwitcher} checkedAttribute={'is_open'} />
-          </Box>
-          <Box
-            sx={{
-              display : 'flex',
-              alignItems : 'center',
-            justifyContent : 'center',
-            flexDirection : 'column'
-            }}
-          >
-          <Typography
-              sx={{
-                textAlign : 'center',
-                color : '#cdcdcd',
-                textTransform : 'capitalize',
-                fontSize : '18px'
-              }}
-            >
-              Visible Course
-            </Typography>
-            <Swicther originalRow={{id : courseDetails?.data?.data?.data?.id , is_visible : courseDetails?.data?.data?.data?.is_visible}} switchermutate={visibleSwitcher} checkedAttribute={'is_visible'} />
-          </Box>
+      <TabContext value={value}>
+        <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+          <TabList onChange={handleChange} aria-label="lab API tabs example">
+            <Tab label="Details" value="1" />
+            <Tab label="Editing" value="2" />
+            <Tab label="Delete" value="3" />
+          </TabList>
         </Box>
-        <Box
-          sx={{
-            display : 'flex',
-            alignItems : 'center',
-            my : 2
-          }}
-        >
-          <Button variant="outlined" color="primary" onClick={addChapterFormClick}>add chapter</Button>
-        </Box>
-        {openAddChapterForm && <AddChapterForm course_id={course_id} />}
-        <ChapterRenderer chapters={courseDetails?.data?.data?.data?.chapters} />
+        <TabPanel value="1"><DetailsTab data={courseDetails?.data?.data?.data} courseDetails={courseDetails} /></TabPanel>
+        <TabPanel value="2"><EditTab data={courseDetails?.data?.data?.data} /></TabPanel>
+        <TabPanel value="3"><DeleteTab data={courseDetails?.data?.data?.data} /></TabPanel>
+      </TabContext>
     </Box>
   );
 };

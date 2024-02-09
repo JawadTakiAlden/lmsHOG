@@ -1,23 +1,25 @@
+
 import { useMutation } from '@tanstack/react-query'
 import {request} from './request'
 import { useSnackbar } from 'notistack'
 import { useState } from 'react'
 
-const switchCourseVisibilityRequest = (course_id) => {
+
+const switchNewsVisibilityRequest = (news_id) => {
     return request({
-        url : `/courses/switchVisibility/${course_id}`,
+        url : `/news/switchVisibility/${news_id}`,
         method : 'patch'
     })
 }
-const useSwitchCourseVisibility = (refetch) => {
+
+const useSwitchNewsVisibility = () => {
     const [rowID,setRowID] = useState(null)
     const { enqueueSnackbar } = useSnackbar();
     const query = useMutation({
-        mutationKey : [`switch-course-visibility-${rowID}`],
-        mutationFn : switchCourseVisibilityRequest,
+        mutationKey : [`switch-new-visibility-${rowID}`],
+        mutationFn : switchNewsVisibilityRequest,
         onSuccess : (data) => {
             enqueueSnackbar(data?.data?.message , {variant : 'success'})
-            refetch()
         },
         onError : (error) => {
             if(error.response){
@@ -38,4 +40,4 @@ const useSwitchCourseVisibility = (refetch) => {
   }
 }
 
-export default useSwitchCourseVisibility
+export default useSwitchNewsVisibility

@@ -1,5 +1,5 @@
 import {
-    Delete,
+  Delete,
   DeleteOutlined,
   EditOffOutlined,
   MenuBookOutlined,
@@ -17,91 +17,117 @@ import {
   ListItemIcon,
   ListItemText,
 } from "@mui/material";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import useDeleteChapter from "../../../../../../api/useDeleteChapter";
 import BottomTranstion from "../../../../../../components/BottomTranstion";
 import { LoadingButton } from "@mui/lab";
-import { useQueryClient } from "@tanstack/react-query";
 import LessionsRenderer from "./LessionsRenderer";
-
+import AddLesionForm from "./AddLesionForm";
+import UpdateChapterForm from "./UpdateChapterForm";
+import { Collapse } from "@mui/material";
 
 const ChapterCard = ({ chapter }) => {
-    const [openContent , setOpenContent] = useState(false)
-    const [openDeleteChapter , setOpenDeleteChapter] = useState(false)
-   
+  const [openContent, setOpenContent] = useState(false);
+  const [openDeleteChapter, setOpenDeleteChapter] = useState(false);
+  const [addLesionFormOpen, setAddLesionFormOpen] = useState(false);
+  const [updateChapter, setUpdateChapter] = useState(false);
 
-    const handelClickDeleteChapter = () => {
-        setOpenDeleteChapter(true)
-    }
+  const handleUpdateChapterToggle = () => {
+    setUpdateChapter((prev) => !prev);
+  };
 
-    const handleCloseDeleteChapter = () => {
-        setOpenDeleteChapter(false)
-    }
+  const handleUpdateChapterClose = () => {
+    setUpdateChapter(false);
+  };
 
-    const deleteChapter = useDeleteChapter(handleCloseDeleteChapter)
+  const handleAddLesionOpenClick = () => {
+    setAddLesionFormOpen(true);
+  };
 
-    const contentRef = useRef(null)
+  const handleAddLesionClose = () => {
+    setAddLesionFormOpen(false);
+  };
+
+  const handelClickDeleteChapter = () => {
+    setOpenDeleteChapter(true);
+  };
+
+  const handleCloseDeleteChapter = () => {
+    setOpenDeleteChapter(false);
+  };
+
+  const deleteChapter = useDeleteChapter(handleCloseDeleteChapter);
+
   return (
     <>
-        <Box
+      <Box
         sx={{
-            backgroundColor: "#0794EB0A",
-            borderRadius: "15px",
-            mt: 2,
-            px: 2,
-            overflow : 'hidden'
+          backgroundColor: "#0794EB0A",
+          borderRadius: "15px",
+          mt: 2,
+          px: 2,
+          overflow: "hidden",
         }}
-        >
+      >
         <Box
-            sx={{
+          sx={{
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
             minHeight: "70px",
             flexWrap: "wrap",
-            
-            }}
-            
+            py: 1,
+          }}
         >
-            <ListItem onClick={() => {
-                setOpenContent(prev => !prev)
-            }} sx={{ width: "fit-content" , cursor : 'pointer' }}>
+          <ListItem
+            onClick={() => {
+              setOpenContent((prev) => !prev);
+            }}
+            sx={{ width: "fit-content", cursor: "pointer" }}
+          >
             <ListItemIcon>
-                <MenuBookOutlined color="primary" />
+              <MenuBookOutlined color="primary" />
             </ListItemIcon>
             <ListItemText>{chapter.name}</ListItemText>
-            </ListItem>
-            <Box
+          </ListItem>
+          <Box
             sx={{
-                display: "flex",
-                alignItems: "center",
-                gap: 3,
+              display: "flex",
+              alignItems: "center",
+              gap: 3,
             }}
-            >
-            <IconButton
-                onClick={handelClickDeleteChapter}
-            >
-                <DeleteOutlined color="error" />
+          >
+            <IconButton onClick={handelClickDeleteChapter}>
+              <DeleteOutlined color="error" />
             </IconButton>
-            <IconButton>
-                <EditOffOutlined color="primary" />
+            <IconButton onClick={handleUpdateChapterToggle}>
+              <EditOffOutlined color="primary" />
             </IconButton>
-            </Box>
+          </Box>
         </Box>
-        <Box
-        ref={contentRef}
-            sx={{
-                height: openContent ? `${contentRef.current.scrollHeight}px`  : "0px",
-                transition: 'height 0.4s ease',
-                padding: '0px 20px',
-                overflow: 'hidden',
-            }}
-        >
-            <LessionsRenderer lesions={chapter.lesions} />
-        </Box>
-        </Box>
+        <Collapse in={updateChapter}>
+          <UpdateChapterForm
+            handelClose={handleUpdateChapterClose}
+            chapter={chapter}
+          />
+        </Collapse>
+        <Collapse in={openContent}>
+          <Box>
+            <Button onClick={handleAddLesionOpenClick} variant="contained">
+              add lesion
+            </Button>
+          </Box>
+          <Collapse in={addLesionFormOpen}>
+            <AddLesionForm
+              chapter={chapter}
+              handelClose={handleAddLesionClose}
+            />
+          </Collapse>
+          <LessionsRenderer lesions={chapter.lesions} />
+        </Collapse>
+      </Box>
 
-        <Dialog
+      <Dialog
         open={openDeleteChapter}
         TransitionComponent={BottomTranstion}
         keepMounted
@@ -110,28 +136,35 @@ const ChapterCard = ({ chapter }) => {
       >
         <DialogTitle>Delete Chapter Confirmtion</DialogTitle>
         <DialogContent>
-          <DialogContentText >
+          <DialogContentText>
             are you sure you want to delete this chapter
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleCloseDeleteChapter} disabled={deleteChapter.isPending} color='error' variant='outlined' sx={{borderRadius : '12px'}}>Cancel</Button>
+          <Button
+            onClick={handleCloseDeleteChapter}
+            disabled={deleteChapter.isPending}
+            color="error"
+            variant="outlined"
+            sx={{ borderRadius: "12px" }}
+          >
+            Cancel
+          </Button>
           <LoadingButton
             loading={deleteChapter.isPending}
             loadingPosition="start"
             startIcon={<Delete />}
-            color='success'
-            variant='contained'
-            sx={{borderRadius : '12px'}}
+            color="success"
+            variant="contained"
+            sx={{ borderRadius: "12px" }}
             onClick={() => {
-                deleteChapter.callFuntion({chapter_id : chapter.id})
+              deleteChapter.callFuntion({ chapter_id: chapter.id });
             }}
-        >
+          >
             Accept
-        </LoadingButton>
+          </LoadingButton>
         </DialogActions>
       </Dialog>
-
     </>
   );
 };

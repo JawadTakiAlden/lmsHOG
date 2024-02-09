@@ -1,39 +1,19 @@
-import { PictureAsPdfOutlined, VideoFileOutlined } from '@mui/icons-material'
-import { Box, ListItem, ListItemIcon, ListItemText, Typography, useTheme } from '@mui/material'
+import { DeleteOutlined, EditOutlined, LockOutlined, PictureAsPdfOutlined, VideoFileOutlined } from '@mui/icons-material'
+import { Box, IconButton, ListItem, ListItemIcon, ListItemText, Tooltip, Typography, useTheme } from '@mui/material'
 import React from 'react'
+import LesionItem from './LesionItem'
 
 
 const LessionsRenderer = ({lesions}) => {
-    const theme = useTheme()
   return (
     <Box
     >
         {
+            lesions?.length === 0 && <Typography sx={{textAlign : 'center' , py : 2 , textTransform : 'capitalize'}}>no lesions</Typography>
+        }
+        {
             lesions?.map((lesion , i) => {
-                return <Box key={lesion.id}
-                    sx={{
-                        py : 2,
-                        borderBottom : i !== lesions.length - 1 ? '1px solid #CCCCCC' : 'none'
-                    }}
-                >
-                    <ListItem>
-                        <ListItemIcon>
-                            {
-                                lesion.type === 'video'
-                                ? <VideoFileOutlined />
-                                : <PictureAsPdfOutlined />
-                            }
-                        </ListItemIcon>
-                        <ListItemText
-                            sx={{
-                                textTransform : 'capitalize'
-                            }}
-                        >
-                            {lesion.title} &#9; {lesion.is_open ? <span style={{color : theme.palette.primary.main}}>[free]</span> : <span style={{color : theme.palette.primary.main}}>[free]</span>}
-                        </ListItemText>
-                    </ListItem>
-                </Box>
-
+                return <LesionItem key={lesion.id} lesion={lesion} last={i === lesions.length - 1 } />
             })
         }
     </Box>

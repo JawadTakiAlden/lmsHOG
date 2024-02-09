@@ -1,13 +1,14 @@
-import { Switch } from '@mui/material'
+import { FormControlLabel, Switch } from '@mui/material'
 import React, { useState } from 'react'
 
-const Swicther = ({originalRow , switchermutate , checkedAttribute}) => {
+const Swicther = ({originalRow , label , switchermutate , checkedAttribute}) => {
     const [checked , setChecked] = useState(originalRow[checkedAttribute])
   return (
-    <Switch checked={checked} onChange={() => {
+    
+      <FormControlLabel control={<Switch checked={checked} onChange={() => {
         setChecked(!checked)
         switchermutate.callFunction(originalRow)
-      }} />
+      }} />} label={label} />
   )
 }
 

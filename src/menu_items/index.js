@@ -1,4 +1,4 @@
-import { BookOutlined, Dashboard, PeopleOutlined, PersonOutlined } from "@mui/icons-material";
+import { BookOutlined, CategoryOutlined, CodeOutlined, Dashboard, NewspaperOutlined, PeopleOutlined, PersonOutlined, ShowChartOutlined } from "@mui/icons-material";
 
 export const menuitems = [
   {
@@ -65,6 +65,74 @@ export const menuitems = [
         title: "Create Account",
         path: "/dashboard/accounts/create",
         type: "item",
+      },
+    ],
+  },
+  {
+    id: "categories",
+    title: "Categories",
+    type: "group",
+    icon: <CategoryOutlined />,
+    children: [
+      {
+        id: "all-categories",
+        title: "All Categories",
+        path: "/dashboard/categories/all",
+        type: "item",
+      },
+      {
+        id: "create-category",
+        title: "Create Category",
+        path: "/dashboard/categories/create",
+        type: "item",
+      },
+    ],
+  },
+  {
+    id: "news",
+    title: "News",
+    type: "group",
+    icon: <NewspaperOutlined />,
+    children: [
+      {
+        id: "all-news",
+        title: "All News",
+        path: "/dashboard/news/all",
+        type: "item",
+      },
+      {
+        id: "create-news",
+        title: "Create News",
+        path: "/dashboard/news/create",
+        type: "item",
+      },
+    ],
+  },
+  {
+    id: "statistics",
+    title: "Statistics",
+    type: "group",
+    icon: <ShowChartOutlined />,
+    children: [
+      {
+        id : 'statistics',
+        title : 'Reset',
+        path : '/statistics/reset',
+        type : 'item'
+      },
+    ],
+  },
+  {
+    id: "activationCode",
+    title: "Activation Code",
+    type: "group",
+    icon: <CodeOutlined />,
+    children: [
+      {
+        id : 'all-activation-code',
+        title : 'All Activation Code',
+        path : '/dashboard/activationCode',
+        type : 'item'
       },
     ],
   },
