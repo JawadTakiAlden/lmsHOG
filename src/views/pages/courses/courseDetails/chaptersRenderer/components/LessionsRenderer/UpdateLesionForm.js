@@ -23,10 +23,8 @@ const lesionTypes = ["video", "pdf"];
 
 const UpdateLesionForm = ({ lesion, handelClose }) => {
   const updateLesion = useUpdateLesion({ lesion_id: lesion.id });
-  console.log('renderd')
   const handleUpdateLesion = (values) => {
     updateLesion.callFunction(values)
-    // console.log(values);
   };
   return (
     <Box

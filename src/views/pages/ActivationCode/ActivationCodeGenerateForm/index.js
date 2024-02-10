@@ -219,7 +219,6 @@ const ActivationCodeGenerateForm = () => {
                       name="courses"
                       multiple
                       onChange={(event) => {
-                        // console.log(event.target.value)
                         const {
                           target: { value },
                         } = event;

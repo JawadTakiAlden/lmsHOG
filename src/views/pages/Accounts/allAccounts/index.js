@@ -120,9 +120,6 @@ const AllAccounts = () => {
           children: "Error loading data",
         }
       : undefined,
-    onEditingRowSave: ({ values }) => {
-      console.log(values);
-    },
     renderTopToolbarCustomActions: () => (
       <Tooltip arrow title="Refresh Data">
         <IconButton onClick={() => refetch()}>
