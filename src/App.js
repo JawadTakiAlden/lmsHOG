@@ -14,6 +14,7 @@ import "@fontsource/roboto/700.css";
 import Loadable from "./components/Loadable";
 import { lazy } from "react";
 import MinimalLayout from "./layouts/MinimalLayout";
+import Editor from "./views/pages/Question/Editor";
 const Login = Loadable(lazy(() => import("./views/auth/Login/Login")));
 const Dashboard = Loadable(lazy(() => import("./views/Dashboard")));
 const StudentList = Loadable(
@@ -38,6 +39,7 @@ const AllAccounts = Loadable(
 const EnrolledStudents = Loadable(
   lazy(() => import("./views/pages/student/enrolledStudents"))
 );
+const CreateQuestion = Loadable(lazy(() => import("./views/pages/Question/CreateQuestion")));
 const ActivationCode = Loadable(lazy(() => import("./views/pages/ActivationCode")));
 const ResetPage = Loadable(lazy(() => import("./views/pages/Statistics")));
 const CreateCourse = Loadable(lazy(() => import("./views/pages/courses/CreateCourse")));
@@ -76,6 +78,9 @@ function App() {
           <Routes>
             <Route path="/" element={<Login />} />
             <Route path="dashboard" element={<MainLayout />}>
+              <Route path="questions">
+                <Route path="create" element={<CreateQuestion />} />
+              </Route>
               <Route path="default" element={<Dashboard />} />
               <Route path="students">
                 <Route path="all" element={<StudentList />} />

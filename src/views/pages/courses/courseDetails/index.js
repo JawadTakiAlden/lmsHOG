@@ -18,6 +18,7 @@ import DetailsTab from "./DetailsTab";
 import EditTab from "./EditTab";
 import DeleteTab from "./DeleteTab";
 import StudentTab from "./StudentTab";
+import ValuesOfCourseTab from "./ValuesOfCourseTab";
 
 const CourseDetails = () => {
   const { course_id } = useParams();
@@ -163,12 +164,14 @@ const CourseDetails = () => {
             <Tab label="Editing" value="2" />
             <Tab label="Delete" value="3" />
             <Tab label="Students" value="4" />
+            <Tab label="Values" value="5" />
           </TabList>
         </Box>
         <TabPanel value="1"><DetailsTab data={courseDetails?.data?.data?.data} courseDetails={courseDetails} /></TabPanel>
         <TabPanel value="2"><EditTab data={courseDetails?.data?.data?.data} /></TabPanel>
         <TabPanel value="3"><DeleteTab data={courseDetails?.data?.data?.data} /></TabPanel>
         <TabPanel value="4"><StudentTab /></TabPanel>
+        <TabPanel value="5"><ValuesOfCourseTab course={courseDetails?.data?.data?.data} /></TabPanel>
       </TabContext>
     </Box>
   );

@@ -15,7 +15,7 @@ const StudentTab = () => {
         },
     ] , [])
     const table = useMaterialReactTable({
-        data : usersInsideOfCourse?.data?.data || [],
+        data : usersInsideOfCourse?.data?.data?.data || [],
         columns,
         enableColumnOrdering : true,
         renderTopToolbarCustomActions: () => (

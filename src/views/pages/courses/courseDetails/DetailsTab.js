@@ -1,4 +1,4 @@
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Button, Collapse, Typography } from "@mui/material";
 import React, { useState } from "react";
 import Swicther from "../../../../components/Switcher";
 import AddChapterForm from "./chaptersRenderer/components/AddChapterForm";
@@ -73,7 +73,9 @@ const DetailsTab = ({ data, courseDetails }) => {
           add chapter
         </Button>
       </Box>
-      {openAddChapterForm && <AddChapterForm course_id={course_id} />}
+      <Collapse in={openAddChapterForm}>
+      <AddChapterForm course_id={course_id} />
+      </Collapse>
       <ChapterRenderer chapters={data.chapters} />
     </Box>
   );

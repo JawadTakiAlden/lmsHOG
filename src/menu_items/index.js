@@ -1,4 +1,4 @@
-import { BookOutlined, CategoryOutlined, CodeOutlined, Dashboard, NewspaperOutlined, PeopleOutlined, PersonOutlined, ShowChartOutlined } from "@mui/icons-material";
+import { BookOutlined, CategoryOutlined, CodeOutlined, Dashboard, NewspaperOutlined, PeopleOutlined, PersonOutlined, QuestionAnswerOutlined, ShowChartOutlined } from "@mui/icons-material";
 
 export const menuitems = [
   {
@@ -138,6 +138,20 @@ export const menuitems = [
         id : 'all-activation-code',
         title : 'All Activation Code',
         path : '/dashboard/activationCode',
+        type : 'item'
+      },
+    ],
+  },
+  {
+    id: "questions",
+    title: "Questions",
+    type: "group",
+    icon: <QuestionAnswerOutlined />,
+    children: [
+      {
+        id : 'create-question',
+        title : 'Create Question',
+        path : '/dashboard/questions/create',
         type : 'item'
       },
     ],

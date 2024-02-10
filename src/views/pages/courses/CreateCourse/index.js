@@ -37,7 +37,7 @@ const CreateCourse = () => {
   const handelCreateCourse = (values) => {
     let teachers = values.teachers.map((teacher) => teacher.id);
     let categories = values.categories.map((category) => category.id);
-    createCourse.callFuntion({...values , teachers , categories});
+    createCourse.callFuntion({ ...values, teachers, categories });
   };
   return (
     <Box>
@@ -51,6 +51,7 @@ const CreateCourse = () => {
           telegram_channel_link: "",
           teachers: [],
           categories: [],
+          values : []
         }}
         validationSchema={yup.object({
           name: yup.string().max(255).required("name is required"),
@@ -220,6 +221,25 @@ const CreateCourse = () => {
                 {touched.teachers && errors.teachers && (
                   <FormHelperText error>{errors.teachers}</FormHelperText>
                 )}
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <Autocomplete
+                  multiple
+                  options={values.values}
+                  value={values.values}
+                  onChange={(e , v) => {
+                    setFieldValue('values' , v)
+                  }}
+                  freeSolo
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      variant="outlined"
+                      label="freeSolo"
+                      placeholder="Favorites"
+                    />
+                  )}
+                />
               </Grid>
               <Grid item xs={12}>
                 <Button
