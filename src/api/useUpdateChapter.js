@@ -1,8 +1,11 @@
 import { useSnackbar } from "notistack";
 import { request } from "./request";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useParams } from "react-router";
 
 const useUpdateChapter = () => {
+    const queryClient = useQueryClient()
+    const {course_id} = useParams()
     const updateChapterRequest = (data) => {
         return request({
             url : `/chapters/update/${data.chapter_id}`,
@@ -19,6 +22,7 @@ const useUpdateChapter = () => {
         mutationFn : updateChapterRequest,
         onSuccess : (data) => {
             enqueueSnackbar(data?.data?.message , {variant : 'success'})
+            queryClient.refetchQueries([`show-course-details-${course_id}`])
         },
         onError : (error) => {
             if(error.response){

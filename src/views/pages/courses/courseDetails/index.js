@@ -17,6 +17,7 @@ import TabPanel from "@mui/lab/TabPanel";
 import DetailsTab from "./DetailsTab";
 import EditTab from "./EditTab";
 import DeleteTab from "./DeleteTab";
+import StudentTab from "./StudentTab";
 
 const CourseDetails = () => {
   const { course_id } = useParams();
@@ -161,11 +162,13 @@ const CourseDetails = () => {
             <Tab label="Details" value="1" />
             <Tab label="Editing" value="2" />
             <Tab label="Delete" value="3" />
+            <Tab label="Students" value="4" />
           </TabList>
         </Box>
         <TabPanel value="1"><DetailsTab data={courseDetails?.data?.data?.data} courseDetails={courseDetails} /></TabPanel>
         <TabPanel value="2"><EditTab data={courseDetails?.data?.data?.data} /></TabPanel>
         <TabPanel value="3"><DeleteTab data={courseDetails?.data?.data?.data} /></TabPanel>
+        <TabPanel value="4"><StudentTab /></TabPanel>
       </TabContext>
     </Box>
   );

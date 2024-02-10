@@ -40,6 +40,7 @@ const EnrolledStudents = Loadable(
 );
 const ActivationCode = Loadable(lazy(() => import("./views/pages/ActivationCode")));
 const ResetPage = Loadable(lazy(() => import("./views/pages/Statistics")));
+const CreateCourse = Loadable(lazy(() => import("./views/pages/courses/CreateCourse")));
 const CreateNews = Loadable(lazy(() => import("./views/pages/News/CreateNews")));
 const NewsDetails = Loadable(lazy(() => import("./views/pages/News/NewsDetails")));
 const News = Loadable(lazy(() => import("./views/pages/News")));
@@ -83,6 +84,7 @@ function App() {
               </Route>
               <Route path="courses">
                 <Route path="all" element={<CourseList />} />
+                <Route path="create" element={<CreateCourse />} />
               </Route>
               <Route path="accounts">
                 <Route path="create" element={<CreateAccount />} />

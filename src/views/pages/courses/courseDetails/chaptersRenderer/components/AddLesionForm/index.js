@@ -42,7 +42,7 @@ const AddLesionForm = ({ chapter , handelClose }) => {
           <form onSubmit={handleSubmit}>
             <Grid container spacing={gridSpacing}>
               <Grid item xs={12} sm={6}>
-              <FormControl fullWidth sx={{ mb: 4 }}>
+              <FormControl fullWidth >
                   <InputLabel>Title</InputLabel>
                   <OutlinedInput
                     type="text"
@@ -65,7 +65,7 @@ const AddLesionForm = ({ chapter , handelClose }) => {
                 </FormControl>
               </Grid>
               <Grid item xs={12} sm={6}>
-              <FormControl fullWidth sx={{ mb: 4 }}>
+              <FormControl fullWidth>
                   <InputLabel>Type</InputLabel>
                   <Select
                     value={values.type}
@@ -93,7 +93,7 @@ const AddLesionForm = ({ chapter , handelClose }) => {
                 </FormControl>
               </Grid>
               <Grid item xs={12} sm={6}>
-              <FormControl fullWidth sx={{ mb: 4 }}>
+              <FormControl fullWidth >
                   <InputLabel>Link</InputLabel>
                   <OutlinedInput
                     type="text"
@@ -116,7 +116,7 @@ const AddLesionForm = ({ chapter , handelClose }) => {
                 </FormControl>
               </Grid>
               <Grid item xs={12} sm={6}>
-              <FormControl fullWidth sx={{ mb: 4 }}>
+              <FormControl fullWidth>
                   <InputLabel>Time</InputLabel>
                   <OutlinedInput
                     type="number"

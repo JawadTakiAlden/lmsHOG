@@ -46,6 +46,12 @@ export const menuitems = [
         path: "/dashboard/courses/all",
         type: "item",
       },
+      {
+        id: "create-course",
+        title: "Create Course",
+        path: "/dashboard/courses/create",
+        type: "item",
+      },
     ],
   },
   {

@@ -1,8 +1,11 @@
 import { useSnackbar } from "notistack";
 import { request } from "./request";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useParams } from "react-router";
 
 const useCreateLesion = () => {
+    const queryClient = useQueryClient()
+    const {course_id} = useParams()
     const createNewLesionRequest = (data) => {
         return request({
             url : `/lesions/create`,
@@ -16,6 +19,7 @@ const useCreateLesion = () => {
         mutationFn : createNewLesionRequest,
         onSuccess : (data) => {
             enqueueSnackbar(data?.data?.message , {variant : 'success'})
+            queryClient.refetchQueries([`show-course-details-${course_id}`])
         },
         onError : (error) => {
             if(error.response){

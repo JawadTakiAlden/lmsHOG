@@ -11,6 +11,7 @@ import {
   MenuItem,
   OutlinedInput,
   Select,
+  useTheme,
 } from "@mui/material";
 import { Formik } from "formik";
 import React from "react";
@@ -32,24 +33,23 @@ const MenuProps = {
   },
 };
 
-const names = [
-  "Oliver Hansen",
-  "Van Henry",
-  "April Tucker",
-  "Ralph Hubbard",
-  "Omar Alexander",
-  "Carlos Abbott",
-  "Miriam Wagner",
-  "Bradley Wilkerson",
-  "Virginia Andrews",
-  "Kelly Snyder",
-];
+
+function getStyles(id, courses, theme) {
+  return {
+    fontWeight:
+    courses.indexOf(id) === -1
+        ? theme.typography.fontWeightRegular
+        : theme.typography.fontWeightMedium,
+  };
+}
+
 
 const ActivationCodeGenerateForm = () => {
   const courses = useGetCourses();
-  const generateCodes = useGenerateActivationCode()
+  const theme =  useTheme()
+  const generateCodes = useGenerateActivationCode();
   const handelGenerate = (values) => {
-    generateCodes.callFuntion(values)
+    generateCodes.callFuntion(values);
   };
 
   return (
@@ -152,26 +152,18 @@ const ActivationCodeGenerateForm = () => {
                   </FormControl>
                 </Grid>
               ) : undefined}
-              {values.type !== "shared_selected" ? (
+              {values.type === "single" ? (
                 <Grid item xs={12} sm={6}>
                   <FormControl fullWidth>
                     <InputLabel>Courses</InputLabel>
                     <Select
-                      multiple={values.type !== 'single'}
                       fullWidth
                       value={values.courses}
+                      name="courses"
                       onChange={(event) => {
-                        const {
-                          target: { value },
-                        } = event;
-                        setFieldValue(
-                          "courses",
-                          typeof value === "number" ? `${value}`.split(",") : value
-                        );
+                        setFieldValue("courses", [event.target.value]);
                       }}
                       input={<OutlinedInput label="Courses" />}
-                      renderValue={(selected) => selected.join(", ")}
-                      MenuProps={MenuProps}
                     >
                       {courses.isLoading ? (
                         <Box
@@ -185,13 +177,15 @@ const ActivationCodeGenerateForm = () => {
                         </Box>
                       ) : courses.isError ? (
                         <Box
-                            sx={{
-                                display : 'flex',
-                                alignItems : 'center',
-                                justifyContent : 'center'
-                            }}
+                          sx={{
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                          }}
                         >
-                            <Button color="warning" variant="outlined">Refetch</Button>
+                          <Button color="warning" variant="outlined">
+                            Refetch
+                          </Button>
                         </Box>
                       ) : courses?.data?.data?.data.length === 0 ? (
                         <ListItemText
@@ -202,9 +196,6 @@ const ActivationCodeGenerateForm = () => {
                         courses?.data?.data?.data.map((course) => {
                           return (
                             <MenuItem key={course.id} value={course.id}>
-                              <Checkbox
-                                checked={values.courses.indexOf(course.id) > -1}
-                              />
                               <ListItemText primary={course.name} />
                             </MenuItem>
                           );
@@ -213,17 +204,86 @@ const ActivationCodeGenerateForm = () => {
                       {}
                     </Select>
                     {touched.courses && errors.courses && (
-                    <FormHelperText error>{errors.courses}</FormHelperText>
-                  )}
+                      <FormHelperText error>{errors.courses}</FormHelperText>
+                    )}
+                  </FormControl>
+                </Grid>
+              ) : undefined}
+              {values.type === "shared" ? (
+                <Grid item xs={12} sm={6}>
+                  <FormControl fullWidth>
+                    <InputLabel>Courses</InputLabel>
+                    <Select
+                      fullWidth
+                      value={values.courses}
+                      name="courses"
+                      multiple
+                      onChange={(event) => {
+                        // console.log(event.target.value)
+                        const {
+                          target: { value },
+                        } = event;
+                        setFieldValue('courses',
+                          value,
+                        );
+                        setFieldValue("courses", [event.target.value]);
+                      }}
+                      input={<OutlinedInput label="Courses" />}
+                    >
+                      {courses.isLoading ? (
+                        <Box
+                          sx={{
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                          }}
+                        >
+                          <CircularProgress color="primary" />
+                        </Box>
+                      ) : courses.isError ? (
+                        <Box
+                          sx={{
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                          }}
+                        >
+                          <Button color="warning" variant="outlined">
+                            Refetch
+                          </Button>
+                        </Box>
+                      ) : courses?.data?.data?.data.length === 0 ? (
+                        <ListItemText
+                          sx={{ textAlign: "center" }}
+                          primary={"No Courses To Select"}
+                        />
+                      ) : (
+                        courses?.data?.data?.data.map((course) => {
+                          return (
+                            <MenuItem
+              key={course.id}
+              value={course.id}
+              style={getStyles(course.id, values.courses, theme)}
+            >
+              {course.name}
+            </MenuItem>
+                          );
+                        })
+                      )}
+                      {}
+                    </Select>
+                    {touched.courses && errors.courses && (
+                      <FormHelperText error>{errors.courses}</FormHelperText>
+                    )}
                   </FormControl>
                 </Grid>
               ) : undefined}
               <Grid item xs={12}>
-              <Box
+                <Box
                   sx={{
-                    display : 'flex',
-                    alignItems : 'center',
-                    gap : 3
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 3,
                   }}
                 >
                   <LoadingButton
@@ -250,18 +310,22 @@ const ActivationCodeGenerateForm = () => {
 };
 
 const validationSchema = yup.object({
-    type : yup.string(),
-    // number_of_courses : yup.number().when('type', {
-    //     is: (val) => val === 'shared_selected',
-    //     then: yup().number().min(1),
-    //     otherwise: yup.number()
-    // }),
-    // courses : yup.array().when('type' , {
-    //     is  : (val) => val === 'shared',
-    //     then : yup.array().length(2),
-    //     otherwise : yup.array()
-    // }),
-    quantity : yup.number().min(1).max(200).required('number of codes you are want to generate is rquried')
+  type: yup.string(),
+  // number_of_courses : yup.number().when('type', {
+  //     is: (val) => val === 'shared_selected',
+  //     then: yup().number().min(1),
+  //     otherwise: yup.number()
+  // }),
+  // courses : yup.array().when('type' , {
+  //     is  : (val) => val === 'shared',
+  //     then : yup.array().length(2),
+  //     otherwise : yup.array()
+  // }),
+  quantity: yup
+    .number()
+    .min(1)
+    .max(200)
+    .required("number of codes you are want to generate is rquried"),
 });
 
 export default ActivationCodeGenerateForm;

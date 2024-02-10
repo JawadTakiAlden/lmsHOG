@@ -23,6 +23,7 @@ const lesionTypes = ["video", "pdf"];
 
 const UpdateLesionForm = ({ lesion, handelClose }) => {
   const updateLesion = useUpdateLesion({ lesion_id: lesion.id });
+  console.log('renderd')
   const handleUpdateLesion = (values) => {
     updateLesion.callFunction(values)
     // console.log(values);
@@ -136,14 +137,14 @@ const UpdateLesionForm = ({ lesion, handelClose }) => {
               </Grid>
               <Grid item xs={12} sm={6}>
               <FormControlLabel
-                  control={<Switch />}
+                  control={<Switch defaultChecked={values.is_visible} />}
                   label="Visible"
                   name="is_visible"
                   value={values.is_visible}
                   onChange={handleChange}
                 />
               <FormControlLabel
-                  control={<Switch />}
+                  control={<Switch defaultChecked={values.is_open} />}
                   label="Free"
                   name="is_open"
                   value={values.is_open}

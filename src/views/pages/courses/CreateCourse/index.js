@@ -2,6 +2,7 @@ import {
   Autocomplete,
   Box,
   Button,
+  Chip,
   CircularProgress,
   FormControl,
   FormControlLabel,
@@ -14,117 +15,80 @@ import {
 } from "@mui/material";
 import { Formik } from "formik";
 import React, { useState } from "react";
-import * as yup from "yup";
 import { gridSpacing } from "../../../../constant";
-import VisuallyHiddenInput from "../../../../components/VisuallyHiddenInput/VisuallyHiddenInput";
-import { CreateOutlined, ImageOutlined } from "@mui/icons-material";
-import { LoadingButton } from "@mui/lab";
 import useGetCategories from "../../../../api/useGetCategories";
 import useGetTeachers from "../../../../api/useGetTeachers";
-import useUpdateCourse from "../../../../api/useUpdateCourse";
+import { LoadingButton } from "@mui/lab";
+import {
+  CancelOutlined,
+  CreateOutlined,
+  ImageOutlined,
+} from "@mui/icons-material";
+import VisuallyHiddenInput from "../../../../components/VisuallyHiddenInput/VisuallyHiddenInput";
+import useCreateCourse from "../../../../api/useCreateCourse";
+import * as yup from "yup";
 
-const EditTab = ({ data }) => {
-  const categories = useGetCategories();
-  const teachers = useGetTeachers();
+const CreateCourse = () => {
   const [categoriesOpen, setCategoriesOpen] = useState(false);
   const [teachersOpen, setTeachersOpen] = useState(false);
-  const updateCourse = useUpdateCourse()
-  const [image, setImage] = useState(null);
-  const updateHandler = (values) => {
+  const categories = useGetCategories();
+  const teachers = useGetTeachers();
+  const createCourse = useCreateCourse();
+  const handelCreateCourse = (values) => {
     let teachers = values.teachers.map((teacher) => teacher.id);
     let categories = values.categories.map((category) => category.id);
-    updateCourse.callFunction({...values , teachers , categories})
+    createCourse.callFuntion({...values , teachers , categories});
   };
-
   return (
     <Box>
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        {image ? (
-          <Box
-            sx={{
-              width: "200px",
-              height: "200px",
-              overflow: "hidden",
-              borderRadius: "50%",
-              mb: 2,
-              boxShadow: "0px 2px 10px #ccc",
-            }}
-          >
-            <img
-              src={URL.createObjectURL(image)}
-              alt="profile"
-              width={"200px"}
-              style={{ height: "100%" }}
-            />
-          </Box>
-        ) : (
-          <Box
-            sx={{
-              width: "200px",
-              height: "200px",
-              overflow: "hidden",
-              borderRadius: "50%",
-              mb: 2,
-              boxShadow: "0px 2px 10px #ccc",
-            }}
-          >
-            <img
-              src={data.image}
-              alt="profile"
-              width={"200px"}
-              style={{ height: "100%" }}
-            />
-          </Box>
-        )}
-      </Box>
       <Formik
-         onSubmit={updateHandler}
-         initialValues={{
-           name: data.name,
-           is_visible: data.is_visible,
-           is_open: data.is_open,
-           telegram_channel_link: data.telegram_channel_link,
-           teachers: data.teachers,
-           categories: data.categories,
-         }}
-         validationSchema={yup.object({
-           name: yup.string().max(255).required("name is required"),
-           telegram_channel_link: yup
-             .string()
-             .required("telegram channel link is required"),
-           teachers: yup
-             .array()
-             .min(1)
-             .required("at least you should select one teacher"),
-           categories: yup
-             .array()
-             .min(1)
-             .required("at least you should select one category"),
-         })}
+        onSubmit={handelCreateCourse}
+        initialValues={{
+          name: "",
+          image: "",
+          is_visible: false,
+          is_open: false,
+          telegram_channel_link: "",
+          teachers: [],
+          categories: [],
+        }}
+        validationSchema={yup.object({
+          name: yup.string().max(255).required("name is required"),
+          telegram_channel_link: yup
+            .string()
+            .required("telegram channel link is required"),
+          teachers: yup
+            .array()
+            .min(1)
+            .required("at least you should select one teacher"),
+          categories: yup
+            .array()
+            .min(1)
+            .required("at least you should select one category"),
+          image: yup
+            .mixed()
+            .test("fileRequired", "Image is required", (value) => {
+              return !!value;
+            }),
+        })}
       >
         {({
-          errors,
-          values,
-          touched,
+          handleSubmit,
           handleBlur,
           handleChange,
-          handleSubmit,
+          values,
+          touched,
+          errors,
           setFieldValue,
         }) => (
           <form onSubmit={handleSubmit}>
             <Grid container spacing={gridSpacing}>
               <Grid item xs={12} sm={6}>
                 <FormControl fullWidth>
-                  <InputLabel>Course Name</InputLabel>
+                  <InputLabel>Name</InputLabel>
                   <OutlinedInput
                     type="text"
-                    label="Course Name"
+                    label="Name"
                     name="name"
                     onChange={handleChange}
                     value={values.name}
@@ -138,10 +102,10 @@ const EditTab = ({ data }) => {
               </Grid>
               <Grid item xs={12} sm={6}>
                 <FormControl fullWidth>
-                  <InputLabel>Telegram Link</InputLabel>
+                  <InputLabel>Telegram Channel Link</InputLabel>
                   <OutlinedInput
                     type="text"
-                    label="Telegram Link"
+                    label="Telegram Channel Link"
                     name="telegram_channel_link"
                     onChange={handleChange}
                     value={values.telegram_channel_link}
@@ -258,61 +222,61 @@ const EditTab = ({ data }) => {
                 )}
               </Grid>
               <Grid item xs={12}>
+                <Button
+                  component="label"
+                  variant="contained"
+                  startIcon={<ImageOutlined />}
+                >
+                  Upload file
+                  <VisuallyHiddenInput
+                    onBlur={handleBlur}
+                    name="image"
+                    accept="image/jpg,image/png,image/jpeg"
+                    onChange={(e) => setFieldValue("image", e.target.files[0])}
+                    type="file"
+                  />
+                </Button>
+                {touched.image && errors.image && (
+                  <FormHelperText error>{errors.image}</FormHelperText>
+                )}
+              </Grid>
+              <Grid item xs={12}>
                 <FormControlLabel
-                  control={<Switch defaultChecked={values.is_visible} />}
+                  control={<Switch />}
                   label="Visible"
                   name="is_visible"
+                  value={values.is_visible}
                   onChange={handleChange}
                 />
                 <FormControlLabel
-                  control={<Switch defaultChecked={values.is_open} />}
+                  control={<Switch />}
                   label="Free"
                   name="is_open"
+                  value={values.is_open}
                   onChange={handleChange}
                 />
               </Grid>
-              <Grid item xs={12}>
-                <FormControl sx={{ mb: 4 }}>
-                  <Button
-                    component="label"
-                    variant="contained"
-                    startIcon={<ImageOutlined />}
-                  >
-                    Upload Image
-                    <VisuallyHiddenInput
-                      type="file"
-                      accept="image/png , image/jpg , image/jpeg"
-                      onChange={(e) => {
-                        setFieldValue('image' , e.target.files[0])
-                        setImage(e.target.files[0]);
-                      }}
-                    />
-                  </Button>
-                </FormControl>
-              </Grid>
-              <Grid item xs={12}>
-                <Box
-                  sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "flex-end",
-                    py: 2,
-                  }}
-                >
-                  <LoadingButton
-                    size="large"
-                    color="success"
-                    type="submit"
-                    loadingPosition="start"
-                    loading={updateCourse.isPending}
-                    startIcon={<CreateOutlined />}
-                    variant="contained"
-                  >
-                    <span>Save</span>
-                  </LoadingButton>
-                </Box>
-              </Grid>
             </Grid>
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "flex-end",
+                my: 1,
+                py: 1,
+                gap: "10px",
+              }}
+            >
+              <LoadingButton
+                variant="contained"
+                color="primary"
+                startIcon={<CreateOutlined />}
+                type="submit"
+                loading={createCourse.isPending}
+              >
+                Create
+              </LoadingButton>
+            </Box>
           </form>
         )}
       </Formik>
@@ -320,5 +284,4 @@ const EditTab = ({ data }) => {
   );
 };
 
-
-export default EditTab;
+export default CreateCourse;
