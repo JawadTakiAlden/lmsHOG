@@ -1,68 +1,37 @@
-import {
-  Box,
-  FormControl,
-  FormHelperText,
-  Grid,
-  InputLabel,
-  OutlinedInput,
-} from "@mui/material";
-import { Formik } from "formik";
-import React from "react";
-import * as yup from "yup";
-import { gridSpacing } from "../../../../constant";
 
+import '//unpkg.com/mathlive'
+import { useState, useRef, useEffect } from 'react'
 const CreateQuestion = () => {
-  const handelCreateQuestion = (values) => {
-    console.log(values);
-  };
-  return (
-    <Box>
-      <Formik
-        onSubmit={handelCreateQuestion}
-        initialValues={{
-          title: "",
-          clarification_text: "",
-        }}
-        validationSchema={yup.object({
-          title: yup.string().required("title is required"),
-          clarification_text: yup
-            .string()
-            .required("clarification is required"),
-        })}
-      >
-        {({
-          handleSubmit,
-          handleChange,
-          handleBlur,
-          values,
-          errors,
-          touched,
-        }) => (
-          <form onSubmit={handleSubmit}>
-            <Grid container spacing={gridSpacing}>
-              <Grid item xs={12} sm={6}>
-                <FormControl fullWidth>
-                  <InputLabel>Title</InputLabel>
-                  <OutlinedInput
-                    type="text"
-                    label="Title"
-                    name="position"
-                    onChange={handleChange}
-                    value={values.position}
-                    error={touched.position && errors.position}
-                    onBlur={handleBlur}
-                  />
-                  {touched.position && errors.position && (
-                    <FormHelperText error>{errors.position}</FormHelperText>
-                  )}
-                </FormControl>
-              </Grid>
-            </Grid>
-          </form>
-        )}
-      </Formik>
-    </Box>
-  );
-};
+  const [value, setValue] = useState('\\sqrt{x}')
 
-export default CreateQuestion;
+  // Customize the mathfield when it is mounted
+  const mf = useRef()
+  useEffect(() => {
+    // Read more about customizing the mathfield: https://cortexjs.io/mathlive/guides/customizing/
+    mf.current.smartFence = true
+
+    // This could be an `onInput` handler, but this is an alternative
+    mf.current.addEventListener('input', (evt) => {
+      // When the return key is pressed, play a sound
+      if (evt.inputType === 'insertLineBreak') {
+        evt.target.executeCommand('plonk')
+      }
+    })
+  }, [])
+
+  // Update the mathfield when the value changes
+  useEffect(() => {
+    mf.current.value = value
+  }, [value])
+
+  return (
+    <div className='App'>
+      <math-field ref={mf} onInput={(evt) => setValue(evt.target.value)}>
+        {value}
+      </math-field>
+      <code>Value: {value}</code>
+    </div>
+  );
+}
+
+export default CreateQuestion

@@ -3,3 +3,12 @@
     margin: 0;
     box-sizing: border-box;
 }
+
+math-field {
+    box-sizing: border-box;
+    padding: 0.5em;
+    width: 400px;
+    font-size: 1.5em;
+    border-radius: 8px;
+    border: 1px solid #999;
+  }
