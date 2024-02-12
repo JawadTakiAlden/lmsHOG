@@ -19,7 +19,6 @@ const CreateQuestion = () => {
       <math-field ref={mf} onInput={(evt) => setValue(evt.target.value)}>
         {value}
       </math-field>
-      <code>Value: {value}</code>
     </div>
   );
 }

@@ -86,7 +86,6 @@ const Categories = () => {
     <Box
       sx={{
         maxWidth: "100%",
-        minWidth: "100%",
       }}
     >
       <TableWrapper>

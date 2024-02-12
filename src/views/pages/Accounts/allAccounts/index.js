@@ -177,13 +177,9 @@ const AllAccounts = () => {
           maxWidth: "100%",
         }}
       >
-        <Grid container spacing={gridSpacing} direction={"column"}>
-          <Grid item xs={12}>
-            <TableWrapper>
-              <MaterialReactTable table={table} />
-            </TableWrapper>
-          </Grid>
-        </Grid>
+          <TableWrapper>
+            <MaterialReactTable table={table} />
+          </TableWrapper>
       </Box>
       <Dialog
         open={open.status}

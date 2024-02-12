@@ -8,13 +8,11 @@ const TableWrapper = ({children}) => {
           p : 3,
           backgroundColor : 'white',
           borderRadius : '15px',
-          maxWidth : '100%',
           "& .MuiPaper-root" : {
             boxShadow  :'none',
           },
           "& .MuiTable-container" : {
             backgroundColor : '#fff',
-            maxWidth : '100%',
           },
           '& .MuiTableHead-root .MuiTableRow-root' : {
             boxShadow : 'none',

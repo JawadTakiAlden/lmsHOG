@@ -1,4 +1,4 @@
-import {Grid, IconButton, ListItemIcon, MenuItem, Tooltip } from '@mui/material'
+import {Box, Grid, IconButton, ListItemIcon, MenuItem, Tooltip } from '@mui/material'
 import React, { useMemo, useState } from 'react'
 import { gridSpacing } from '../../../../constant'
 import useGetAllInroled from '../../../../api/useGetAllInroled'
@@ -122,15 +122,13 @@ const EnrolledStudents = () => {
   });
   return (
     <>
-      <Grid container spacing={gridSpacing} direction={'column'}>
-          <Grid item xs={12}>
-              <TableWrapper>
-                <LocalizationProvider dateAdapter={AdapterDayjs}>
-                  <MaterialReactTable  table={table} />
-                </LocalizationProvider>
-              </TableWrapper>
-          </Grid>
-      </Grid>
+    <Box>
+      <TableWrapper>
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <MaterialReactTable  table={table} />
+        </LocalizationProvider>
+      </TableWrapper>
+    </Box>
       <SimpleAlterPopup 
         title={"Inrolment cancelation"}
         alterDescreption={"this action can't be undo are you sure that you want to cancel this inrolment"}  

@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react'
 import useGetCourses from '../../../../api/useGetCourses'
-import { Grid, IconButton, ListItemIcon, MenuItem, Tooltip, Typography, useTheme } from '@mui/material'
+import { Box, Grid, IconButton, ListItemIcon, MenuItem, Tooltip, Typography, useTheme } from '@mui/material'
 import { gridSpacing } from '../../../../constant'
 import {
     MaterialReactTable,
@@ -100,13 +100,11 @@ const CourseList = () => {
           }
     })
   return (
-    <Grid container spacing={gridSpacing} direction={'column'}>
-        <Grid item xs={12}>
-            <TableWrapper>
-                <MaterialReactTable table={table}/>
-            </TableWrapper>
-        </Grid>
-    </Grid>
+    <Box>
+      <TableWrapper>
+          <MaterialReactTable table={table}/>
+      </TableWrapper>
+    </Box>
   )
 }
 

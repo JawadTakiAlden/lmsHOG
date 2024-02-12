@@ -107,7 +107,6 @@ const News = () => {
     <Box
       sx={{
         maxWidth: "100%",
-        minWidth: "100%",
       }}
     >
       <TableWrapper>
