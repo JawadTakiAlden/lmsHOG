@@ -6,6 +6,9 @@ import { TOGGLE_COLAPSED } from "../../../store/slices/customization/customizati
 const Header = ({withoutSidebar}) => {
   const theme = useTheme();
   const dispatch = useDispatch();
+  const togleOpenSidebar = () => {
+    dispatch(TOGGLE_COLAPSED());
+  }
   return (
     <Box
       sx={{
@@ -20,9 +23,7 @@ const Header = ({withoutSidebar}) => {
       }}
     >
       <IconButton
-        onClick={() => {
-          dispatch(TOGGLE_COLAPSED());
-        }}
+        onClick={togleOpenSidebar}
       >
         <MenuOpen />
       </IconButton>
