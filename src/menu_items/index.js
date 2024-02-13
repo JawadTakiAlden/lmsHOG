@@ -149,11 +149,18 @@ export const menuitems = [
     icon: <QuestionAnswerOutlined />,
     children: [
       {
+        id : 'all-question',
+        title : 'All Question',
+        path : '/dashboard/questions/all',
+        type : 'item'
+      },
+      {
         id : 'create-question',
         title : 'Create Question',
         path : '/dashboard/questions/create',
         type : 'item'
       },
+      
     ],
   },
 ];

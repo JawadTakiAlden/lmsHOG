@@ -14,7 +14,6 @@ import "@fontsource/roboto/700.css";
 import Loadable from "./components/Loadable";
 import { lazy } from "react";
 import MinimalLayout from "./layouts/MinimalLayout";
-import Editor from "./views/pages/Question/Editor";
 const Login = Loadable(lazy(() => import("./views/auth/Login/Login")));
 const Dashboard = Loadable(lazy(() => import("./views/Dashboard")));
 const StudentList = Loadable(
@@ -39,6 +38,8 @@ const AllAccounts = Loadable(
 const EnrolledStudents = Loadable(
   lazy(() => import("./views/pages/student/enrolledStudents"))
 );
+const QuestionDetails = Loadable(lazy(() => import("./views/pages/Question/QuestionDetails")));
+const QuestionsList = Loadable(lazy(() => import("./views/pages/Question/QuestionsList")));
 const CreateQuestion = Loadable(lazy(() => import("./views/pages/Question/CreateQuestion")));
 const ActivationCode = Loadable(lazy(() => import("./views/pages/ActivationCode")));
 const ResetPage = Loadable(lazy(() => import("./views/pages/Statistics")));
@@ -80,6 +81,7 @@ function App() {
             <Route path="dashboard" element={<MainLayout />}>
               <Route path="questions">
                 <Route path="create" element={<CreateQuestion />} />
+                <Route path="all" element={<QuestionsList />} />
               </Route>
               <Route path="default" element={<Dashboard />} />
               <Route path="students">
@@ -112,6 +114,7 @@ function App() {
               <Route path="course/:course_id" element={<CourseDetails />} />
               <Route path="category/:category_id" element={<CategoryDetails />} />
               <Route path="news/:news_id" element={<NewsDetails />} />
+              <Route path="question/:question_id" element={<QuestionDetails />} />
             </Route>
           </Routes>
         </NavigationOnScroll>

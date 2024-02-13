@@ -1,35 +1,25 @@
-
 import { useSnackbar } from "notistack";
 import { request } from "./request"
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useParams } from "react-router";
 
-const deleteChapterRequest = (options) => {
-    return request({
-        url : `/chapters/delete/${options.chapter_id}`,
-        method : 'delete',
-    })
-}
-
-const useDeleteChapter = (handelCloseOnSuccess) => {
-    const deleteChapterRequest = (options) => {
+const useDeleteChoice = (options) => {
+    const { enqueueSnackbar } = useSnackbar();
+    const queryClient = useQueryClient()
+    const {question_id} = useParams()
+    const deleteChoiceRequest = () => {
         return request({
-            url : `/chapters/delete/${options.chapter_id}`,
+            url : `/questions/choices/delete/${options.choice_id}`,
             method : 'delete',
         })
     }
-    
-    const { enqueueSnackbar } = useSnackbar();
-    const queryClient = useQueryClient()
-    const {course_id} = useParams()
     const query = useMutation({
-        mutationKey : ['delete-chapter'],
-        mutationFn : deleteChapterRequest,
+        mutationKey : [`delete-choice-${options.choice_id}`],
+        mutationFn : deleteChoiceRequest,
         onSuccess : (data) => {
-            
-            handelCloseOnSuccess()
             enqueueSnackbar(data?.data?.message , {variant : 'success'})
-            queryClient.refetchQueries([`show-course-details-${course_id}`]);
+            queryClient.refetchQueries([`show-question-detials-${question_id}`]);
+            options.handleClose()
         },
         onError : (error) => {
             if(error.response){
@@ -49,4 +39,4 @@ const useDeleteChapter = (handelCloseOnSuccess) => {
   }
 }
 
-export default useDeleteChapter
+export default useDeleteChoice
