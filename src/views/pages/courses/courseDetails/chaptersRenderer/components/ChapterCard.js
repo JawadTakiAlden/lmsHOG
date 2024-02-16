@@ -25,11 +25,13 @@ import LessionsRenderer from "./LessionsRenderer";
 import AddLesionForm from "./AddLesionForm";
 import UpdateChapterForm from "./UpdateChapterForm";
 import { Collapse } from "@mui/material";
+import AddQuizForm from "./AddQuizForm";
 
 const ChapterCard = ({ chapter }) => {
   const [openContent, setOpenContent] = useState(false);
   const [openDeleteChapter, setOpenDeleteChapter] = useState(false);
   const [addLesionFormOpen, setAddLesionFormOpen] = useState(false);
+  const [addQuizFormOpen, setAddQuizFormOpen] = useState(false);
   const [updateChapter, setUpdateChapter] = useState(false);
 
   const handleUpdateChapterToggle = () => {
@@ -39,14 +41,24 @@ const ChapterCard = ({ chapter }) => {
   const handleUpdateChapterClose = () => {
     setUpdateChapter(false);
   };
+  const handleAddQuizClose = () => {
+    setAddQuizFormOpen(false);
+  };
 
   const handleAddLesionOpenClick = () => {
     setAddLesionFormOpen(true);
+    handleAddQuizClose()
   };
 
   const handleAddLesionClose = () => {
     setAddLesionFormOpen(false);
   };
+  const handleAddQuizOpenClick = () => {
+    setAddQuizFormOpen(true);
+    handleAddLesionClose()
+  };
+
+  
 
   const handelClickDeleteChapter = () => {
     setOpenDeleteChapter(true);
@@ -112,9 +124,18 @@ const ChapterCard = ({ chapter }) => {
           />
         </Collapse>
         <Collapse in={openContent}>
-          <Box>
+          <Box
+            sx={{
+              display : 'flex',
+              alignItems : 'center',
+              gap : '10px'
+            }}
+          >
             <Button onClick={handleAddLesionOpenClick} variant="contained">
               add lesion
+            </Button>
+            <Button onClick={handleAddQuizOpenClick} variant="contained">
+              add Quiz
             </Button>
           </Box>
           <Collapse in={addLesionFormOpen}>
@@ -123,7 +144,13 @@ const ChapterCard = ({ chapter }) => {
               handelClose={handleAddLesionClose}
             />
           </Collapse>
-          <LessionsRenderer lesions={chapter.lesions} />
+          <Collapse in={addQuizFormOpen}>
+            <AddQuizForm
+              chapter={chapter}
+              handelClose={handleAddQuizClose}
+            />
+          </Collapse>
+          <LessionsRenderer lesions={chapter.lesions} quizzes={chapter.quizzes} />
         </Collapse>
       </Box>
 

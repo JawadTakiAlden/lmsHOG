@@ -7,6 +7,7 @@ import Detailtab from './Detailtab'
 import useShowQuestion from '../../../../api/useShowQuestion'
 import { ClipLoader } from 'react-spinners'
 import ChoicesTab from './ChoicesTab'
+import DeleteTab from './DeleteTab'
 
 const QuestionDetails = () => {
     const navigate = useNavigate()
@@ -55,6 +56,9 @@ const QuestionDetails = () => {
       </TabPanel>
       <TabPanel value="3">
         <ChoicesTab question={questionDetaisl?.data?.data?.data} />
+      </TabPanel>
+      <TabPanel value="4">
+        <DeleteTab question={questionDetaisl?.data?.data?.data} />
       </TabPanel>
     </TabContext>
     </Box>

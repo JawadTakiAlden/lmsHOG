@@ -38,6 +38,8 @@ const AllAccounts = Loadable(
 const EnrolledStudents = Loadable(
   lazy(() => import("./views/pages/student/enrolledStudents"))
 );
+const QuizDetials = Loadable(lazy(() => import("./views/pages/Quizzes/QuizDetails")));
+const AllQuiz = Loadable(lazy(() => import("./views/pages/Quizzes/AllQuiz")));
 const QuestionDetails = Loadable(lazy(() => import("./views/pages/Question/QuestionDetails")));
 const QuestionsList = Loadable(lazy(() => import("./views/pages/Question/QuestionsList")));
 const CreateQuestion = Loadable(lazy(() => import("./views/pages/Question/CreateQuestion")));
@@ -79,6 +81,9 @@ function App() {
           <Routes>
             <Route path="/" element={<Login />} />
             <Route path="dashboard" element={<MainLayout />}>
+              <Route path="quizzes">
+                <Route path="all" element={<AllQuiz />} />
+              </Route>
               <Route path="questions">
                 <Route path="create" element={<CreateQuestion />} />
                 <Route path="all" element={<QuestionsList />} />
@@ -115,6 +120,7 @@ function App() {
               <Route path="category/:category_id" element={<CategoryDetails />} />
               <Route path="news/:news_id" element={<NewsDetails />} />
               <Route path="question/:question_id" element={<QuestionDetails />} />
+              <Route path="quiz/:quiz_id" element={<QuizDetials />} />
             </Route>
           </Routes>
         </NavigationOnScroll>

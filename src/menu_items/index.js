@@ -1,4 +1,4 @@
-import { BookOutlined, CategoryOutlined, CodeOutlined, Dashboard, NewspaperOutlined, PeopleOutlined, PersonOutlined, QuestionAnswerOutlined, ShowChartOutlined } from "@mui/icons-material";
+import { BookOutlined, CategoryOutlined, CodeOutlined, Dashboard, NewspaperOutlined, PeopleOutlined, PersonOutlined, QuestionAnswerOutlined, QuizOutlined, ShowChartOutlined } from "@mui/icons-material";
 
 export const menuitems = [
   {
@@ -161,6 +161,20 @@ export const menuitems = [
         type : 'item'
       },
       
+    ],
+  },
+  {
+    id: "quizzes",
+    title: "Quizzes",
+    type: "group",
+    icon: <QuizOutlined />,
+    children: [
+      {
+        id : 'all-quizzes',
+        title : 'All Quiz',
+        path : '/dashboard/quizzes/all',
+        type : 'item'
+      },
     ],
   },
 ];

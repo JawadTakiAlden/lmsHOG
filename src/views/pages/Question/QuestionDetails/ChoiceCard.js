@@ -1,4 +1,4 @@
-import { CancelOutlined, Delete, DeleteOutlined } from "@mui/icons-material";
+import { CancelOutlined, CheckOutlined, Delete, DeleteOutlined, VisibilityOffOutlined, VisibilityOutlined, X } from "@mui/icons-material";
 import {
   Button,
   Card,
@@ -10,17 +10,22 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
+  FormControl,
   IconButton,
+  Switch,
   Typography,
 } from "@mui/material";
 import React from "react";
 import Transition from "../../../../components/Transition";
 import useDeleteChoice from "../../../../api/useDeleteChoice";
 import { LoadingButton } from "@mui/lab";
+import useSwicthChoiceVisiblity from "../../../../api/useSwicthChoiceVisiblity";
+import useSwitchTrueStatusOfChoice from "../../../../api/useSwitchTrueStatusOfChoice";
 
 const ChoiceCard = ({ choice, withAction = false }) => {
     const [open, setOpen] = React.useState(false);
-    
+    const switchVisibility = useSwicthChoiceVisiblity(choice.id)
+    const switchTrueStatus = useSwitchTrueStatusOfChoice(choice.id)
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -48,6 +53,26 @@ const ChoiceCard = ({ choice, withAction = false }) => {
             <IconButton color="error" onClick={handleClickOpen}>
                 <Delete />
             </IconButton>
+            <LoadingButton
+                color={choice.is_visible ? 'success' : 'warning'}
+                variant='contained'
+                size="small"
+                onClick={switchVisibility.callFunction}
+                loading={switchVisibility.isPending}
+                startIcon={choice.is_visible ? <VisibilityOutlined /> : <VisibilityOffOutlined /> }
+            >
+                {choice.is_visible ? 'visible' : 'hidied'}
+            </LoadingButton>
+            <LoadingButton
+                color={choice.is_true ? 'success' : 'warning'}
+                variant='contained'
+                size="small"
+                onClick={switchTrueStatus.callFunction}
+                loading={switchTrueStatus.isPending}
+                startIcon={choice.is_true ? <CheckOutlined />   :<X />}
+            >
+                {choice.is_true ? 'True' : 'false'}
+            </LoadingButton>
             </CardActions>
         )}
         </Card>

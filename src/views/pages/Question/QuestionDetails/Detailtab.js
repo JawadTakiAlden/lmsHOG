@@ -117,7 +117,15 @@ const Detailtab = ({ question }) => {
       >
         {question.choices.map(
           (choice, index) => (
-            <ChoiceCard key={index} choice={choice} />
+            <Box
+                sx={{
+                    flexBasis : '25%',
+                    minWidth : '250px',
+                   
+                }}
+            >
+                <ChoiceCard key={index} choice={choice} />
+            </Box>
           )
         )}
       </Box>
