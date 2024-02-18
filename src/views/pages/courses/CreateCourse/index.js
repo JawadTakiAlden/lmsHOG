@@ -2,7 +2,6 @@ import {
   Autocomplete,
   Box,
   Button,
-  Chip,
   CircularProgress,
   FormControl,
   FormControlLabel,
@@ -20,13 +19,13 @@ import useGetCategories from "../../../../api/useGetCategories";
 import useGetTeachers from "../../../../api/useGetTeachers";
 import { LoadingButton } from "@mui/lab";
 import {
-  CancelOutlined,
   CreateOutlined,
   ImageOutlined,
 } from "@mui/icons-material";
 import VisuallyHiddenInput from "../../../../components/VisuallyHiddenInput/VisuallyHiddenInput";
 import useCreateCourse from "../../../../api/useCreateCourse";
 import * as yup from "yup";
+import { useTranslation } from "react-i18next";
 
 const CreateCourse = () => {
   const [categoriesOpen, setCategoriesOpen] = useState(false);
@@ -34,6 +33,7 @@ const CreateCourse = () => {
   const categories = useGetCategories();
   const teachers = useGetTeachers();
   const createCourse = useCreateCourse();
+  const {t} = useTranslation()
   const handelCreateCourse = (values) => {
     let teachers = values.teachers.map((teacher) => teacher.id);
     let categories = values.categories.map((category) => category.id);
@@ -86,10 +86,10 @@ const CreateCourse = () => {
             <Grid container spacing={gridSpacing}>
               <Grid item xs={12} sm={6}>
                 <FormControl fullWidth>
-                  <InputLabel>Name</InputLabel>
+                  <InputLabel>{t('courses.create_course.labels.name')}</InputLabel>
                   <OutlinedInput
                     type="text"
-                    label="Name"
+                    label={t('courses.create_course.labels.name')}
                     name="name"
                     onChange={handleChange}
                     value={values.name}
@@ -103,10 +103,10 @@ const CreateCourse = () => {
               </Grid>
               <Grid item xs={12} sm={6}>
                 <FormControl fullWidth>
-                  <InputLabel>Telegram Channel Link</InputLabel>
+                  <InputLabel>{t('courses.create_course.labels.telegram_channel_link')}</InputLabel>
                   <OutlinedInput
                     type="text"
-                    label="Telegram Channel Link"
+                    label={t('courses.create_course.labels.telegram_channel_link')}
                     name="telegram_channel_link"
                     onChange={handleChange}
                     value={values.telegram_channel_link}
@@ -151,7 +151,7 @@ const CreateCourse = () => {
                   renderInput={(params) => (
                     <TextField
                       {...params}
-                      label="Categories"
+                      label={t('courses.create_course.labels.categories')}
                       name="categories"
                       onBlur={handleBlur}
                       error={touched.categories && errors.categories}
@@ -200,7 +200,7 @@ const CreateCourse = () => {
                   renderInput={(params) => (
                     <TextField
                       {...params}
-                      label="Teachers"
+                      label={t('courses.create_course.labels.teachers')}
                       name="teachers"
                       onBlur={handleBlur}
                       error={touched.teachers && errors.teachers}
@@ -235,7 +235,7 @@ const CreateCourse = () => {
                     <TextField
                       {...params}
                       variant="outlined"
-                      label="freeSolo"
+                      label={t('courses.create_course.labels.values_learned')}
                       placeholder="Favorites"
                     />
                   )}
@@ -247,7 +247,7 @@ const CreateCourse = () => {
                   variant="contained"
                   startIcon={<ImageOutlined />}
                 >
-                  Upload file
+                  {t('courses.create_course.labels.image_upload')}
                   <VisuallyHiddenInput
                     onBlur={handleBlur}
                     name="image"
@@ -263,14 +263,14 @@ const CreateCourse = () => {
               <Grid item xs={12}>
                 <FormControlLabel
                   control={<Switch />}
-                  label="Visible"
+                  label={t('courses.create_course.labels.is_visible')}
                   name="is_visible"
                   value={values.is_visible}
                   onChange={handleChange}
                 />
                 <FormControlLabel
                   control={<Switch />}
-                  label="Free"
+                  label={t('courses.create_course.labels.is_open')}
                   name="is_open"
                   value={values.is_open}
                   onChange={handleChange}
@@ -294,7 +294,7 @@ const CreateCourse = () => {
                 type="submit"
                 loading={createCourse.isPending}
               >
-                Create
+                {t('courses.create_course.labels.create_btn')}
               </LoadingButton>
             </Box>
           </form>

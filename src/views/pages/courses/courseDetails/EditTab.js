@@ -22,6 +22,7 @@ import { LoadingButton } from "@mui/lab";
 import useGetCategories from "../../../../api/useGetCategories";
 import useGetTeachers from "../../../../api/useGetTeachers";
 import useUpdateCourse from "../../../../api/useUpdateCourse";
+import { useTranslation } from "react-i18next";
 
 const EditTab = ({ data }) => {
   const categories = useGetCategories();
@@ -29,6 +30,7 @@ const EditTab = ({ data }) => {
   const [categoriesOpen, setCategoriesOpen] = useState(false);
   const [teachersOpen, setTeachersOpen] = useState(false);
   const updateCourse = useUpdateCourse()
+  const {t} = useTranslation()
   const [image, setImage] = useState(null);
   const updateHandler = (values) => {
     let teachers = values.teachers.map((teacher) => teacher.id);
@@ -121,10 +123,10 @@ const EditTab = ({ data }) => {
             <Grid container spacing={gridSpacing}>
               <Grid item xs={12} sm={6}>
                 <FormControl fullWidth>
-                  <InputLabel>Course Name</InputLabel>
+                  <InputLabel>{t('courses.detaisl.edit_tab.labels.name')}</InputLabel>
                   <OutlinedInput
                     type="text"
-                    label="Course Name"
+                    label={t('courses.detaisl.edit_tab.labels.name')}
                     name="name"
                     onChange={handleChange}
                     value={values.name}
@@ -138,10 +140,10 @@ const EditTab = ({ data }) => {
               </Grid>
               <Grid item xs={12} sm={6}>
                 <FormControl fullWidth>
-                  <InputLabel>Telegram Link</InputLabel>
+                  <InputLabel>{t('courses.detaisl.edit_tab.labels.telegram_channel_link')}</InputLabel>
                   <OutlinedInput
                     type="text"
-                    label="Telegram Link"
+                    label={t('courses.detaisl.edit_tab.labels.telegram_channel_link')}
                     name="telegram_channel_link"
                     onChange={handleChange}
                     value={values.telegram_channel_link}
@@ -186,7 +188,7 @@ const EditTab = ({ data }) => {
                   renderInput={(params) => (
                     <TextField
                       {...params}
-                      label="Categories"
+                      label={t('courses.detaisl.edit_tab.labels.categories')}
                       name="categories"
                       onBlur={handleBlur}
                       error={touched.categories && errors.categories}
@@ -235,7 +237,7 @@ const EditTab = ({ data }) => {
                   renderInput={(params) => (
                     <TextField
                       {...params}
-                      label="Teachers"
+                      label={t('courses.detaisl.edit_tab.labels.teachers')}
                       name="teachers"
                       onBlur={handleBlur}
                       error={touched.teachers && errors.teachers}
@@ -260,13 +262,13 @@ const EditTab = ({ data }) => {
               <Grid item xs={12}>
                 <FormControlLabel
                   control={<Switch defaultChecked={values.is_visible} />}
-                  label="Visible"
+                  label={t('courses.detaisl.edit_tab.labels.is_visible')}
                   name="is_visible"
                   onChange={handleChange}
                 />
                 <FormControlLabel
                   control={<Switch defaultChecked={values.is_open} />}
-                  label="Free"
+                  label={t('courses.detaisl.edit_tab.labels.is_open')}
                   name="is_open"
                   onChange={handleChange}
                 />
@@ -278,7 +280,7 @@ const EditTab = ({ data }) => {
                     variant="contained"
                     startIcon={<ImageOutlined />}
                   >
-                    Upload Image
+                    {t('courses.detaisl.edit_tab.labels.image')}
                     <VisuallyHiddenInput
                       type="file"
                       accept="image/png , image/jpg , image/jpeg"
@@ -308,7 +310,7 @@ const EditTab = ({ data }) => {
                     startIcon={<CreateOutlined />}
                     variant="contained"
                   >
-                    <span>Save</span>
+                    <span>{t('courses.detaisl.edit_tab.labels.save_btn')}</span>
                   </LoadingButton>
                 </Box>
               </Grid>

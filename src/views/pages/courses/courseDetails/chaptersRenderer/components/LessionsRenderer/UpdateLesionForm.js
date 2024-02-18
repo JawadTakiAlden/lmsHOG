@@ -18,10 +18,12 @@ import * as yup from "yup";
 import { gridSpacing } from "../../../../../../../constant";
 import { CancelOutlined, CreateOutlined } from "@mui/icons-material";
 import useUpdateLesion from "../../../../../../../api/useUpdateLesion";
+import { useTranslation } from "react-i18next";
 
 const lesionTypes = ["video", "pdf"];
 
 const UpdateLesionForm = ({ lesion, handelClose }) => {
+  const {t} = useTranslation()
   const updateLesion = useUpdateLesion({ lesion_id: lesion.id });
   const handleUpdateLesion = (values) => {
     updateLesion.callFunction(values)
@@ -61,10 +63,10 @@ const UpdateLesionForm = ({ lesion, handelClose }) => {
             <Grid container spacing={gridSpacing}>
               <Grid item xs={12} sm={6}>
                 <FormControl fullWidth>
-                  <InputLabel>Title</InputLabel>
+                  <InputLabel>{t('courses.detaisl.details_tab.chapter_renderer.chapter_card.lesion_renderer.lesion_item.update_lesion_form.labels.title')}</InputLabel>
                   <OutlinedInput
                     type="text"
-                    label="Title"
+                    label={t('courses.detaisl.details_tab.chapter_renderer.chapter_card.lesion_renderer.lesion_item.update_lesion_form.labels.title')}
                     name="title"
                     onChange={handleChange}
                     value={values.title}
@@ -78,13 +80,13 @@ const UpdateLesionForm = ({ lesion, handelClose }) => {
               </Grid>
               <Grid item xs={12} sm={6}>
                 <FormControl fullWidth>
-                  <InputLabel>Type</InputLabel>
+                  <InputLabel>{t('courses.detaisl.details_tab.chapter_renderer.chapter_card.lesion_renderer.lesion_item.update_lesion_form.labels.type')}</InputLabel>
                   <Select
                     value={values.type}
                     onChange={handleChange}
                     onBlur={handleBlur}
                     name="type"
-                    label={"Type"}
+                    label={t('courses.detaisl.details_tab.chapter_renderer.chapter_card.lesion_renderer.lesion_item.update_lesion_form.labels.type')}
                     error={touched.type && errors.type}
                   >
                     {lesionTypes.map((type) => (
@@ -98,10 +100,10 @@ const UpdateLesionForm = ({ lesion, handelClose }) => {
               </Grid>
               <Grid item xs={12} sm={6}>
                 <FormControl fullWidth>
-                  <InputLabel>Link</InputLabel>
+                  <InputLabel>{t('courses.detaisl.details_tab.chapter_renderer.chapter_card.lesion_renderer.lesion_item.update_lesion_form.labels.link')}</InputLabel>
                   <OutlinedInput
                     type="text"
-                    label="Link"
+                    label={t('courses.detaisl.details_tab.chapter_renderer.chapter_card.lesion_renderer.lesion_item.update_lesion_form.labels.link')}
                     name="link"
                     onChange={handleChange}
                     value={values.link}

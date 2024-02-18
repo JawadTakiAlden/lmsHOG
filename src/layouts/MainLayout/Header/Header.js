@@ -1,14 +1,16 @@
 import React from "react";
-import { Box, useTheme, IconButton } from "@mui/material";
+import { Box, useTheme, IconButton, Select, MenuItem } from "@mui/material";
 import { MenuOpen } from "@mui/icons-material";
 import { useDispatch } from "react-redux";
-import { TOGGLE_COLAPSED } from "../../../store/slices/customization/customization";
+import { SET_DIRECTION, TOGGLE_COLAPSED } from "../../../store/slices/customization/customization";
+import { useTranslation } from "react-i18next";
 const Header = ({withoutSidebar}) => {
   const theme = useTheme();
   const dispatch = useDispatch();
   const togleOpenSidebar = () => {
     dispatch(TOGGLE_COLAPSED());
   }
+  const {i18n} = useTranslation()
   return (
     <Box
       sx={{
@@ -27,6 +29,18 @@ const Header = ({withoutSidebar}) => {
       >
         <MenuOpen />
       </IconButton>
+      <Select
+        value={i18n.language}
+        onChange={(e) => {
+          i18n.changeLanguage(e.target.value)
+          const dir = e.target.value === 'en' ? 'ltr' : 'rtl'
+          dispatch(SET_DIRECTION(dir))
+          document.dir = dir
+        }}
+      >
+        <MenuItem value={'ar'}>Ar</MenuItem>
+        <MenuItem value={'en'}>En</MenuItem>
+      </Select>
     </Box>
   );
 };

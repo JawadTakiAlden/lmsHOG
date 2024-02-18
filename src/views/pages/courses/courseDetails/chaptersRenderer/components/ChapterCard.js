@@ -17,7 +17,7 @@ import {
   ListItemIcon,
   ListItemText,
 } from "@mui/material";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import useDeleteChapter from "../../../../../../api/useDeleteChapter";
 import BottomTranstion from "../../../../../../components/BottomTranstion";
 import { LoadingButton } from "@mui/lab";
@@ -26,6 +26,7 @@ import AddLesionForm from "./AddLesionForm";
 import UpdateChapterForm from "./UpdateChapterForm";
 import { Collapse } from "@mui/material";
 import AddQuizForm from "./AddQuizForm";
+import { useTranslation } from "react-i18next";
 
 const ChapterCard = ({ chapter }) => {
   const [openContent, setOpenContent] = useState(false);
@@ -33,6 +34,7 @@ const ChapterCard = ({ chapter }) => {
   const [addLesionFormOpen, setAddLesionFormOpen] = useState(false);
   const [addQuizFormOpen, setAddQuizFormOpen] = useState(false);
   const [updateChapter, setUpdateChapter] = useState(false);
+  const {t} = useTranslation()
 
   const handleUpdateChapterToggle = () => {
     setUpdateChapter((prev) => !prev);
@@ -132,10 +134,10 @@ const ChapterCard = ({ chapter }) => {
             }}
           >
             <Button onClick={handleAddLesionOpenClick} variant="contained">
-              add lesion
+              {t('courses.detaisl.details_tab.chapter_renderer.chapter_card.buttons.1')}
             </Button>
             <Button onClick={handleAddQuizOpenClick} variant="contained">
-              add Quiz
+            {t('courses.detaisl.details_tab.chapter_renderer.chapter_card.buttons.2')}
             </Button>
           </Box>
           <Collapse in={addLesionFormOpen}>
@@ -161,10 +163,10 @@ const ChapterCard = ({ chapter }) => {
         onClose={handleCloseDeleteChapter}
         aria-describedby="delete-chapter"
       >
-        <DialogTitle>Delete Chapter Confirmtion</DialogTitle>
+        <DialogTitle>{t('courses.detaisl.details_tab.chapter_renderer.chapter_card.dialog.title')}</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            are you sure you want to delete this chapter
+          {t('courses.detaisl.details_tab.chapter_renderer.chapter_card.dialog.text')}
           </DialogContentText>
         </DialogContent>
         <DialogActions>
@@ -175,7 +177,7 @@ const ChapterCard = ({ chapter }) => {
             variant="outlined"
             sx={{ borderRadius: "12px" }}
           >
-            Cancel
+            {t('courses.detaisl.details_tab.chapter_renderer.chapter_card.buttons.3')}
           </Button>
           <LoadingButton
             loading={deleteChapter.isPending}
@@ -188,7 +190,7 @@ const ChapterCard = ({ chapter }) => {
               deleteChapter.callFuntion({ chapter_id: chapter.id });
             }}
           >
-            Accept
+            {t('courses.detaisl.details_tab.chapter_renderer.chapter_card.buttons.4')}
           </LoadingButton>
         </DialogActions>
       </Dialog>

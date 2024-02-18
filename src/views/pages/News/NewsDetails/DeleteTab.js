@@ -1,12 +1,14 @@
 import { LoadingButton } from '@mui/lab';
-import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField, Tooltip, Typography } from '@mui/material';
+import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField, Typography } from '@mui/material';
 import React, { useState } from 'react'
 import useDeleteNews from '../../../../api/useDeleteNews';
+import { useTranslation } from 'react-i18next';
 
 const DeleteTab = ({data}) => {
     const deleteNews = useDeleteNews()
     const [open, setOpen] = useState(false);
     const [newsName , setNewsName] = useState("")
+    const {t} = useTranslation()
   
     const handleClickOpen = () => {
       setOpen(true);
@@ -36,7 +38,7 @@ const DeleteTab = ({data}) => {
             textAlign: "center",
           }}
         >
-          Dnager Area
+          {t('news.detail.deleteTab.h1')}
         </Typography>
         <Typography
           sx={{
@@ -46,9 +48,7 @@ const DeleteTab = ({data}) => {
             mb: 2,
           }}
         >
-          this place is danger you can delete this category from here take care
-          about this action , all data realted with this category will be lost
-          when you delete this category
+          {t('news.detail.deleteTab.desc')}
         </Typography>
         <Box
           sx={{
@@ -58,11 +58,9 @@ const DeleteTab = ({data}) => {
             mb: 1,
           }}
         >
-          <Tooltip title={"delete"}>
             <Button onClick={handleClickOpen} color="error" variant="contained">
-              Delete
+            {t('news.detail.deleteTab.delete_btn')}
             </Button>
-          </Tooltip>
         </Box>
       </Box>
     <Dialog
@@ -76,11 +74,10 @@ const DeleteTab = ({data}) => {
           },
         }}
       >
-        <DialogTitle>Delete News {data.title || "i am sure"}</DialogTitle>
+        <DialogTitle>{t('news.detail.deleteTab.dialog.title')} '{data.title || t('news.detail.deleteTab.dialog.input_label')}'</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            take care about this process , this action can't be undone and all realated data with this course will be deleted,
-            <br/> write "i am sure" to confirm delete
+          {t('news.detail.deleteTab.dialog.text')}
           </DialogContentText>
           <TextField
             autoFocus
@@ -88,21 +85,21 @@ const DeleteTab = ({data}) => {
             margin="dense"
             onChange={(e) => setNewsName(e.target.value)}
             value={newsName}
-            label={data.title ? "News Title" :  "I am Sure"}
+            label={data.title ? "News Title" :  t('news.detail.deleteTab.dialog.input_label')}
             type="text"
             fullWidth
             variant="standard"
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
+          <Button onClick={handleClose}>{t('news.detail.deleteTab.cancel_btn')}</Button>
           <LoadingButton
             color="error"
-            disabled={data.title ? (newsName !== data.title) : (newsName !== "i am sure")}
+            disabled={data.title ? (newsName !== data.title) : (newsName !== t('news.detail.deleteTab.dialog.input_label'))}
             loading={deleteNews.isPending}
             type="submit"
           >
-            Delete
+            {t('news.detail.deleteTab.delete_btn')}
           </LoadingButton>
         </DialogActions>
       </Dialog>

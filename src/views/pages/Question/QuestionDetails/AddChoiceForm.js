@@ -7,21 +7,29 @@ import { CancelOutlined, CreateOutlined, ImageOutlined } from '@mui/icons-materi
 import { LoadingButton } from '@mui/lab';
 import { gridSpacing } from '../../../../constant';
 import useCreateChoice from '../../../../api/useCreateChoice';
+import filterObjectFromNullValues from '../../../../utils/filterObjectFromNullValues';
+import { useTranslation } from 'react-i18next';
 
 const AddChoiceForm = ({handelClose}) => {
     const createChoice  = useCreateChoice()
+    const {t} = useTranslation()
     const createChoiceHandler = (values) => {
-        createChoice.callFuntion(values)
-        // console.log(values)
+        createChoice.callFuntion(filterObjectFromNullValues(values))
     }
   return (
     <Box>
       <Formik
         onSubmit={createChoiceHandler}
-        validationSchema={yup.object({})}
+        validationSchema={yup.object({
+          title: yup.string().when("image", {
+            is: null,
+            then: (schema) => schema.required("title is required "),
+          }),
+          image : yup.mixed().nullable()
+        })}
         initialValues={{
           title: "",
-          image: "",
+          image: null,
           is_visible: false,
           is_true: false,
         }}
@@ -40,10 +48,10 @@ const AddChoiceForm = ({handelClose}) => {
             <Grid container spacing={gridSpacing}>
               <Grid item xs={12} sm={6}>
                 <FormControl fullWidth>
-                  <InputLabel>Choice Title</InputLabel>
+                  <InputLabel>{t('questions.question_detials.add_choice_form.labels.title')}</InputLabel>
                   <OutlinedInput
                     type="text"
-                    label="Choice Title"
+                    label={t('questions.question_detials.add_choice_form.labels.title')}
                     name="title"
                     onChange={handleChange}
                     value={values.title}
@@ -62,7 +70,7 @@ const AddChoiceForm = ({handelClose}) => {
                     variant="contained"
                     startIcon={<ImageOutlined />}
                   >
-                    Choice Image
+                    {t('questions.question_detials.add_choice_form.labels.choice_image')}
                     <VisuallyHiddenInput
                       type="file"
                       accept="image/png , image/jpg , image/jpeg"
@@ -97,7 +105,7 @@ const AddChoiceForm = ({handelClose}) => {
               ) : undefined}
               <Grid item xs={12} sm={6}>
               <FormControlLabel
-                label="Visibility"
+                label={t('questions.question_detials.add_choice_form.labels.is_visible')}
                 value={values.is_visible}
                 onChange={handleChange}
                 name="is_visible"
@@ -107,7 +115,7 @@ const AddChoiceForm = ({handelClose}) => {
                 }
               />
               <FormControlLabel
-                label="True"
+                label={t('questions.question_detials.add_choice_form.labels.is_true')}
                 value={values.is_true}
                 onChange={handleChange}
                 name="is_true"
@@ -133,13 +141,13 @@ const AddChoiceForm = ({handelClose}) => {
                 loading={createChoice.isPending}
                 startIcon={<CreateOutlined />}
               >
-                Create
+                {t('questions.question_detials.add_choice_form.labels.create_btn')}
               </LoadingButton>
               <Button startIcon={<CancelOutlined />} disabled={createChoice.isPending} onClick={() => {
                 handleReset()
                 handelClose()
               }} color="error" variant="outlined">
-                Cancel
+                {t('questions.question_detials.add_choice_form.labels.cancel_btn')}
               </Button>
             </Box>
           </form>

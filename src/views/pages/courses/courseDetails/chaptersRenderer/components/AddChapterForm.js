@@ -2,11 +2,13 @@ import { CreateOutlined, VisibilityOffOutlined, VisibilityOutlined } from '@mui/
 import { LoadingButton } from '@mui/lab'
 import { Box, Checkbox, FormControl, FormHelperText, InputLabel, OutlinedInput } from '@mui/material'
 import { Formik, useFormik } from 'formik'
-import React, { useRef } from 'react'
+import React from 'react'
 import * as yup from 'yup'
 import useCreateChapter from '../../../../../../api/useCreateChapter'
+import { useTranslation } from 'react-i18next'
 
 const AddChapterForm = ({course_id}) => {
+    const {t} = useTranslation()
     const handelAddChapter = (values) => {
         createChapterRequest.callFuntion({
             ...values,
@@ -39,10 +41,10 @@ const AddChapterForm = ({course_id}) => {
             <Formik>
                 <form style={{boxSizing :'border-box'}} onSubmit={handleSubmit}>
                     <FormControl fullWidth sx={{ }}>
-                        <InputLabel>Chapter Name</InputLabel>
+                        <InputLabel>{t('courses.detaisl.details_tab.add_chapter_form.labels.name')}</InputLabel>
                         <OutlinedInput
                         type="text"
-                        label="Chapter Name"
+                        label={t('courses.detaisl.details_tab.add_chapter_form.labels.name')}
                         name="name"
                         onChange={handleChange}
                         value={values.name}
@@ -71,7 +73,7 @@ const AddChapterForm = ({course_id}) => {
                         startIcon={<CreateOutlined />}
                         variant="contained"
                     >
-                        <span>Create</span>
+                        <span>{t('courses.detaisl.details_tab.add_chapter_form.labels.create_btn')}</span>
                     </LoadingButton>
                 </form>
             </Formik>

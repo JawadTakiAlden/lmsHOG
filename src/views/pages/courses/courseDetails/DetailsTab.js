@@ -1,4 +1,4 @@
-import { Box, Button, Collapse, Typography } from "@mui/material";
+import { Box, Button, Collapse } from "@mui/material";
 import React, { useState } from "react";
 import Swicther from "../../../../components/Switcher";
 import AddChapterForm from "./chaptersRenderer/components/AddChapterForm";
@@ -6,18 +6,16 @@ import ChapterRenderer from "./chaptersRenderer";
 import useSwitchOpenOfCourse from "../../../../api/useSwitchOpenOfCourse";
 import useSwitchCourseVisibility from "../../../../api/useSwitchCourseVisibility";
 import { useParams } from "react-router";
+import { useTranslation } from "react-i18next";
 
 const DetailsTab = ({ data, courseDetails }) => {
   const openSwitcher = useSwitchOpenOfCourse(courseDetails.refetch);
   const visibleSwitcher = useSwitchCourseVisibility(courseDetails.refetch);
   const [openAddChapterForm, setOpenAddChapterForm] = useState(false);
   const { course_id } = useParams();
+  const {t} = useTranslation()
   const addChapterFormClick = () => {
     setOpenAddChapterForm((prev) => !prev);
-  };
-
-  const addChapterCloseHandler = () => {
-    setOpenAddChapterForm(false);
   };
 
   return (
@@ -45,7 +43,7 @@ const DetailsTab = ({ data, courseDetails }) => {
             }}
             switchermutate={openSwitcher}
             checkedAttribute={"is_open"}
-            label={"Free Course"}
+            label={t('courses.detaisl.details_tab.switcher.1')}
           />
         </Box>
         <Box
@@ -62,7 +60,7 @@ const DetailsTab = ({ data, courseDetails }) => {
             }}
             switchermutate={visibleSwitcher}
             checkedAttribute={"is_visible"}
-            label={"Visible Course"}
+            label={t('courses.detaisl.details_tab.switcher.1')}
           />
         </Box>
         <Button
@@ -70,7 +68,7 @@ const DetailsTab = ({ data, courseDetails }) => {
           color="primary"
           onClick={addChapterFormClick}
         >
-          add chapter
+          {t('courses.detaisl.details_tab.buttons.add_chapter')}
         </Button>
       </Box>
       <Collapse in={openAddChapterForm}>

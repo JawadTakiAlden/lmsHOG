@@ -2,8 +2,10 @@ import React from "react";
 import { Box, Typography } from "@mui/material";
 import { images } from "../../../assets/asstetsExporter";
 import LoginForm from "./LoginForm";
+import { useTranslation } from "react-i18next";
 
 const Login = () => {
+  const {t} = useTranslation()
   return (
     <Box
       sx={{
@@ -39,13 +41,13 @@ const Login = () => {
             width: "100%",
             mb: 6,
             "&::after": {
-              content: '"in"',
+              content: `'${t('login_page.login_keyword.part_2')}'`,
               color: "#0794EB",
               textTransform: "lowercase",
             },
           }}
         >
-          log
+          {t('login_page.login_keyword.part_1')}
         </Typography>
         <LoginForm />
       </Box>

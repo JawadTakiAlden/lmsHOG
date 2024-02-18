@@ -1,12 +1,13 @@
-import { Box, Button, Checkbox, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, FormControl, FormControlLabel, FormHelperText, IconButton, InputLabel, Link, OutlinedInput, TextField, Tooltip, lighten } from '@mui/material'
+import { Box, Button, IconButton, Link, Tooltip, lighten } from '@mui/material'
 import React, { useMemo, useState } from 'react'
 import TableWrapper from '../../../../components/TableWrapper'
 import { MRT_GlobalFilterTextField, MRT_ToggleFiltersButton, MaterialReactTable, useMaterialReactTable } from 'material-react-table'
-import { CancelOutlined, CreateOutlined, Refresh, SettingsOutlined } from '@mui/icons-material'
+import { Refresh, SettingsOutlined } from '@mui/icons-material'
 import {  useNavigate } from 'react-router-dom'
 import useGetQuestion from '../../../../api/useGetQuestion'
 import CreateQuizModel from './CreateQuizModel'
 import AddToPreExistingQuizModel from './AddToPreExistingQuizModel'
+import { useTranslation } from 'react-i18next'
 
 const QuestionsList = () => {
     const questionsList = useGetQuestion()
@@ -14,7 +15,7 @@ const QuestionsList = () => {
     const [open, setOpen] = useState(false);
     
     const [openAddToPre, setOpenAddToPre] = useState(false);
-
+    const {t} = useTranslation()
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -33,17 +34,17 @@ const QuestionsList = () => {
         () => [
           {
             accessorKey: "id",
-            header: "ID",
+            header: t('questions.questions_list.headers.id'),
             size: 50,
           },
           {
             accessorKey: "title",
-            header: "Title",
+            header: t('questions.questions_list.headers.title'),
             size: 150,
           },
           {
             accessorKey : 'image',
-            header : 'Title Image',
+            header : t('questions.questions_list.headers.image'),
             size : 150,
             Cell : ({row}) => {
               return <Box>
@@ -65,12 +66,12 @@ const QuestionsList = () => {
           },
           {
             accessorKey: "clarification_text",
-            header: "Clarification",
+            header: t('questions.questions_list.headers.clarification_text'),
             size: 150,
           },
           {
             accessorKey: "clarification_image",
-            header: "Clarification Image",
+            header: t('questions.questions_list.headers.clarification_image'),
             size: 150,
             Cell : ({row}) => {
                 return <Box>
@@ -98,7 +99,6 @@ const QuestionsList = () => {
         data: questionsList?.data?.data?.data || [],
         enableRowSelection: true,
         initialState: {
-          // showColumnFilters: true,
           showGlobalFilter: true,
           columnPinning: {
             left: ['mrt-row-expand', 'mrt-row-select'],
@@ -131,7 +131,6 @@ const QuestionsList = () => {
             })}
           >
             <Box sx={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
-              {/* import MRT sub-components */}
               <MRT_GlobalFilterTextField table={table} />
               <MRT_ToggleFiltersButton table={table} />
             </Box>
@@ -143,7 +142,7 @@ const QuestionsList = () => {
                   onClick={handleAddToPreClickOpen}
                   variant="contained"
                 >
-                  Add To Existing Quiz
+                  {t('questions.questions_list.buttons.add_to_pre_btn')}
                 </Button>
                 <Button
                   color="primary"
@@ -151,7 +150,7 @@ const QuestionsList = () => {
                   onClick={handleClickOpen}
                   variant="contained"
                 >
-                  Create Quiz
+                  {t('questions.questions_list.buttons.create_new_btn')}
                 </Button>
               </Box>
             </Box>

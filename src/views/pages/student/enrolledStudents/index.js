@@ -1,6 +1,5 @@
 import {Box, Grid, IconButton, ListItemIcon, MenuItem, Tooltip } from '@mui/material'
 import React, { useMemo, useState } from 'react'
-import { gridSpacing } from '../../../../constant'
 import useGetAllInroled from '../../../../api/useGetAllInroled'
 import TableWrapper from '../../../../components/TableWrapper'
 import { MaterialReactTable, useMaterialReactTable } from 'material-react-table'
@@ -10,12 +9,14 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { useNavigate } from 'react-router'
 import SimpleAlterPopup from '../../../../components/SimpleAlterPopup/SimpleAlterPopup'
 import useCancelInroll from '../../../../api/useCancelInroll'
+import { useTranslation } from 'react-i18next'
 
 const EnrolledStudents = () => {
   const {data , isLoading , isError , error, refetch , isRefetching} = useGetAllInroled()
   const navigate = useNavigate()
   const [cancelOpen, setCancelOpen] = React.useState(false);
   const [clickedRow, setClickedRow] = useState(null)
+  const {t} = useTranslation()
 
   const handleClickCancelOpen = () => {
     setCancelOpen(true);
@@ -27,21 +28,21 @@ const EnrolledStudents = () => {
   const columns = useMemo(
     () => [
       {
-        accessorKey: 'course_title', //access nested data with dot notation
-        header: 'Course Title',
+        accessorKey: 'course_title', 
+        header: t('students.enrolled_students.headers.course_title'),
       },
       {
-        accessorKey: 'name', //normal accessorKey
-        header: 'Student Name',
+        accessorKey: 'name',
+        header: t('students.enrolled_students.headers.name'),
       },
       {
         accessorKey: 'phone',
-        header: 'Phone',
+        header: t('students.enrolled_students.headers.phone'),
       },
       {
-        accessorFn: (originalRow) => new Date(originalRow.enrole_date), //convert to date for sorting and filtering
+        accessorFn: (originalRow) => new Date(originalRow.enrole_date),
         id: 'enrole_date',
-        header: 'Enrolle Date',
+        header: t('students.enrolled_students.headers.enrole_date'),
         filterVariant: 'datetime-range',
         Cell: ({ cell }) =>
           `${cell.getValue().toLocaleDateString()} ${cell
@@ -60,7 +61,7 @@ const EnrolledStudents = () => {
         }
       : undefined,
     renderTopToolbarCustomActions: () => (
-      <Tooltip arrow title="Refresh Data">
+      <Tooltip arrow title={t('public.table.tooltip.refresh')}>
         <IconButton onClick={() => refetch()}>
           <Refresh />
         </IconButton>
@@ -81,7 +82,7 @@ const EnrolledStudents = () => {
         <ListItemIcon >
           <Details color='primary' />
         </ListItemIcon>
-        Show Course
+        {t('students.enrolled_students.actions.show_course')}
       </MenuItem>,
       <MenuItem
         key={1}
@@ -95,7 +96,7 @@ const EnrolledStudents = () => {
         <ListItemIcon>
           <Cancel color='error' />
         </ListItemIcon>
-        Cancle Enrole
+        {t('students.enrolled_students.actions.cancel_enroll')}
       </MenuItem>,
     ],
     muiTableBodyRowProps : {
@@ -108,9 +109,6 @@ const EnrolledStudents = () => {
         boxShadow : 'none'
       }
     },
-    // renderRowActions : ({}) => {
-    //   return <Button color='primary' variant='outlined' sx={{borderRadius : '12px'}}>actions</Button>
-    // },
     enableFullScreenToggle : false,
     paginationDisplayMode : 'pages',
     data : data?.data?.data || [],
@@ -130,9 +128,8 @@ const EnrolledStudents = () => {
       </TableWrapper>
     </Box>
       <SimpleAlterPopup 
-        title={"Inrolment cancelation"}
-        alterDescreption={"this action can't be undo are you sure that you want to cancel this inrolment"}  
-        areaDescreption='enrolle cancelation popup'
+        title={t('students.enrolled_students.dialogs.cancel_enrollement.title')}
+        alterDescreption={t('students.enrolled_students.dialogs.cancel_enrollement.text')}
         open={cancelOpen}
         handleClose={handleCancelClose}
         mutateQuery={useCancelInroll}

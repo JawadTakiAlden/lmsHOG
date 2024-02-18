@@ -2,6 +2,7 @@ import React from "react";
 import { Box, Grid, useTheme, Typography, Skeleton } from "@mui/material";
 import { gridSpacing } from "../../../constant";
 import useGetBasicStatistics from "../../../api/useGetBasicStatistics";
+import { useTranslation } from "react-i18next";
 
 const SkeletonLoader = () => {
    return <Grid container spacing={gridSpacing}>
@@ -85,6 +86,7 @@ const CardWrapper = ({ children }) => {
 
 const StatisticCard = ({ value, title, description, color }) => {
   const theme = useTheme();
+  
   return (
     <CardWrapper>
       <Typography
@@ -121,7 +123,7 @@ const StatisticCard = ({ value, title, description, color }) => {
 
 const StatisticsCards = () => {
   const {isLoading , isError , data , error} = useGetBasicStatistics()
-
+  const {t} = useTranslation()
   if(isLoading){
     return <SkeletonLoader />
   }
@@ -134,63 +136,63 @@ const StatisticsCards = () => {
       <Grid item xs={12} sm={6} lg={4}>
         <StatisticCard
           value={data.data.data.students_number}
-          title={"students"}
-          description={"number of students"}
+          title={t('dashboard.statistics_cards.titles.students')}
+          description={t('dashboard.statistics_cards.descriptions.students')}
         />
       </Grid>
       <Grid item xs={12} sm={6} lg={4}>
         <StatisticCard
           value={data.data.data.courses_number}
-          title={"Subjects"}
-          description={"number of subjects"}
+          title={t('dashboard.statistics_cards.titles.subjects')}
+          description={t('dashboard.statistics_cards.descriptions.subjects')}
           color={"#E87764"}
         />
       </Grid>
       <Grid item xs={12} sm={6} lg={4}>
         <StatisticCard
           value={data.data.data.instructors_number}
-          title={"Instructor"}
-          description={"number of Instructor"}
+          title={t('dashboard.statistics_cards.titles.instructor')}
+          description={t('dashboard.statistics_cards.descriptions.instructor')}
           color={"#795BF1"}
         />
       </Grid>
       <Grid item xs={12} sm={6} lg={4}>
         <StatisticCard
           value={data.data.data.enrolled_number}
-          title={"Enrolled"}
-          description={"number of Enrolled"}
+          title={t('dashboard.statistics_cards.titles.enrolled')}
+          description={t('dashboard.statistics_cards.descriptions.enrolled')}
           color={"#A0616A"}
         />
       </Grid>
       <Grid item xs={12} sm={6} lg={4}>
         <StatisticCard
           value={data.data.data.codes_number}
-          title={"Codes"}
-          description={"All Generated Codes"}
+          title={t('dashboard.statistics_cards.titles.codes')}
+          description={t('dashboard.statistics_cards.descriptions.codes')}
           color={"#795BF1"}
         />
       </Grid>
       <Grid item xs={12} sm={6} lg={4}>
         <StatisticCard
           value={data.data.data.active_code_number}
-          title={"Codes"}
-          description={"inuse Generated Codes"}
+          title={t('dashboard.statistics_cards.titles.active_codes')}
+          description={t('dashboard.statistics_cards.descriptions.active_codes')}
           color={"#795BF1"}
         />
       </Grid>
       <Grid item xs={12} sm={6} lg={4}>
         <StatisticCard
           value={data.data.data.blocked_accounts_number}
-          title={"Accounts"}
-          description={"Blocked Accounts Number"}
+          title={t('dashboard.statistics_cards.titles.accounts')}
+          description={t('dashboard.statistics_cards.descriptions.accounts')}
           color={"#795BF1"}
         />
       </Grid>
       <Grid item xs={12} sm={6} lg={4}>
         <StatisticCard
           value={data.data.data.categories_number}
-          title={"Categories"}
-          description={"Categories Number"}
+          title={t('dashboard.statistics_cards.titles.categories')}
+          description={t('dashboard.statistics_cards.descriptions.categories')}
           color={"#795BF1"}
         />
       </Grid>

@@ -6,38 +6,34 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
-  Grid,
   IconButton,
-  ListItemIcon,
-  ListItemText,
-  MenuItem,
   Tooltip,
   Typography,
 } from "@mui/material";
 import React, { useMemo } from "react";
-import { gridSpacing } from "../../../../constant";
 import TableWrapper from "../../../../components/TableWrapper";
 import {
   MaterialReactTable,
   useMaterialReactTable,
 } from "material-react-table";
 import useGetAccounts from "../../../../api/useGetAccounts";
-import { Delete, Edit, Refresh, Send } from "@mui/icons-material";
+import { Delete, Refresh, Send } from "@mui/icons-material";
 import Swicther from "../../../../components/Switcher";
 import useSwitchBlockedStatus from "../../../../api/useSwitchBlockedStatus";
 import Transition from "../../../../components/Transition";
 import { LoadingButton } from "@mui/lab";
 import useDeleteAccountMutation from "../../../../api/useDeleteAccountMutation";
+import { useTranslation } from "react-i18next";
 
 const AllAccounts = () => {
-  // this hook get all accounts not in student type
-  const { data, isError, isLoading, error, isRefetching, refetch } =
+  const { data, isError, isLoading, isRefetching, refetch } =
     useGetAccounts();
   const switchermutate = useSwitchBlockedStatus(refetch);
   const [open, setOpen] = React.useState({
     status: false,
     row: null,
   });
+  const {t} = useTranslation()
 
   const handleClickOpen = (id) => {
     setOpen({ row: id, status: true });
@@ -60,15 +56,15 @@ const AllAccounts = () => {
     () => [
       {
         accessorKey: "full_name",
-        header: "Full Name",
+        header: t('accounts.account_list.headers.full_name'),
       },
       {
         accessorKey: "phone",
-        header: "Phone Number",
+        header: t('accounts.account_list.headers.phone'),
       },
       {
         accessorKey: "type",
-        header: "Type",
+        header: t('accounts.account_list.headers.type'),
         editVariant: "select",
         editSelectOptions: ["student", "teacher", "admin"],
         Cell: ({ row }) => {
@@ -95,7 +91,7 @@ const AllAccounts = () => {
       },
       {
         accessorKey: "is_blocked",
-        header: "Blocked Status",
+        header: t('accounts.account_list.headers.is_blocked'),
         editVariant: "select",
         editSelectOptions: ["true", "false"],
         Cell: ({ row }) => {
@@ -130,11 +126,6 @@ const AllAccounts = () => {
     enableRowActions: true,
     renderRowActions: ({ row, table }) => (
       <Box sx={{ display: "flex", gap: "1rem" }}>
-        {/* <Tooltip title="Edit">
-                <IconButton onClick={() => table.setEditingRow(row)}>
-                  <Edit />
-                </IconButton>
-              </Tooltip> */}
         <Tooltip title="Delete">
           <IconButton
             color="error"
@@ -147,23 +138,6 @@ const AllAccounts = () => {
         </Tooltip>
       </Box>
     ),
-    //   renderRowActionMenuItems: ({ closeMenu , row}) => [
-    //     <MenuItem
-    //         onClick={() => {
-    //             handleClickOpen(row.original.id)
-    //             closeMenu()
-    //         }}
-    //       key={0}
-    //       sx={{ m: 0 }}
-    //     >
-    //       <ListItemIcon >
-    //         <Delete color='error' />
-    //       </ListItemIcon>
-    //       <ListItemText>
-    //         Delete Account
-    //       </ListItemText>
-    //     </MenuItem>,
-    //   ],
     state: {
       isLoading,
       showAlertBanner: isError,
@@ -186,13 +160,11 @@ const AllAccounts = () => {
         TransitionComponent={Transition}
         keepMounted
         onClose={handleClose}
-        aria-describedby="delete-account-area"
       >
-        <DialogTitle>Delete Account Confirmation</DialogTitle>
+        <DialogTitle>{t('accounts.dialogs.delete_account.dialog_title')}</DialogTitle>
         <DialogContent>
-          <DialogContentText id="delete-account-area">
-            are you sure you want to delete the account fro system this action
-            cant be undo
+          <DialogContentText>
+          {t('accounts.dialogs.delete_account.dialog_content_text')}
           </DialogContentText>
         </DialogContent>
         <DialogActions>
@@ -202,7 +174,7 @@ const AllAccounts = () => {
             variant="outlined"
             sx={{ borderRadius: "12px" }}
           >
-            Disagree
+           {t('accounts.dialogs.delete_account.disagree_btn')}
           </Button>
           <LoadingButton
             loading={deleteAccount.isPending}
@@ -213,7 +185,7 @@ const AllAccounts = () => {
             sx={{ borderRadius: "12px" }}
             onClick={deleteAccountHandler}
           >
-            Accept
+            {t('accounts.dialogs.delete_account.accept_btn')}
           </LoadingButton>
         </DialogActions>
       </Dialog>

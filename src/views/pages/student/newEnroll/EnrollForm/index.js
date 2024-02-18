@@ -8,10 +8,12 @@ import useGetVisibleCourses from '../../../../../api/useGetVisibleCourses';
 import useCreateEnroll from '../../../../../api/useCreateEnroll';
 import { LoadingButton } from '@mui/lab';
 import { Save } from '@mui/icons-material';
+import { useTranslation } from 'react-i18next';
 
 const EnrollForm = () => {
     const studentsList = useGetStudentList()
     const courses = useGetVisibleCourses()
+    const {t} = useTranslation()
     const createEnroll = useCreateEnroll()
     const handelSubmit = (values) => {
         createEnroll.callFuntion(values)
@@ -43,10 +45,10 @@ const EnrollForm = () => {
                         <Grid container spacing={gridSpacing} sx={{mb : 2}}>
                             <Grid item xs={12} sm={6}>
                                 <FormControl fullWidth>
-                                <InputLabel >Student</InputLabel>
+                                <InputLabel >{t('students.new_enroll.new_enroll_form.labels.student')}</InputLabel>
                                 <Select
                                     value={values.student_id}
-                                    label="Student"
+                                    label={t('students.new_enroll.new_enroll_form.labels.student')}
                                     onBlur={handleBlur}
                                     onChange={handleChange}
                                     name='student_id'
@@ -55,7 +57,7 @@ const EnrollForm = () => {
                                         studentsList.isLoading && <Box sx={{display : 'flex' , justifyContent : 'center' , alignItems : 'center' , p : 2}}><CircularProgress /></Box>
                                     }
                                     {
-                                        studentsList.error && <Button color='error' variant='contained' onClick={studentsList.refetch}>refresh</Button>
+                                        studentsList.error && <Button color='error' variant='contained' onClick={studentsList.refetch}>{t('students.new_enroll.new_enroll_form.labels.refetch_btn')}</Button>
                                     }
                                     {
                                         studentsList?.data?.data?.data.map(student => (
@@ -72,10 +74,10 @@ const EnrollForm = () => {
                             </Grid>
                             <Grid item xs={12} sm={6}>
                                 <FormControl fullWidth>
-                                <InputLabel>Course</InputLabel>
+                                <InputLabel>{t('students.new_enroll.new_enroll_form.labels.course')}</InputLabel>
                                 <Select
                                     value={values.course_id}
-                                    label="Course"
+                                    label={t('students.new_enroll.new_enroll_form.labels.course')}
                                     onBlur={handleBlur}
                                     onChange={handleChange}
                                     name='course_id'
@@ -84,7 +86,7 @@ const EnrollForm = () => {
                                         courses.isLoading && <Box sx={{display : 'flex' , justifyContent : 'center' , alignItems : 'center' , p : 2}}><CircularProgress /></Box>
                                     }
                                     {
-                                        courses.error && <Button color='error' variant='contained' onClick={courses.refetch}>refresh</Button>
+                                        courses.error && <Button color='error' variant='contained' onClick={courses.refetch}>{t('students.new_enroll.new_enroll_form.labels.refetch_btn')}</Button>
                                     }
                                     {
                                         courses?.data?.data?.data.map(course => (
@@ -109,7 +111,7 @@ const EnrollForm = () => {
                             startIcon={<Save />}
                             variant="contained"
                             >
-                                <span>Create</span>
+                                <span>{t('students.new_enroll.new_enroll_form.labels.create_btn')}</span>
                             </LoadingButton>
                     </form>
                 )

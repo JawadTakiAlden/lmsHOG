@@ -10,10 +10,14 @@ import { Routes, Route } from "react-router";
 import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
+import { arSA } from '@mui/material/locale';
 import "@fontsource/roboto/700.css";
 import Loadable from "./components/Loadable";
 import { lazy } from "react";
 import MinimalLayout from "./layouts/MinimalLayout";
+import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
+import RTL from "./components/RTL";
 const Login = Loadable(lazy(() => import("./views/auth/Login/Login")));
 const Dashboard = Loadable(lazy(() => import("./views/Dashboard")));
 const StudentList = Loadable(
@@ -53,76 +57,82 @@ const CategoryDetails = Loadable(lazy(() => import("./views/pages/categories/Cat
 const CreateCategroy = Loadable(lazy(() => import("./views/pages/categories/CreateCategory")));
 const MainLayout = Loadable(lazy(() => import("./layouts/MainLayout")));
 
-const theme = createTheme({
-  palette: {
-    background: {
-      default: "#FCFCFC",
-    },
-    primary: {
-      main: "#0794EB",
-    },
-  },
 
-  typography: {
-    mainContent: {
-      width: "100%",
-      minHeight: "calc(100vh - 88px)",
-      flexGrow: 1,
-    },
-  },
-});
 
 function App() {
+  const {direction} = useSelector(state => state.customization)
+  const theme = createTheme({
+    direction,
+    palette: {
+      background: {
+        default: "#FCFCFC",
+      },
+      primary: {
+        main: "#0794EB",
+      },
+    },
+    typography: {
+      fontFamily : direction === 'ltr' ? `"Nunito", sans-serif` : `Hacen Tunisia`,
+      mainContent: {
+        width: "100%",
+        minHeight: "calc(100vh - 88px)",
+        flexGrow: 1,
+      },
+    },
+  } , arSA);
+
   return (
     <StyledEngineProvider injectFirst>
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <NavigationOnScroll>
-          <Routes>
-            <Route path="/" element={<Login />} />
-            <Route path="dashboard" element={<MainLayout />}>
-              <Route path="quizzes">
-                <Route path="all" element={<AllQuiz />} />
+          <RTL>
+            <Routes>
+              <Route path="/" element={<Login />} />
+              <Route path="dashboard" element={<MainLayout />}>
+                <Route path="quizzes">
+                  <Route path="all" element={<AllQuiz />} />
+                </Route>
+                <Route path="questions">
+                  <Route path="create" element={<CreateQuestion />} />
+                  <Route path="all" element={<QuestionsList />} />
+                </Route>
+                <Route path="default" element={<Dashboard />} />
+                <Route path="students">
+                  <Route path="all" element={<StudentList />} />
+                  <Route path="new-enroll" element={<NewEnroll />} />
+                  <Route path="all-enrolled" element={<EnrolledStudents />} />
+                </Route>
+                <Route path="courses">
+                  <Route path="all" element={<CourseList />} />
+                  <Route path="create" element={<CreateCourse />} />
+                </Route>
+                <Route path="accounts">
+                  <Route path="create" element={<CreateAccount />} />
+                  <Route path="all" element={<AllAccounts />} />
+                </Route>
+                <Route path="categories">
+                  <Route path="all" element={<Categories />} />
+                  <Route path="create" element={<CreateCategroy />} />
+                </Route>
+                <Route path="news">
+                  <Route path="all" element={<News />} />
+                  <Route path="create" element={<CreateNews />} />
+                </Route>
+                <Route path="activationCode" element={<ActivationCode />} />
               </Route>
-              <Route path="questions">
-                <Route path="create" element={<CreateQuestion />} />
-                <Route path="all" element={<QuestionsList />} />
+              <Route path="statistics">
+                <Route path="reset" element={<ResetPage />} />
               </Route>
-              <Route path="default" element={<Dashboard />} />
-              <Route path="students">
-                <Route path="all" element={<StudentList />} />
-                <Route path="new-enroll" element={<NewEnroll />} />
-                <Route path="all-enrolled" element={<EnrolledStudents />} />
+              <Route path="details" element={<MinimalLayout />}>
+                <Route path="course/:course_id" element={<CourseDetails />} />
+                <Route path="category/:category_id" element={<CategoryDetails />} />
+                <Route path="news/:news_id" element={<NewsDetails />} />
+                <Route path="question/:question_id" element={<QuestionDetails />} />
+                <Route path="quiz/:quiz_id" element={<QuizDetials />} />
               </Route>
-              <Route path="courses">
-                <Route path="all" element={<CourseList />} />
-                <Route path="create" element={<CreateCourse />} />
-              </Route>
-              <Route path="accounts">
-                <Route path="create" element={<CreateAccount />} />
-                <Route path="all" element={<AllAccounts />} />
-              </Route>
-              <Route path="categories">
-                <Route path="all" element={<Categories />} />
-                <Route path="create" element={<CreateCategroy />} />
-              </Route>
-              <Route path="news">
-                <Route path="all" element={<News />} />
-                <Route path="create" element={<CreateNews />} />
-              </Route>
-              <Route path="activationCode" element={<ActivationCode />} />
-            </Route>
-            <Route path="statistics">
-              <Route path="reset" element={<ResetPage />} />
-            </Route>
-            <Route path="details" element={<MinimalLayout />}>
-              <Route path="course/:course_id" element={<CourseDetails />} />
-              <Route path="category/:category_id" element={<CategoryDetails />} />
-              <Route path="news/:news_id" element={<NewsDetails />} />
-              <Route path="question/:question_id" element={<QuestionDetails />} />
-              <Route path="quiz/:quiz_id" element={<QuizDetials />} />
-            </Route>
-          </Routes>
+            </Routes>
+          </RTL>
         </NavigationOnScroll>
       </ThemeProvider>
     </StyledEngineProvider>

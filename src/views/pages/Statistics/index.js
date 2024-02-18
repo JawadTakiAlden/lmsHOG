@@ -4,13 +4,14 @@ import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, D
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router'
 import useResetStatistics from '../../../api/useResetStatistics'
+import { useTranslation } from 'react-i18next'
 
 const ResetPage = () => {
     const navigate = useNavigate()
     const resetStatistics = useResetStatistics()
     const [open, setOpen] = useState(false);
     const [resetConfiramtionMessage , setResetConfiramtionMessage] = useState("")
-  
+    const {t} = useTranslation()
     const handleClickOpen = () => {
       setOpen(true);
     };
@@ -31,9 +32,14 @@ const ResetPage = () => {
             <Typography variant='h4' sx={{
                 mb : 2
             }}>
-                Statistics Reset Page
+                {t('reset.h1')}
             </Typography>
-
+            <Typography variant='h5' sx={{
+                mb : 2
+            }}>
+                {t('reset.h2')}
+            </Typography>
+            
             <List
                 sx={{
                     mb : 2
@@ -44,7 +50,7 @@ const ResetPage = () => {
                         <InfoOutlined />
                     </ListItemIcon>
                     <ListItemText>
-                        when you reset statistics all activation code will be deleted
+                    {t('reset.list.1')}
                     </ListItemText>
                 </ListItem>
                 <ListItem>
@@ -52,7 +58,7 @@ const ResetPage = () => {
                         <InfoOutlined />
                     </ListItemIcon>
                     <ListItemText>
-                        when you reset statistics all inrollemnt in any course will be deleted
+                    {t('reset.list.2')}
                     </ListItemText>
                 </ListItem>
             </List>
@@ -66,7 +72,7 @@ const ResetPage = () => {
                     mb : 2
                 }}
             >
-                take care , when you press on reset will show confirmation popup after you reset you can't go back
+                {t('reset.note')}
             </Typography>
             <Box
                 sx={{
@@ -81,7 +87,7 @@ const ResetPage = () => {
                 variant='contained'
                 onClick={handleClickOpen}
                 >
-                    Reset
+                    {t('reset.reset_btn')}
                 </Button>
             </Box>
         </Box>
@@ -96,11 +102,10 @@ const ResetPage = () => {
           },
         }}
       >
-        <DialogTitle>Reset Statistics Confirmation</DialogTitle>
+        <DialogTitle>{t('reset.dialog.title')}</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            take care about this process , this action can't be undone and all mentioned data will be deleted,
-            <br/> write "i am sure" to confirm delete
+          {t('reset.dialog.text')}
           </DialogContentText>
           <TextField
             autoFocus
@@ -108,21 +113,21 @@ const ResetPage = () => {
             margin="dense"
             onChange={(e) => setResetConfiramtionMessage(e.target.value)}
             value={resetConfiramtionMessage}
-            label={"I am Sure"}
+            label= {t('reset.dialog.input_label')}
             type="text"
             fullWidth
             variant="standard"
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
+          <Button onClick={handleClose}>{t('reset.dialog.cancel_btn')}</Button>
           <LoadingButton
             color="error"
-            disabled={resetConfiramtionMessage !== "i am sure"}
+            disabled={resetConfiramtionMessage !== t('reset.dialog.input_label')}
             loading={resetStatistics.isPending}
             type="submit"
           >
-            Reset
+            {t('reset.dialog.reset_btn')}
           </LoadingButton>
         </DialogActions>
       </Dialog>

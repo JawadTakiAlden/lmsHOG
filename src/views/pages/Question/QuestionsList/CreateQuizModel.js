@@ -19,17 +19,17 @@ import { Formik } from "formik";
 import React from "react";
 import useCreateQuiz from "../../../../api/useCreateQuiz";
 import * as yup from 'yup'
+import { useTranslation } from "react-i18next";
 
 const CreateQuizModel = ({ open, handleClose, table }) => {
   const createQuiz = useCreateQuiz();
+  const {t} = useTranslation()
   return (
     <Dialog open={open} onClose={handleClose}>
-      <DialogTitle>Create New Quiz</DialogTitle>
+      <DialogTitle> {t('quizzes.create_quiz_mode.title')}</DialogTitle>
       <DialogContent>
         <DialogContentText>
-          All selected questions will be in quiz with visibility on , if you
-          want to create some question's visibility off you should make that
-          from quiz details page
+          {t('quizzes.create_quiz_mode.text')}
         </DialogContentText>
         <Formik
           onSubmit={(values) => {
@@ -62,10 +62,10 @@ const CreateQuizModel = ({ open, handleClose, table }) => {
           }) => (
             <form onSubmit={handleSubmit}>
               <FormControl sx={{ mb: 2, mt: 2 }} fullWidth>
-                <InputLabel>Quiz Title</InputLabel>
+                <InputLabel> {t('quizzes.create_quiz_mode.labels.title')}</InputLabel>
                 <OutlinedInput
                   type="text"
-                  label="Quiz Title"
+                  label={t('quizzes.create_quiz_mode.labels.title')}
                   name="title"
                   required
                   onChange={handleChange}
@@ -78,10 +78,10 @@ const CreateQuizModel = ({ open, handleClose, table }) => {
                 )}
               </FormControl>
               <FormControl fullWidth sx={{ mb: 2 }}>
-                <InputLabel>Description</InputLabel>
+                <InputLabel>{t('quizzes.create_quiz_mode.labels.description')}</InputLabel>
                 <OutlinedInput
                   type="text"
-                  label="Description"
+                  label={t('quizzes.create_quiz_mode.labels.description')}
                   name="description"
                   onChange={handleChange}
                   value={values.description}
@@ -94,7 +94,7 @@ const CreateQuizModel = ({ open, handleClose, table }) => {
               </FormControl>
               <FormControlLabel
                 sx={{ mb: 2 }}
-                label="Initial Visibility Of All Question Inside Quiz"
+                label={t('quizzes.create_quiz_mode.labels.is_visible')}
                 name="is_visible"
                 onChange={handleChange}
                 checked={values.is_visible}
@@ -115,7 +115,7 @@ const CreateQuizModel = ({ open, handleClose, table }) => {
                   startIcon={<CreateOutlined />}
                   loading={createQuiz.isPending}
                 >
-                  Create
+                  {t('quizzes.create_quiz_mode.labels.create_btn')}
                 </LoadingButton>
                 {/* <Button color="warning" onClick={handleReset}>
                       Reset
@@ -132,7 +132,7 @@ const CreateQuizModel = ({ open, handleClose, table }) => {
           variant="outlined"
           startIcon={<CancelOutlined />}
         >
-          Cancel
+         {t('quizzes.create_quiz_mode.labels.cancel_btn')}
         </Button>
       </DialogActions>
     </Dialog>

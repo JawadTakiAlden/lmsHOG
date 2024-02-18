@@ -4,11 +4,12 @@ import {
   Box,
   Button,
   CircularProgress,
+  IconButton,
   Typography,
   useTheme,
 } from "@mui/material";
 import React from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import useShowCourseDetails from "../../../../api/useShowCourseDetails";
 import Tab from "@mui/material/Tab";
 import TabContext from "@mui/lab/TabContext";
@@ -19,14 +20,17 @@ import EditTab from "./EditTab";
 import DeleteTab from "./DeleteTab";
 import StudentTab from "./StudentTab";
 import ValuesOfCourseTab from "./ValuesOfCourseTab";
+import { useTranslation } from "react-i18next";
 
 const CourseDetails = () => {
   const { course_id } = useParams();
   const courseDetails = useShowCourseDetails({ course_id });
   const [value, setValue] = React.useState("1");
+  const {t} = useTranslation()
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+  const navigate = useNavigate()
   const theme = useTheme();
   if (courseDetails.isLoading) {
     return (
@@ -64,24 +68,10 @@ const CourseDetails = () => {
           top: courseDetails.isRefetching ? "30px" : "-100%",
         }}
       />
-      <Typography
-        sx={{
-          color: "#8D8D8D",
-          textDecoration: "none",
-          fontWeight: "400",
-          fontSize: "24px",
-          display: "flex",
-          alignItems: "center",
-          gap: 2,
-          width: "fit-content",
-          mb: 3,
-        }}
-        component={Link}
-        to={-1}
-      >
+      <IconButton onClick={() => navigate(-1)}>
         <ArrowBack />
-        back
-      </Typography>
+      </IconButton>
+      
       <Box
         sx={{
           mb: 3,
@@ -99,7 +89,7 @@ const CourseDetails = () => {
             mb: 1,
           }}
         >
-          Course Details
+          {t('courses.detaisl.h1')}
         </Typography>
         <Typography
           sx={{
@@ -111,7 +101,7 @@ const CourseDetails = () => {
             width: "fit-content",
           }}
         >
-          Course | Course Details
+          {t('courses.detaisl.h2')}
         </Typography>
       </Box>
 
@@ -160,11 +150,11 @@ const CourseDetails = () => {
       <TabContext value={value}>
         <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
           <TabList onChange={handleChange} aria-label="lab API tabs example">
-            <Tab label="Details" value="1" />
-            <Tab label="Editing" value="2" />
-            <Tab label="Delete" value="3" />
-            <Tab label="Students" value="4" />
-            <Tab label="Values" value="5" />
+            <Tab label={t('courses.detaisl.tabs.1')} value="1" />
+            <Tab label={t('courses.detaisl.tabs.2')}  value="2" />
+            <Tab label={t('courses.detaisl.tabs.3')}  value="3" />
+            <Tab label={t('courses.detaisl.tabs.4')}  value="4" />
+            <Tab label={t('courses.detaisl.tabs.5')}  value="5" />
           </TabList>
         </Box>
         <TabPanel value="1"><DetailsTab data={courseDetails?.data?.data?.data} courseDetails={courseDetails} /></TabPanel>

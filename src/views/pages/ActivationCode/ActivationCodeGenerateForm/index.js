@@ -21,17 +21,8 @@ import useGetCourses from "../../../../api/useGetCourses";
 import { LoadingButton } from "@mui/lab";
 import { NoteAddOutlined } from "@mui/icons-material";
 import useGenerateActivationCode from "../../../../api/useGenerateActivationCode";
+import { useTranslation } from "react-i18next";
 
-const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
-const MenuProps = {
-  PaperProps: {
-    style: {
-      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-      width: 250,
-    },
-  },
-};
 
 
 function getStyles(id, courses, theme) {
@@ -47,6 +38,7 @@ function getStyles(id, courses, theme) {
 const ActivationCodeGenerateForm = () => {
   const courses = useGetCourses();
   const theme =  useTheme()
+  const {t} = useTranslation()
   const generateCodes = useGenerateActivationCode();
   const handelGenerate = (values) => {
     generateCodes.callFuntion(values);
@@ -84,19 +76,19 @@ const ActivationCodeGenerateForm = () => {
             <Grid container spacing={gridSpacing}>
               <Grid item xs={12} sm={6}>
                 <FormControl fullWidth>
-                  <InputLabel>Code Type</InputLabel>
+                  <InputLabel>{t('activation_codes.generate.labels.type')}</InputLabel>
                   <Select
                     name="type"
                     onChange={handleChange}
                     onBlur={handleBlur}
                     value={values.type}
                     error={touched.type && errors.type}
-                    label={"Code Type"}
+                    label={t('activation_codes.generate.labels.type')}
                   >
-                    <MenuItem value={"single"}>single</MenuItem>
-                    <MenuItem value={"shared"}>shared</MenuItem>
+                    <MenuItem value={"single"}>{t('activation_codes.generate.labels.type_options.single')}</MenuItem>
+                    <MenuItem value={"shared"}>{t('activation_codes.generate.labels.type_options.shared')}</MenuItem>
                     <MenuItem value={"shared_selected"}>
-                      shared selected
+                    {t('activation_codes.generate.labels.type_options.shared_selected')}
                     </MenuItem>
                   </Select>
                   {touched.type && errors.type && (
@@ -106,10 +98,10 @@ const ActivationCodeGenerateForm = () => {
               </Grid>
               <Grid item xs={12} sm={6}>
                 <FormControl fullWidth>
-                  <InputLabel>Quantity</InputLabel>
+                  <InputLabel>{t('activation_codes.generate.labels.quantity')}</InputLabel>
                   <OutlinedInput
                     type="number"
-                    label="Quantity"
+                    label={t('activation_codes.generate.labels.quantity')}
                     name="quantity"
                     onChange={handleChange}
                     value={values.quantity}
@@ -128,10 +120,10 @@ const ActivationCodeGenerateForm = () => {
               {values.type === "shared_selected" ? (
                 <Grid item xs={12} sm={6}>
                   <FormControl fullWidth>
-                    <InputLabel>Number Of Courses</InputLabel>
+                    <InputLabel>{t('activation_codes.generate.labels.num_of_courses')}</InputLabel>
                     <OutlinedInput
                       type="number"
-                      label="Number Of Courses"
+                      label={t('activation_codes.generate.labels.num_of_courses')}
                       name="number_of_courses"
                       onChange={handleChange}
                       fullWidth
@@ -155,7 +147,7 @@ const ActivationCodeGenerateForm = () => {
               {values.type === "single" ? (
                 <Grid item xs={12} sm={6}>
                   <FormControl fullWidth>
-                    <InputLabel>Courses</InputLabel>
+                    <InputLabel>{t('activation_codes.generate.labels.courses')}</InputLabel>
                     <Select
                       fullWidth
                       value={values.courses}
@@ -163,7 +155,7 @@ const ActivationCodeGenerateForm = () => {
                       onChange={(event) => {
                         setFieldValue("courses", [event.target.value]);
                       }}
-                      input={<OutlinedInput label="Courses" />}
+                      input={<OutlinedInput label={t('activation_codes.generate.labels.courses')} />}
                     >
                       {courses.isLoading ? (
                         <Box
@@ -184,13 +176,13 @@ const ActivationCodeGenerateForm = () => {
                           }}
                         >
                           <Button color="warning" variant="outlined">
-                            Refetch
+                          {t('activation_codes.generate.labels.refetch_btn')}
                           </Button>
                         </Box>
                       ) : courses?.data?.data?.data.length === 0 ? (
                         <ListItemText
                           sx={{ textAlign: "center" }}
-                          primary={"No Courses To Select"}
+                          primary={t('activation_codes.generate.labels.no_courses_text')}
                         />
                       ) : (
                         courses?.data?.data?.data.map((course) => {
@@ -212,7 +204,7 @@ const ActivationCodeGenerateForm = () => {
               {values.type === "shared" ? (
                 <Grid item xs={12} sm={6}>
                   <FormControl fullWidth>
-                    <InputLabel>Courses</InputLabel>
+                    <InputLabel>{t('activation_codes.generate.labels.courses')}</InputLabel>
                     <Select
                       fullWidth
                       value={values.courses}
@@ -227,7 +219,7 @@ const ActivationCodeGenerateForm = () => {
                         );
                         setFieldValue("courses", [event.target.value]);
                       }}
-                      input={<OutlinedInput label="Courses" />}
+                      input={<OutlinedInput label={t('activation_codes.generate.labels.courses')} />}
                     >
                       {courses.isLoading ? (
                         <Box
@@ -248,13 +240,13 @@ const ActivationCodeGenerateForm = () => {
                           }}
                         >
                           <Button color="warning" variant="outlined">
-                            Refetch
+                          {t('activation_codes.generate.labels.refetch_btn')}
                           </Button>
                         </Box>
                       ) : courses?.data?.data?.data.length === 0 ? (
                         <ListItemText
                           sx={{ textAlign: "center" }}
-                          primary={"No Courses To Select"}
+                          primary={t('activation_codes.generate.labels.no_courses_text')}
                         />
                       ) : (
                         courses?.data?.data?.data.map((course) => {
@@ -293,10 +285,11 @@ const ActivationCodeGenerateForm = () => {
                     startIcon={<NoteAddOutlined />}
                     loading={generateCodes.isPending}
                   >
-                    Save
+                    {t('activation_codes.generate.labels.create_btn')}
                   </LoadingButton>
-                  <Button color="warning" onClick={handleReset}>
-                    Reset
+                  <Button color="warning" variant="outlined"
+                    size="large" onClick={handleReset}>
+                    {t('activation_codes.generate.labels.reset_btn')}
                   </Button>
                 </Box>
               </Grid>
@@ -310,16 +303,6 @@ const ActivationCodeGenerateForm = () => {
 
 const validationSchema = yup.object({
   type: yup.string(),
-  // number_of_courses : yup.number().when('type', {
-  //     is: (val) => val === 'shared_selected',
-  //     then: yup().number().min(1),
-  //     otherwise: yup.number()
-  // }),
-  // courses : yup.array().when('type' , {
-  //     is  : (val) => val === 'shared',
-  //     then : yup.array().length(2),
-  //     otherwise : yup.array()
-  // }),
   quantity: yup
     .number()
     .min(1)

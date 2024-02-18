@@ -14,9 +14,11 @@ import * as yup from "yup";
 import { LoadingButton } from "@mui/lab";
 import { SaveOutlined } from "@mui/icons-material";
 import useUpdateCatgeory from "../../../../api/useUpdateCatgeory";
+import { useTranslation } from "react-i18next";
 
 const DetailsTab = ({ data }) => {
   const updateCatgeory = useUpdateCatgeory();
+  const {t} = useTranslation()
   const handelUpdate = (values) => {
     updateCatgeory.callFunction(values);
   };
@@ -44,10 +46,10 @@ const DetailsTab = ({ data }) => {
             <Grid container spacing={1} direction={"column"}>
               <Grid item xs={12}>
                 <FormControl fullWidth sx={{ maxWidth: "500px" }}>
-                  <InputLabel>Category name</InputLabel>
+                  <InputLabel>{t('categories.detail.DetailsTab.labels.name')}</InputLabel>
                   <OutlinedInput
                     type="text"
-                    label="Category name"
+                    label={t('categories.detail.DetailsTab.labels.name')}
                     name="name"
                     onChange={handleChange}
                     value={values.name}
@@ -61,7 +63,7 @@ const DetailsTab = ({ data }) => {
               </Grid>
               <Grid item xs={12}>
                 <FormControlLabel
-                  label="Visibility"
+                  label={t('categories.detail.DetailsTab.labels.is_visible')}
                   control={
                     <Checkbox
                       checked={values.is_visible}
@@ -80,7 +82,7 @@ const DetailsTab = ({ data }) => {
                   startIcon={<SaveOutlined />}
                   loading={updateCatgeory.isPending}
                 >
-                  Save
+                  {t('categories.detail.DetailsTab.labels.save_btn')}
                 </LoadingButton>
               </Grid>
             </Grid>

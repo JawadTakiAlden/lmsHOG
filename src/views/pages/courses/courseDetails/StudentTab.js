@@ -1,17 +1,26 @@
 import React, { useMemo } from 'react'
 import useGetUsersInsideOfCourse from '../../../../api/useGetUsersInsideOfCourse'
 import { MaterialReactTable, useMaterialReactTable } from 'material-react-table'
-import { Grid, IconButton, ListItemIcon, MenuItem, Tooltip } from '@mui/material'
-import { Details, Refresh } from '@mui/icons-material'
+import { Box, IconButton, Tooltip } from '@mui/material'
+import { Refresh } from '@mui/icons-material'
 import TableWrapper from '../../../../components/TableWrapper'
-import { gridSpacing } from '../../../../constant'
+import { useTranslation } from 'react-i18next'
 
 const StudentTab = () => {
+  const {t} = useTranslation()
     const usersInsideOfCourse = useGetUsersInsideOfCourse()
     const columns = useMemo(() => [
         {
             accessorKey: 'full_name',
-            header : 'Course Name'
+            header : t('courses.detaisl.student_tab.labels.full_name')
+        },
+        {
+            accessorKey: 'phone',
+            header : t('courses.detaisl.student_tab.labels.phone')
+        },
+        {
+            accessorFn : (row) => row.is_blocked ? 'True' : 'False',
+            header : t('courses.detaisl.student_tab.labels.is_blocked')
         },
     ] , [])
     const table = useMaterialReactTable({
@@ -19,27 +28,12 @@ const StudentTab = () => {
         columns,
         enableColumnOrdering : true,
         renderTopToolbarCustomActions: () => (
-            <Tooltip arrow title="Refresh Data">
+            <Tooltip arrow title={t('public.table.tooltip.refresh')}>
               <IconButton onClick={() => usersInsideOfCourse.refetch()}>
                 <Refresh />
               </IconButton>
             </Tooltip>
           ),
-          enableRowActions: true,
-    renderRowActionMenuItems: ({ closeMenu , row}) => [
-      <MenuItem
-        key={0}
-        onClick={() => {
-          closeMenu();
-        }}
-        sx={{ m: 0 }}
-      >
-        <ListItemIcon >
-          <Details color='primary' />
-        </ListItemIcon>
-        Show Course
-      </MenuItem>,
-    ],
         muiToolbarAlertBannerProps: usersInsideOfCourse.isError
         ? {
             color: 'error',
@@ -53,13 +47,15 @@ const StudentTab = () => {
           }
     })
   return (
-    <Grid container spacing={gridSpacing} direction={'column'}>
-        <Grid item xs={12}>
-            <TableWrapper>
-                <MaterialReactTable table={table}/>
-            </TableWrapper>
-        </Grid>
-    </Grid>
+    <Box
+      sx={{
+        maxWidth : "100%"
+      }}
+    >
+      <TableWrapper>
+          <MaterialReactTable table={table}/>
+      </TableWrapper>
+    </Box>
   )
 }
 

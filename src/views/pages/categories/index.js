@@ -10,26 +10,28 @@ import TableWrapper from "../../../components/TableWrapper";
 import Swicther from "../../../components/Switcher";
 import useSwitchCatgeoryVisibility from "../../../api/useSwitchCatgeoryVisibility";
 import { useNavigate } from "react-router";
+import { useTranslation } from "react-i18next";
 
 const Categories = () => {
   const categories = useGetCategories();
   const switchermutate = useSwitchCatgeoryVisibility(categories.refetch)
   const navigate = useNavigate()
+  const {t} = useTranslation()
   const columns = useMemo(
     () => [
       {
         accessorKey: "id",
-        header: "ID",
+        header: t('categories.categories_list.headers.id'),
         size: 50,
       },
       {
         accessorKey: "name",
-        header: "Category Name",
+        header: t('categories.categories_list.headers.name'),
         size: 150,
       },
       {
         accessorKey: "is_visible",
-        header: "Visibility",
+        header: t('categories.categories_list.headers.is_visible'),
         Cell: ({ row }) => {
           return (
             <Swicther
@@ -47,7 +49,7 @@ const Categories = () => {
     columns,
     data: categories?.data?.data?.data || [],
     renderTopToolbarCustomActions: () => (
-      <Tooltip arrow title="Refresh Data">
+      <Tooltip arrow title={t('public.table.tooltip.refresh')}>
         <IconButton onClick={categories.refetch}>
           <Refresh />
         </IconButton>
@@ -69,7 +71,7 @@ const Categories = () => {
     enableRowActions : true,
     renderRowActions: ({ row }) => (
       <Box sx={{ display: "flex", gap: "1rem" }}>
-        <Tooltip title="settings">
+        <Tooltip title={t('public.table.tooltip.settings')}>
           <IconButton onClick={() => navigate(`/details/category/${row.original.id}`)}>
             <SettingsOutlined />
           </IconButton>

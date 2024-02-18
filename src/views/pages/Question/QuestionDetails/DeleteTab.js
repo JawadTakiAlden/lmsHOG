@@ -4,10 +4,12 @@ import useDeleteQuestion from '../../../../api/useDeleteQuestion';
 import { LoadingButton } from '@mui/lab';
 import { CancelOutlined, DeleteOutlined } from '@mui/icons-material';
 import Transition from '../../../../components/Transition';
+import { useTranslation } from 'react-i18next';
 
 const DeleteTab = () => {
     const deleteQuestions = useDeleteQuestion()
     const [open, setOpen] = useState(false);
+    const {t} = useTranslation()
   
     const handleClickOpen = () => {
       setOpen(true);
@@ -21,7 +23,6 @@ const DeleteTab = () => {
     <Box
         sx={{
           boxShadow: "inset 1px 1px 10px -6px #888",
-          // borderRadius : '10px',
           overflow: "hidden",
           my: 2,
         }}
@@ -37,7 +38,7 @@ const DeleteTab = () => {
             textAlign: "center",
           }}
         >
-          Dnager Area
+          {t('questions.question_detials.delete_tab.h1')}
         </Typography>
         <Typography
           sx={{
@@ -47,9 +48,7 @@ const DeleteTab = () => {
             mb: 2,
           }}
         >
-          this place is danger you can delete this question from here take care
-          about this action , all data realted with this category will be lost
-          when you delete this category
+         {t('questions.question_detials.delete_tab.desc')}
         </Typography>
         <Box
           sx={{
@@ -59,11 +58,9 @@ const DeleteTab = () => {
             mb: 1,
           }}
         >
-          <Tooltip title={"delete"}>
             <Button onClick={handleClickOpen} color="error" variant="contained">
               Delete
             </Button>
-          </Tooltip>
         </Box>
       </Box>
       <Dialog
@@ -72,15 +69,15 @@ const DeleteTab = () => {
         keepMounted
         onClose={handleClose}
       >
-        <DialogTitle>Delete Choice Confirmation</DialogTitle>
+        <DialogTitle>{t('questions.question_detials.delete_tab.dialog.title')}</DialogTitle>
         <DialogContent>
           <DialogContentText >
-            are you sure that you want to delete this choice , this action can't be undo 
+          {t('questions.question_detials.delete_tab.dialog.text')}
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} color="error" startIcon={<CancelOutlined />} disabled={deleteQuestions.isPending} variant="outlined">Disagree</Button>
-          <LoadingButton startIcon={<DeleteOutlined />} loading={deleteQuestions.isPending} onClick={deleteQuestions.callFuntion}  color="success" variant="contained">Agree</LoadingButton>
+          <Button onClick={handleClose} color="error" startIcon={<CancelOutlined />} disabled={deleteQuestions.isPending} variant="outlined">{t('questions.question_detials.delete_tab.cancel_btn')}</Button>
+          <LoadingButton  loading={deleteQuestions.isPending} onClick={deleteQuestions.callFuntion}  color="error" variant="contained">{t('questions.question_detials.delete_tab.delete_btn')}</LoadingButton>
         </DialogActions>
       </Dialog>
     </>

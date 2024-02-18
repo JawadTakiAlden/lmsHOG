@@ -15,10 +15,12 @@ import {
 import React, { Fragment, useState } from "react";
 import useDeleteValue from "../../../../api/useDeleteValue";
 import { LoadingButton } from "@mui/lab";
+import { useTranslation } from "react-i18next";
 
 const ValueCard = ({ value }) => {
   const [open, setOpen] = useState(false);
   const theme = useTheme();
+  const {t} = useTranslation()
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
   const handleClickOpen = () => {
     setOpen(true);
@@ -62,19 +64,19 @@ const ValueCard = ({ value }) => {
         onClose={handleClose}
       >
         <DialogTitle>
-          Delete Confiramtion
+          {t('courses.detaisl.values_tab.value_card.dialog.title')}
         </DialogTitle>
         <DialogContent>
           <DialogContentText>
-            are you sure that you agree to delete this value from course values , this action can't be undo
+          {t('courses.detaisl.values_tab.value_card.dialog.desc')}
           </DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button autoFocus disabled={deleteValue.isPending} variant="outlined" color="error" onClick={handleClose}>
-            Disagree
+          {t('courses.detaisl.values_tab.value_card.dialog.cancel_btn')}
           </Button>
           <LoadingButton loading={deleteValue.isPending} onClick={() => deleteValue.callFuntion()} variant="contained" color="primary" autoFocus>
-            Agree
+          {t('courses.detaisl.values_tab.value_card.dialog.accept_btn')}
           </LoadingButton>
         </DialogActions>
       </Dialog>

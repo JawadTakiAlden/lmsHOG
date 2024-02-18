@@ -15,23 +15,37 @@ import { CreateOutlined, ImageOutlined } from "@mui/icons-material";
 import VisuallyHiddenInput from "../../../../components/VisuallyHiddenInput/VisuallyHiddenInput";
 import useCreateQuestion from "../../../../api/useCreateQuestion";
 import * as yup from "yup";
+import filterObjectFromNullValues from "../../../../utils/filterObjectFromNullValues";
+import { useTranslation } from "react-i18next";
 
 const CreateQuestion = () => {
   const createQuestion = useCreateQuestion();
+  const {t} = useTranslation()
 
   const createQuestionHandler = (values) => {
-    createQuestion.callFuntion(values)
+    createQuestion.callFuntion(filterObjectFromNullValues(values));
   };
   return (
     <Box>
       <Formik
         onSubmit={createQuestionHandler}
-        validationSchema={yup.object({})}
+        validationSchema={yup.object({
+          title: yup.string().when("image", {
+            is: null,
+            then: (schema) => schema.required("title is required "),
+          }),
+          clarification_text: yup.string().when("clarification_image", {
+            is: null,
+            then: (schema) => schema.required("clarification is required "),
+          }),
+          image: yup.mixed().nullable(),
+          clarification_image: yup.mixed().nullable(),
+        })}
         initialValues={{
-          title: "",
-          image: "",
-          clarification_text: "",
-          clarification_image: "",
+          title: '',
+          image: null,
+          clarification_text: '',
+          clarification_image: null,
         }}
       >
         {({
@@ -48,10 +62,10 @@ const CreateQuestion = () => {
             <Grid container spacing={gridSpacing}>
               <Grid item xs={12} sm={6}>
                 <FormControl fullWidth>
-                  <InputLabel>Question Title</InputLabel>
+                  <InputLabel>{t('questions.create_question.labels.title')}</InputLabel>
                   <OutlinedInput
                     type="text"
-                    label="Question Title"
+                    label={t('questions.create_question.labels.title')}
                     name="title"
                     onChange={handleChange}
                     value={values.title}
@@ -70,15 +84,20 @@ const CreateQuestion = () => {
                     variant="contained"
                     startIcon={<ImageOutlined />}
                   >
-                    Title Image
+                    {t('questions.create_question.labels.image')}
                     <VisuallyHiddenInput
                       type="file"
+                      onBlur={handleBlur}
+                      name="image"
                       accept="image/png , image/jpg , image/jpeg"
                       onChangeCapture={(e) => {
                         setFieldValue("image", e.target.files[0]);
                       }}
                     />
                   </Button>
+                  {touched.image && errors.image && (
+                    <FormHelperText error>{errors.image}</FormHelperText>
+                  )}
                 </FormControl>
               </Grid>
               {values.image ? (
@@ -97,7 +116,10 @@ const CreateQuestion = () => {
                       alt="clarification"
                       style={{
                         objectFit: "fill",
-                        maxWidth : '100%'
+                        width: "100%",
+                        maxHeight: "300px",
+                        maxWidth: "500px",
+                        cursor: "pointer",
                       }}
                     />
                   </Box>
@@ -105,10 +127,10 @@ const CreateQuestion = () => {
               ) : undefined}
               <Grid item xs={12} sm={6}>
                 <FormControl fullWidth>
-                  <InputLabel>Clarification</InputLabel>
+                  <InputLabel>{t('questions.create_question.labels.clarification_text')}</InputLabel>
                   <OutlinedInput
                     type="text"
-                    label="Clarification"
+                    label={t('questions.create_question.labels.clarification_text')}
                     name="clarification_text"
                     onChange={handleChange}
                     value={values.clarification_text}
@@ -131,9 +153,11 @@ const CreateQuestion = () => {
                     variant="contained"
                     startIcon={<ImageOutlined />}
                   >
-                    Clarification Image
+                    {t('questions.create_question.labels.clarification_image')}
                     <VisuallyHiddenInput
                       type="file"
+                      onBlur={handleBlur}
+                      name="clarification_image"
                       accept="image/png , image/jpg , image/jpeg"
                       onChangeCapture={(e) => {
                         setFieldValue("clarification_image", e.target.files[0]);
@@ -161,6 +185,10 @@ const CreateQuestion = () => {
                       alt="clarification"
                       style={{
                         objectFit: "fill",
+                        width: "100%",
+                        maxHeight: "300px",
+                        maxWidth: "500px",
+                        cursor: "pointer",
                       }}
                     />
                   </Box>
@@ -182,10 +210,10 @@ const CreateQuestion = () => {
                 loading={createQuestion.isPending}
                 startIcon={<CreateOutlined />}
               >
-                Create
+                {t('questions.create_question.labels.create_btn')}
               </LoadingButton>
-              <Button onClick={handleReset} color="error" variant="outlined">
-                Reset
+              <Button onClick={handleReset} color="warning" variant="outlined">
+              {t('questions.create_question.labels.reset_btn')}
               </Button>
             </Box>
           </form>

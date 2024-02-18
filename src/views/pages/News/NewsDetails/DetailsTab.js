@@ -16,10 +16,12 @@ import React, { useState } from "react";
 import * as yup from "yup";
 import useUpdateNews from "../../../../api/useUpdateNews";
 import VisuallyHiddenInput from "../../../../components/VisuallyHiddenInput/VisuallyHiddenInput";
+import { useTranslation } from "react-i18next";
 
 const DetailsTab = ({ data }) => {
   const [news , ] = useState(data)
   const updateNews = useUpdateNews();
+  const {t} = useTranslation()
   const handelUpdate = (values) => {
     updateNews.callFunction(values);
   };
@@ -65,10 +67,10 @@ const DetailsTab = ({ data }) => {
             </Grid>
             <Grid item xs={12}>
               <FormControl fullWidth sx={{ maxWidth: "500px" }}>
-                <InputLabel>Title</InputLabel>
+                <InputLabel>{t('news.detail.DetailsTab.labels.title')}</InputLabel>
                 <OutlinedInput
                   type="text"
-                  label="Title"
+                  label={t('news.detail.DetailsTab.labels.title')}
                   name="title"
                   onChange={handleChange}
                   value={values.title}
@@ -82,13 +84,13 @@ const DetailsTab = ({ data }) => {
             </Grid>
             <Grid item xs={12}>
               <FormControl fullWidth sx={{ maxWidth: "500px" }}>
-                <InputLabel>Position</InputLabel>
+                <InputLabel>{t('news.detail.DetailsTab.labels.position')}</InputLabel>
                 <OutlinedInput
                   type="number"
                   inputProps={{
                     min: 0,
                   }}
-                  label="Position"
+                  label={t('news.detail.DetailsTab.labels.position')}
                   name="position"
                   onChange={handleChange}
                   value={values.position}
@@ -103,7 +105,7 @@ const DetailsTab = ({ data }) => {
             
             <Grid item xs={12}>
               <FormControlLabel
-                label="Visibility"
+                label={t('news.detail.DetailsTab.labels.is_visible')}
                 control={
                   <Checkbox
                     checked={values.is_visible}
@@ -120,7 +122,7 @@ const DetailsTab = ({ data }) => {
                   variant="contained"
                   startIcon={<ImageOutlined />}
                 >
-                  Upload Image
+                  {t('news.detail.DetailsTab.labels.image')}
                   <VisuallyHiddenInput
                     type="file"
                     accept="image/png , image/jpg , image/jpeg"
@@ -140,7 +142,7 @@ const DetailsTab = ({ data }) => {
                 startIcon={<SaveOutlined />}
                 loading={updateNews.isPending}
               >
-                Save
+                {t('news.detail.DetailsTab.labels.save_btn')}
               </LoadingButton>
             </Grid>
           </Grid>

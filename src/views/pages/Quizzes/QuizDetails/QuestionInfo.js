@@ -33,9 +33,11 @@ import Transition from "../../../../components/Transition";
 import { LoadingButton } from "@mui/lab";
 import useDeleteQuestionFromQuiz from "../../../../api/useDeleteQuestionFromQuiz";
 import useHideAndShowQuestionsInsideQuiz from "../../../../api/useHideAndShowQuestionsInsideQuiz";
+import { useTranslation } from "react-i18next";
 
 const QuestionInfo = ({ quiz }) => {
   const navigate = useNavigate();
+  const {t} = useTranslation()
   const [open, setOpen] = React.useState(false);
   const hideQuestions = useHideAndShowQuestionsInsideQuiz();
   const showQuestions = useHideAndShowQuestionsInsideQuiz("show");
@@ -52,17 +54,17 @@ const QuestionInfo = ({ quiz }) => {
     () => [
       {
         accessorKey: "id",
-        header: "ID",
+        header: t('quizzes.quiz_details.questions_info.headers.id'),
         size: 50,
       },
       {
         accessorKey: "title",
-        header: "Title",
+        header: t('quizzes.quiz_details.questions_info.headers.title'),
         size: 150,
       },
       {
         accessorKey: "questionQuiz.is_visible",
-        header: "Visiblitiy",
+        header: t('quizzes.quiz_details.questions_info.headers.is_visible'),
         Cell: ({ row }) => {
           return row.original.questionQuiz.is_visible ? (
             <Fab color="primary">
@@ -78,7 +80,7 @@ const QuestionInfo = ({ quiz }) => {
       },
       {
         accessorKey: "image",
-        header: "Title Image",
+        header: t('quizzes.quiz_details.questions_info.headers.image'),
         size: 150,
         Cell: ({ row }) => {
           return (
@@ -118,12 +120,12 @@ const QuestionInfo = ({ quiz }) => {
       },
       {
         accessorKey: "clarification_text",
-        header: "Clarification",
+        header: t('quizzes.quiz_details.questions_info.headers.clarification_text'),
         size: 150,
       },
       {
         accessorKey: "clarification_image",
-        header: "Clarification Image",
+        header: t('quizzes.quiz_details.questions_info.headers.clarification_image'),
         size: 150,
         Cell: ({ row }) => {
           return (
@@ -167,12 +169,12 @@ const QuestionInfo = ({ quiz }) => {
   const choicesColumns = useMemo(() => [
     {
       accessorKey: "title",
-      header: "Choice Title",
+      header: t('quizzes.quiz_details.questions_info.sub_headers.title'),
       size: 150,
     },
     {
       accessorKey: "image",
-      header: "Choice Image",
+      header: t('quizzes.quiz_details.questions_info.sub_headers.image'),
       size: 150,
       Cell: ({ row }) => {
         return (
@@ -212,7 +214,7 @@ const QuestionInfo = ({ quiz }) => {
     },
     {
       accessorKey: "is_true",
-      header: "True",
+      header: t('quizzes.quiz_details.questions_info.sub_headers.is_true'),
       size: 150,
       Cell: ({ row }) => {
         return row.original.is_true ? (
@@ -393,7 +395,7 @@ const QuestionInfo = ({ quiz }) => {
     enableRowActions: true,
     renderRowActions: ({ row }) => (
       <Box sx={{ display: "flex", gap: "1rem" }}>
-        <Tooltip title="settings">
+        <Tooltip title={t('public.table.tooltip.settings')}>
           <IconButton
             onClick={() => navigate(`/details/question/${row.original.id}`)}
           >

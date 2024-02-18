@@ -10,7 +10,14 @@ const useCreateLesion = () => {
         return request({
             url : `/lesions/create`,
             method : 'post',
-            data
+            headers : {
+                'Content-Type': 'multipart/form-data'
+            },
+            data : {
+                ...data,
+                is_visible : +data.is_visible,
+                is_open : +data.is_open
+            }
         })
     }
     const { enqueueSnackbar } = useSnackbar();

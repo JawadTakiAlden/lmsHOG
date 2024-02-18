@@ -2,15 +2,16 @@ import { TabContext, TabList, TabPanel } from "@mui/lab";
 import { Box, Tab } from "@mui/material";
 import React from "react";
 import DetailsTab from "./DetailsTab";
-import EditTab from "./EditTab";
 import DeleteTab from "./DeleteTab";
 import useShowCategoryDetails from "../../../../api/useShowCategoryDetails";
 import { useParams } from "react-router";
 import { ClipLoader } from "react-spinners";
+import { useTranslation } from "react-i18next";
 
 const CategoryDetails = () => {
   const [value, setValue] = React.useState("1");
   const { category_id } = useParams();
+  const {t} = useTranslation()
   const categoryDetails = useShowCategoryDetails({ category_id });
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -39,8 +40,8 @@ const CategoryDetails = () => {
     <TabContext value={value}>
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
         <TabList onChange={handleChange} aria-label="lab API tabs example">
-          <Tab label="Update" value="1" />
-          <Tab label="Delete" value="2" />
+          <Tab label={t('categories.detail.tabs.1')} value="1" />
+          <Tab label={t('categories.detail.tabs.2')} value="2" />
         </TabList>
       </Box>
       <TabPanel value="1">

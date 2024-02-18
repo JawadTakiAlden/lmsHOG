@@ -2,8 +2,10 @@ import React from 'react'
 import { Divider, Typography } from '@mui/material'
 import CardWrapper from '../../../../components/CardWrapper'
 import EnrollForm from './EnrollForm'
+import { useTranslation } from 'react-i18next'
 
 const NewEnroll = () => {
+  const {t} = useTranslation()
   return (
     <CardWrapper>
         <Typography
@@ -19,7 +21,7 @@ const NewEnroll = () => {
                 mb : 2
             }}
         >
-            Required Information
+            {t('students.new_enroll.requried')}
         </Typography>
         <Divider />
         <EnrollForm />

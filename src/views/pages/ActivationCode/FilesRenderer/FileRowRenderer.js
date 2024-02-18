@@ -4,10 +4,12 @@ import useDeleteFile from '../../../../api/useDeleteFile'
 import { Box, Typography } from '@mui/material'
 import { CloudDownload, DeleteOutlined, FileCopyOutlined } from '@mui/icons-material'
 import { LoadingButton } from '@mui/lab'
+import { useTranslation } from 'react-i18next'
 
 const FileRowRenderer = ({file}) => {
     const downloadFile = useDownloadFile()
     const deleteFile = useDeleteFile()
+    const {t} = useTranslation()
   return (
     <Box
             key={file.id}
@@ -57,7 +59,7 @@ const FileRowRenderer = ({file}) => {
           variant="contained"
           color='primary'
         >
-          <span>Download</span>
+          <span>{t('activation_codes.file_renderer.download_btn')}</span>
         </LoadingButton>
         <LoadingButton
           size="small"
@@ -68,7 +70,7 @@ const FileRowRenderer = ({file}) => {
           variant="contained"
           color='error'
         >
-          <span>Delete</span>
+          <span>{t('activation_codes.file_renderer.delete_btn')}</span>
         </LoadingButton>
           </Box>
         </Box>

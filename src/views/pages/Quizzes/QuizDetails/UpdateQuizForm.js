@@ -6,9 +6,11 @@ import React from 'react'
 import * as yup from 'yup'
 import { gridSpacing } from '../../../../constant';
 import useUpdateQuiz from '../../../../api/useUpdateQuiz';
+import { useTranslation } from 'react-i18next';
 
 const UpdateQuizForm = ({quiz}) => {
     const updateQuiz = useUpdateQuiz()
+    const {t} = useTranslation()
   return (
     <Box
         sx={{
@@ -37,7 +39,6 @@ const UpdateQuizForm = ({quiz}) => {
             handleChange,
             handleReset,
             handleSubmit,
-            setFieldValue,
             values,
             touched,
             errors,
@@ -46,10 +47,10 @@ const UpdateQuizForm = ({quiz}) => {
               <Grid container spacing={gridSpacing}>
                 <Grid item xs={12} sm={6}>
                   <FormControl fullWidth>
-                    <InputLabel>Quiz Title</InputLabel>
+                    <InputLabel>{t('quizzes.quiz_details.update_from.labels.title')}</InputLabel>
                     <OutlinedInput
                       type="text"
-                      label="Quiz Title"
+                      label={t('quizzes.quiz_details.update_from.labels.title')}
                       name="title"
                       onChange={handleChange}
                       value={values.title}
@@ -63,10 +64,10 @@ const UpdateQuizForm = ({quiz}) => {
                 </Grid>
                 <Grid item xs={12} sm={6}>
                   <FormControl fullWidth>
-                    <InputLabel>Quiz Description</InputLabel>
+                    <InputLabel>{t('quizzes.quiz_details.update_from.labels.description')}</InputLabel>
                     <OutlinedInput
                       type="text"
-                      label="Quiz Description"
+                      label={t('quizzes.quiz_details.update_from.labels.description')}
                       name="description"
                       onChange={handleChange}
                       value={values.description}
@@ -95,10 +96,10 @@ const UpdateQuizForm = ({quiz}) => {
                       disabled={JSON.stringify(values) === JSON.stringify({title : quiz.title , description : quiz.description})}
                       loading={updateQuiz.isPending}
                     >
-                      Save
+                      {t('quizzes.quiz_details.update_from.labels.save_btn')}
                     </LoadingButton>
                     <Button color="warning" onClick={handleReset}>
-                      Reset
+                    {t('quizzes.quiz_details.update_from.labels.reset_btn')}
                     </Button>
                   </Box>
                 </Grid>

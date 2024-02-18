@@ -24,17 +24,17 @@ import useCreateQuiz from "../../../../api/useCreateQuiz";
 import * as yup from "yup";
 import useGetQuizzes from "../../../../api/useGetQuizzes";
 import useAddQuestionToPreExistingQuiz from "../../../../api/useAddQuestionToPreExistingQuiz";
+import { useTranslation } from "react-i18next";
 const AddToPreExistingQuizModel = ({ open, handleClose, table }) => {
   const createQuiz = useAddQuestionToPreExistingQuiz();
+  const {t} = useTranslation()
   const quizzes = useGetQuizzes()
   return (
     <Dialog open={open} onClose={handleClose}>
-      <DialogTitle>Create New Quiz</DialogTitle>
+      <DialogTitle>{t('quizzes.add_to_pre_existing_model.title')}</DialogTitle>
       <DialogContent>
         <DialogContentText>
-          All selected questions will be in quiz with visibility on , if you
-          want to create some question's visibility off you should make that
-          from quiz details page
+        {t('quizzes.add_to_pre_existing_model.text')}
         </DialogContentText>
         <Formik
           onSubmit={(values) => {
@@ -65,10 +65,10 @@ const AddToPreExistingQuizModel = ({ open, handleClose, table }) => {
           }) => (
             <form onSubmit={handleSubmit}>
               <FormControl sx={{ mb: 2, mt: 2 }} fullWidth>
-                <InputLabel>Quiz</InputLabel>
+                <InputLabel>{t('quizzes.add_to_pre_existing_model.labels.quiz')}</InputLabel>
                 <Select
                   value={values.quiz_id}
-                  label="Quiz"
+                  label={t('quizzes.add_to_pre_existing_model.labels.quiz')}
                   onChange={handleChange}
                   onBlur={handleBlur}
                   name="quiz_id"
@@ -80,7 +80,7 @@ const AddToPreExistingQuizModel = ({ open, handleClose, table }) => {
                             <CircularProgress />
                         </Box>)
                         : quizzes.isError ? (
-                            <Button fullWidth onClick={() => quizzes.refetch}>try agian</Button>
+                            <Button fullWidth onClick={() => quizzes.refetch}>{t('quizzes.add_to_pre_existing_model.labels.refetch_btn')}</Button>
                         )
                         : (
                             quizzes?.data?.data?.data?.map(quiz => (
@@ -95,7 +95,7 @@ const AddToPreExistingQuizModel = ({ open, handleClose, table }) => {
               </FormControl>
               <FormControlLabel
                 sx={{ mb: 2 }}
-                label="Initial Visibility For Questions Added"
+                label={t('quizzes.add_to_pre_existing_model.labels.is_visible')}
                 name="is_visible"
                 onChange={handleChange}
                 checked={values.is_visible}
@@ -116,7 +116,7 @@ const AddToPreExistingQuizModel = ({ open, handleClose, table }) => {
                   startIcon={<CreateOutlined />}
                   loading={createQuiz.isPending}
                 >
-                  Create
+                  {t('quizzes.add_to_pre_existing_model.labels.create_btn')}
                 </LoadingButton>
                 {/* <Button color="warning" onClick={handleReset}>
                         Reset
@@ -133,7 +133,7 @@ const AddToPreExistingQuizModel = ({ open, handleClose, table }) => {
           variant="outlined"
           startIcon={<CancelOutlined />}
         >
-          Cancel
+          {t('quizzes.add_to_pre_existing_model.labels.cancel_btn')}
         </Button>
       </DialogActions>
     </Dialog>

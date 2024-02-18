@@ -1,13 +1,8 @@
 import {
-    Delete,
     DeleteOutlined,
-    EditOutlined,
     InfoOutlined,
-    LockOutlined,
     MoreOutlined,
-    PictureAsPdfOutlined,
     QuizOutlined,
-    VideoFileOutlined,
   } from "@mui/icons-material";
   import { LoadingButton } from "@mui/lab";
   import {
@@ -25,21 +20,18 @@ import {
     ListItemButton,
     ListItemIcon,
     ListItemText,
-    Tooltip,
-    Typography,
-    useTheme,
   } from "@mui/material";
   import React, { useState } from "react";
   import Transition from "../../../../../../../components/BottomTranstion";
-  import useDeleteLesion from "../../../../../../../api/useDeleteLesion";
-  import UpdateLesionForm from "./UpdateLesionForm";
 import { useNavigate } from "react-router";
 import useRemoveQuizFromChapter from "../../../../../../../api/useRemoveQuizFromChapter";
+import { useTranslation } from "react-i18next";
 
 const QuizItem = ({quiz , last}) => {
     const [deleteOpen, setDeleteOpen] = useState(false);
   const [contentOpen, setContentOpen] = useState(false);
   const navigate = useNavigate()
+  const {t} = useTranslation()
 
   const handelContentToggle = () => {
     setContentOpen(prev => !prev);
@@ -91,11 +83,9 @@ const QuizItem = ({quiz , last}) => {
               gap: "10px",
             }}
           >
-            <Tooltip title={"remove"}>
               <IconButton onClick={handelDeleteClick} color="error">
                 <DeleteOutlined />
               </IconButton>
-            </Tooltip>
           </Box>
         </Box>
         <Collapse in={contentOpen}>
@@ -104,25 +94,25 @@ const QuizItem = ({quiz , last}) => {
               <ListItemIcon>
                 <InfoOutlined />
               </ListItemIcon>
-              <ListItemText>Description : {quiz.description || 'no description'}</ListItemText>
+              <ListItemText>{t('courses.detaisl.details_tab.chapter_renderer.chapter_card.lesion_renderer.quiz_item.list.1')} : {quiz.description || 'no description'}</ListItemText>
             </ListItem>
             <ListItem>
               <ListItemIcon>
                 <InfoOutlined />
               </ListItemIcon>
-              <ListItemText>Total Questions : {quiz.number_of_questions}</ListItemText>
+              <ListItemText>{t('courses.detaisl.details_tab.chapter_renderer.chapter_card.lesion_renderer.quiz_item.list.2')} : {quiz.number_of_questions}</ListItemText>
             </ListItem>
             <ListItem>
               <ListItemIcon>
                 <InfoOutlined />
               </ListItemIcon>
-              <ListItemText>Visible Questions : {quiz.number_of_visible_question}</ListItemText>
+              <ListItemText>{t('courses.detaisl.details_tab.chapter_renderer.chapter_card.lesion_renderer.quiz_item.list.3')} : {quiz.number_of_visible_question}</ListItemText>
             </ListItem>
             <ListItem>
               <ListItemIcon>
                 <InfoOutlined />
               </ListItemIcon>
-              <ListItemText>Invisible Questions : {quiz.number_of_invisible_question}</ListItemText>
+              <ListItemText>{t('courses.detaisl.details_tab.chapter_renderer.chapter_card.lesion_renderer.quiz_item.list.4')} : {quiz.number_of_invisible_question}</ListItemText>
             </ListItem>
             <ListItem>
               <ListItemIcon>
@@ -133,7 +123,7 @@ const QuizItem = ({quiz , last}) => {
                     navigate(`/details/quiz/${quiz.id}`)
                 }}
               >
-                See More
+                {t('courses.detaisl.details_tab.chapter_renderer.chapter_card.lesion_renderer.quiz_item.list.5')}
               </ListItemButton>
             </ListItem>
           </List>
@@ -145,10 +135,10 @@ const QuizItem = ({quiz , last}) => {
         keepMounted
         onClose={handelDeleteClose}
       >
-        <DialogTitle>Delete Quiz Confirmtion</DialogTitle>
+        <DialogTitle>{t('courses.detaisl.details_tab.chapter_renderer.chapter_card.lesion_renderer.quiz_item.dialog.title')}</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            are you sure you want to delete this quiz
+          {t('courses.detaisl.details_tab.chapter_renderer.chapter_card.lesion_renderer.quiz_item.dialog.text')}
           </DialogContentText>
         </DialogContent>
         <DialogActions>
@@ -159,7 +149,7 @@ const QuizItem = ({quiz , last}) => {
             variant="outlined"
             sx={{ borderRadius: "12px" }}
           >
-            Cancel
+            {t('courses.detaisl.details_tab.chapter_renderer.chapter_card.lesion_renderer.quiz_item.dialog.cancel_btn')}
           </Button>
           <LoadingButton
             loading={deleteQuizFromChapter.isPending}
@@ -172,7 +162,7 @@ const QuizItem = ({quiz , last}) => {
                 deleteQuizFromChapter.callFunction();
             }}
           >
-            Accept
+            {t('courses.detaisl.details_tab.chapter_renderer.chapter_card.lesion_renderer.quiz_item.dialog.accept_btn')}
           </LoadingButton>
         </DialogActions>
       </Dialog>

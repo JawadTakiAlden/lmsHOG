@@ -16,9 +16,11 @@ import { gridSpacing } from "../../../../../../constant";
 import { LoadingButton } from "@mui/lab";
 import { UpdateOutlined } from "@mui/icons-material";
 import useUpdateChapter from "../../../../../../api/useUpdateChapter";
+import { useTranslation } from "react-i18next";
 
 const UpdateChapterForm = ({ chapter , handelClose }) => {
     const updateChapter = useUpdateChapter()
+    const {t} = useTranslation()
   const handleChapterUpdateSubmit = (values) => {
     updateChapter.callFunction({...values , chapter_id : chapter.id})
   };
@@ -50,7 +52,7 @@ const UpdateChapterForm = ({ chapter , handelClose }) => {
             <Grid container spacing={gridSpacing}>
                 <Grid item xs={12} sm={6}>
                 <FormControl fullWidth>
-                    <InputLabel>Chapter Name</InputLabel>
+                    <InputLabel>{t('courses.detaisl.details_tab.chapter_renderer.chapter_card.update_chapter_form.labels.name')}</InputLabel>
                     <OutlinedInput
                     type="text"
                     label="Chapter Name"
@@ -66,12 +68,13 @@ const UpdateChapterForm = ({ chapter , handelClose }) => {
                 </FormControl>
                 </Grid>
                 <Grid item xs={12} sm={6}>
+                    
                 <FormControlLabel
                     control={<Switch />}
-                    label="Visible"
                     name="is_visible"
                     value={values.is_visible}
-                    onChange={handleChange}
+                    onChange={handleChange} 
+                    label={t('courses.detaisl.details_tab.chapter_renderer.chapter_card.update_chapter_form.labels.is_visible')}
                 />
                 </Grid>
             </Grid>
@@ -91,9 +94,9 @@ const UpdateChapterForm = ({ chapter , handelClose }) => {
                         type="submit"
                         loading={updateChapter.isPending}
                     >
-                        Update
+                        {t('courses.detaisl.details_tab.chapter_renderer.chapter_card.update_chapter_form.labels.update_btn')}
                     </LoadingButton>
-                    <Button color="error" variant="outlined" onClick={handelClose}>Cancel</Button>
+                    <Button color="error" variant="outlined" onClick={handelClose}>{t('courses.detaisl.details_tab.chapter_renderer.chapter_card.update_chapter_form.labels.cancel_btn')}</Button>
                 </Box>
             </form>
         )}

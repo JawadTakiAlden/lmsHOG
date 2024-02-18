@@ -1,7 +1,6 @@
 import React, { useMemo } from 'react'
 import useGetCourses from '../../../../api/useGetCourses'
-import { Box, Grid, IconButton, ListItemIcon, MenuItem, Tooltip, Typography, useTheme } from '@mui/material'
-import { gridSpacing } from '../../../../constant'
+import { Box, IconButton, ListItemIcon, MenuItem, Tooltip, Typography, useTheme } from '@mui/material'
 import {
     MaterialReactTable,
     useMaterialReactTable,
@@ -12,6 +11,7 @@ import useSwitchCourseVisibility from '../../../../api/useSwitchCourseVisibility
 import { Details, Refresh } from '@mui/icons-material';
 import useSwitchOpenOfCourse from '../../../../api/useSwitchOpenOfCourse';
 import { useNavigate } from 'react-router';
+import { useTranslation } from 'react-i18next';
 
 const CourseList = () => {
     const {data , isLoading , isError , error , refetch , isRefetching} = useGetCourses()
@@ -19,14 +19,15 @@ const CourseList = () => {
     const theme = useTheme()
     const switchVisibility = useSwitchCourseVisibility(refetch)
     const switchOpen = useSwitchOpenOfCourse(refetch)
+    const {t} = useTranslation()
     const columns = useMemo(() => [
         {
             accessorKey: 'name',
-            header : 'Course Name'
+            header : t('courses.courses_list.headers.name')
         },
         {
             accessorKey: 'telegram_channel_link',
-            header : 'telegram Channel',
+            header : t('courses.courses_list.headers.name'),
             Cell : ({row}) => {
               return <Typography
                 component={'a'}
@@ -45,7 +46,7 @@ const CourseList = () => {
             accessorFn: (originalRow) => (originalRow.is_open ? 'true' : 'false'),
             id: 'is_open',
             filterVariant: 'checkbox',
-            header : 'Is Free',
+            header : t('courses.courses_list.headers.name'),
             Cell : ({row}) => {
                 return <Swicther originalRow={row.original} switchermutate={switchOpen} checkedAttribute={'is_open'}/>
             }
@@ -54,7 +55,7 @@ const CourseList = () => {
             accessorFn: (originalRow) => (originalRow.is_visible ? 'true' : 'false'), //must be strings
             id: 'is_visible',
             filterVariant: 'checkbox',
-            header : 'Is Visible',
+            header : t('courses.courses_list.headers.name'),
             Cell : ({row}) => {
                 return <Swicther originalRow={row.original} switchermutate={switchVisibility} checkedAttribute={'is_visible'}/>
             }
@@ -84,7 +85,7 @@ const CourseList = () => {
         <ListItemIcon >
           <Details color='primary' />
         </ListItemIcon>
-        Show Course
+        {t('courses.courses_list.table_actions.show_course')}
       </MenuItem>,
     ],
         muiToolbarAlertBannerProps: isError

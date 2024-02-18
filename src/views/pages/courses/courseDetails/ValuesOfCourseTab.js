@@ -8,7 +8,6 @@ import {
   DialogTitle,
   FormControl,
   FormHelperText,
-  IconButton,
   InputLabel,
   OutlinedInput,
   Typography,
@@ -18,12 +17,13 @@ import React, { Fragment, useState } from "react";
 import * as yup from "yup";
 import useCreateNewValue from "../../../../api/useCreateNewValue";
 import { LoadingButton } from "@mui/lab";
-import { DeleteOutlined } from "@mui/icons-material";
 import ValueCard from "./ValueCard";
+import { useTranslation } from "react-i18next";
 
 const ValuesOfCourseTab = ({ course }) => {
   const [open, setOpen] = useState(false);
   const createValue = useCreateNewValue()
+  const {t} = useTranslation()
   const addValueFormik = useFormik({
     initialValues: {
       value: "",
@@ -55,7 +55,7 @@ const ValuesOfCourseTab = ({ course }) => {
           }}
         >
           <Button variant="contained" onClick={handleClickOpen} size="large">
-            Add
+            {t('courses.detaisl.values_tab.buttons.0')}
           </Button>
         </Box>
         {course.values.length === 0 ? (
@@ -68,7 +68,7 @@ const ValuesOfCourseTab = ({ course }) => {
               textTransform: "capitalize",
             }}
           >
-            no values learned from this course
+            {t('courses.detaisl.values_tab.no_values')}
           </Typography>
         ) : undefined}
         {course.values.map((value) => (
@@ -83,17 +83,16 @@ const ValuesOfCourseTab = ({ course }) => {
           onSubmit: addValueFormik.handleSubmit
         }}
       >
-        <DialogTitle>add new value</DialogTitle>
+        <DialogTitle>{t('courses.detaisl.values_tab.dialogs.add_dialog.title')}</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            add value learned from course in the folowing input,you can cancel
-            the operation by clicking away of dialog or on cancel button
+          {t('courses.detaisl.values_tab.dialogs.add_dialog.desc')}
           </DialogContentText>
           <FormControl sx={{mt : 2}} fullWidth>
-            <InputLabel>Vlaue</InputLabel>
+            <InputLabel>{t('courses.detaisl.values_tab.dialogs.add_dialog.input_label')}</InputLabel>
             <OutlinedInput
               type="text"
-              label="Vlaue"
+              label={t('courses.detaisl.values_tab.dialogs.add_dialog.input_label')}
               name="value"
               onChange={addValueFormik.handleChange}
               value={addValueFormik.values.value}
@@ -109,8 +108,8 @@ const ValuesOfCourseTab = ({ course }) => {
           <Button onClick={() => {
             handleClose()
             addValueFormik.handleReset()
-            }} variant="outlined" color="error" disabled={createValue.isPending}>Cancel</Button>
-          <LoadingButton loading={createValue.isPending}  type="submit" variant="contained">Create</LoadingButton>
+            }} variant="outlined" color="error" disabled={createValue.isPending}>{t('courses.detaisl.values_tab.dialogs.add_dialog.input_label')}</Button>
+          <LoadingButton loading={createValue.isPending}  type="submit" variant="contained">{t('courses.detaisl.values_tab.dialogs.add_dialog.cancel_btn')}</LoadingButton>
         </DialogActions>
       </Dialog>
     </Fragment>

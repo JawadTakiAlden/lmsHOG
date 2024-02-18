@@ -10,9 +10,7 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
-  FormControl,
   IconButton,
-  Switch,
   Typography,
 } from "@mui/material";
 import React from "react";
@@ -21,11 +19,13 @@ import useDeleteChoice from "../../../../api/useDeleteChoice";
 import { LoadingButton } from "@mui/lab";
 import useSwicthChoiceVisiblity from "../../../../api/useSwicthChoiceVisiblity";
 import useSwitchTrueStatusOfChoice from "../../../../api/useSwitchTrueStatusOfChoice";
+import { useTranslation } from "react-i18next";
 
 const ChoiceCard = ({ choice, withAction = false }) => {
     const [open, setOpen] = React.useState(false);
     const switchVisibility = useSwicthChoiceVisiblity(choice.id)
     const switchTrueStatus = useSwitchTrueStatusOfChoice(choice.id)
+    const {t} = useTranslation()
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -61,7 +61,7 @@ const ChoiceCard = ({ choice, withAction = false }) => {
                 loading={switchVisibility.isPending}
                 startIcon={choice.is_visible ? <VisibilityOutlined /> : <VisibilityOffOutlined /> }
             >
-                {choice.is_visible ? 'visible' : 'hidied'}
+                {choice.is_visible ? t('questions.question_detials.choice_card.visible') : t('questions.question_detials.choice_card.hidden') }
             </LoadingButton>
             <LoadingButton
                 color={choice.is_true ? 'success' : 'warning'}
@@ -71,7 +71,7 @@ const ChoiceCard = ({ choice, withAction = false }) => {
                 loading={switchTrueStatus.isPending}
                 startIcon={choice.is_true ? <CheckOutlined />   :<X />}
             >
-                {choice.is_true ? 'True' : 'false'}
+                {choice.is_true ? t('questions.question_detials.choice_card.true') : t('questions.question_detials.choice_card.false')}
             </LoadingButton>
             </CardActions>
         )}
@@ -82,15 +82,15 @@ const ChoiceCard = ({ choice, withAction = false }) => {
         keepMounted
         onClose={handleClose}
       >
-        <DialogTitle>Delete Choice Confirmation</DialogTitle>
+        <DialogTitle>{t('questions.question_detials.choice_card.dialog.title')}</DialogTitle>
         <DialogContent>
           <DialogContentText >
-            are you sure that you want to delete this choice , this action can't be undo 
+          {t('questions.question_detials.choice_card.dialog.text')}
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} color="error" startIcon={<CancelOutlined />} disabled={deleteChoice.isPending} variant="outlined">Disagree</Button>
-          <LoadingButton startIcon={<DeleteOutlined />} loading={deleteChoice.isPending} onClick={deleteChoice.callFuntion}  color="success" variant="contained">Agree</LoadingButton>
+          <Button onClick={handleClose} color="error" startIcon={<CancelOutlined />} disabled={deleteChoice.isPending} variant="outlined">{t('questions.question_detials.choice_card.dialog.cancel_btn')}</Button>
+          <LoadingButton startIcon={<DeleteOutlined />} loading={deleteChoice.isPending} onClick={deleteChoice.callFuntion}  color="success" variant="contained">{t('questions.question_detials.choice_card.dialog.accept_btn')}</LoadingButton>
         </DialogActions>
       </Dialog>
     </>

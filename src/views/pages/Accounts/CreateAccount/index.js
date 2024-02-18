@@ -1,9 +1,7 @@
-import { CameraOutlined, CreateOutlined, ImageOutlined, Person } from "@mui/icons-material";
+import { CreateOutlined, ImageOutlined } from "@mui/icons-material";
 import {
   Box,
   Button,
-  Card,
-  CardMedia,
   FormControl,
   FormHelperText,
   InputLabel,
@@ -18,6 +16,7 @@ import VisuallyHiddenInput from "../../../../components/VisuallyHiddenInput/Visu
 import { LoadingButton } from "@mui/lab";
 import useCreateNewAccount from "../../../../api/useCreateNewAccount";
 import Profile from '../../../../assets/images/profile.png'
+import { useTranslation } from "react-i18next";
 
 const initialValues = {
     full_name : '',
@@ -34,7 +33,7 @@ const validationSchema = yup.object({
 });
 
 const CreateAccount = () => {
-
+  const {t} = useTranslation()
   const createAccount = useCreateNewAccount()
   
   const handelCreateAccount = (values) => {
@@ -104,10 +103,10 @@ const CreateAccount = () => {
         <Formik>
           <form onSubmit={handleSubmit}>
             <FormControl fullWidth sx={{ mb: 4 }}>
-              <InputLabel>Ful Name</InputLabel>
+              <InputLabel>{t('accounts.create_account.labels.full_name')}</InputLabel>
               <OutlinedInput
                 type="text"
-                label="Full Name"
+                label={t('accounts.create_account.labels.full_name')}
                 name="full_name"
                 onChange={handleChange}
                 value={values.full_name}
@@ -119,10 +118,10 @@ const CreateAccount = () => {
               )}
             </FormControl>
             <FormControl fullWidth sx={{ mb: 4 }}>
-              <InputLabel>Phone</InputLabel>
+              <InputLabel>{t('accounts.create_account.labels.phone')}</InputLabel>
               <OutlinedInput
                 type="text"
-                label="Phone"
+                label={t('accounts.create_account.labels.phone')}
                 name="phone"
                 onChange={handleChange}
                 value={values.phone}
@@ -134,10 +133,10 @@ const CreateAccount = () => {
               )}
             </FormControl>
             <FormControl fullWidth sx={{ mb: 4 }}>
-              <InputLabel>Password</InputLabel>
+              <InputLabel>{t('accounts.create_account.labels.password')}</InputLabel>
               <OutlinedInput
-                type="text"
-                label="Password"
+                type="password"
+                label={t('accounts.create_account.labels.password')}
                 name="password"
                 onChange={handleChange}
                 value={values.password}
@@ -149,18 +148,18 @@ const CreateAccount = () => {
               )}
             </FormControl>
             <FormControl fullWidth sx={{ mb: 4 }}>
-              <InputLabel>Account Type</InputLabel>
+              <InputLabel>{t('accounts.create_account.labels.type')}</InputLabel>
               <Select
                 name="type"
                 onChange={handleChange}
                 onBlur={handleBlur}
                 value={values.type}
                 error={touched.type && errors.type}
-                label={'Account Type'}
+                label={t('accounts.create_account.labels.type')}
               >
-                <MenuItem value={'student'}>Student</MenuItem>
-                <MenuItem value={'teacher'}>Teacher</MenuItem>
-                <MenuItem value={'admin'}>Admin</MenuItem>
+                <MenuItem value={'student'}>{t('accounts.create_account.labels.type_options.s')}</MenuItem>
+                <MenuItem value={'teacher'}>{t('accounts.create_account.labels.type_options.t')}</MenuItem>
+                <MenuItem value={'admin'}>{t('accounts.create_account.labels.type_options.a')}</MenuItem>
               </Select>
               {touched.type && errors.type && (
                 <FormHelperText error>{errors.type}</FormHelperText>
@@ -168,10 +167,11 @@ const CreateAccount = () => {
             </FormControl>
             <FormControl sx={{ mb: 4 }}>
                 <Button component="label" variant="contained" startIcon={<ImageOutlined />}>
-                    Upload Image
+                {t('accounts.create_account.labels.image')}
                     <VisuallyHiddenInput
                         type="file"
                         accept="image/png , image/jpg , image/jpeg"
+                        name="image"
                         onChange={(e) => {
                             setFieldValue('image',e.target.files[0])
                         }}
@@ -187,7 +187,7 @@ const CreateAccount = () => {
                   startIcon={<CreateOutlined />}
                   variant="contained"
                 >
-                    <span>Create Account</span>
+                    <span>{t('accounts.create_account.labels.create_btn')}</span>
               </LoadingButton>
           </form>
         </Formik>

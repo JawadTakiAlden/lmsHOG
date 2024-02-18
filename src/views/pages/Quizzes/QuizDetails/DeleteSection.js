@@ -3,11 +3,13 @@ import { LoadingButton } from '@mui/lab';
 import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField, Tooltip, Typography } from '@mui/material';
 import React, { useState } from 'react'
 import useDeleteQuiz from '../../../../api/useDeleteQuiz';
+import { useTranslation } from 'react-i18next';
 
 const DeleteSection = ({quiz}) => {
     const deleteQuiz = useDeleteQuiz()
     const [open, setOpen] = useState(false);
     const [quizTitle , setQuizTitle] = useState("")
+    const {t} = useTranslation()
   
     const handleClickOpen = () => {
       setOpen(true);
@@ -21,7 +23,6 @@ const DeleteSection = ({quiz}) => {
     <Box
         sx={{
           boxShadow: "inset 1px 1px 10px -6px #888",
-          // borderRadius : '10px',
           overflow: "hidden",
           my: 2,
         }}
@@ -37,7 +38,7 @@ const DeleteSection = ({quiz}) => {
             textAlign: "center",
           }}
         >
-          Dnager Area
+          {t('quizzes.quiz_details.delete_section.h1')}
         </Typography>
         <Typography
           sx={{
@@ -47,9 +48,7 @@ const DeleteSection = ({quiz}) => {
             mb: 2,
           }}
         >
-          this place is danger you can delete this category from here take care
-          about this action , all data realted with this category will be lost
-          when you delete this category
+          {t('quizzes.quiz_details.delete_section.desc')}
         </Typography>
         <Box
           sx={{
@@ -59,11 +58,9 @@ const DeleteSection = ({quiz}) => {
             mb: 1,
           }}
         >
-          <Tooltip title={"delete"}>
             <Button onClick={handleClickOpen} color="error" variant="contained">
-              Delete
+            {t('quizzes.quiz_details.delete_section.delete_btn')}
             </Button>
-          </Tooltip>
         </Box>
       </Box>
     <Dialog
@@ -77,11 +74,10 @@ const DeleteSection = ({quiz}) => {
           },
         }}
       >
-        <DialogTitle>Delete Quiz {quiz.title}</DialogTitle>
+        <DialogTitle>{t('quizzes.quiz_details.delete_section.dialog.title')} {quiz.title}</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            take care about this process , this action can't be undone and all realated data with this course will be deleted,
-            <br/> write "i am sure" to confirm delete
+          {t('quizzes.quiz_details.delete_section.dialog.text')}
           </DialogContentText>
           <TextField
             autoFocus
@@ -89,22 +85,21 @@ const DeleteSection = ({quiz}) => {
             margin="dense"
             onChange={(e) => setQuizTitle(e.target.value)}
             value={quizTitle}
-            label={"quiz title"}
+            label={t('quizzes.quiz_details.delete_section.dialog.input_label')}
             type="text"
             fullWidth
             variant="standard"
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
+          <Button onClick={handleClose}>{t('quizzes.quiz_details.delete_section.cancel_btn')}</Button>
           <LoadingButton
             color="error"
             disabled={quizTitle !== quiz.title}
             loading={deleteQuiz.isPending}
             type="submit"
-            startIcon={<DeleteOutlined />}
           >
-            Delete
+            {t('quizzes.quiz_details.delete_section.delete_btn')}
           </LoadingButton>
         </DialogActions>
       </Dialog>

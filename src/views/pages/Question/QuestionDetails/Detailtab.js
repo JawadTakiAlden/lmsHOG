@@ -1,23 +1,18 @@
 import {
-  Avatar,
   Box,
-  Button,
   Card,
-  CardActions,
   CardContent,
   CardHeader,
   CardMedia,
   Link,
-  List,
-  ListItemAvatar,
-  ListItemButton,
-  ListItemText,
   Typography,
 } from "@mui/material";
 import React from "react";
 import ChoiceCard from "./ChoiceCard";
+import { useTranslation } from "react-i18next";
 
 const Detailtab = ({ question }) => {
+  const {t} = useTranslation()
   return (
     <Box>
       <Typography
@@ -28,8 +23,8 @@ const Detailtab = ({ question }) => {
           fontSize: "1.2rem",
         }}
       >
-        <span style={{ color: "#09c" }}>title : </span>{" "}
-        {question.title || "untitled"}
+        <span style={{ color: "#09c" }}>{t('questions.question_detials.detials_tab.title')} : </span>{" "}
+        {question.title || t('questions.question_detials.detials_tab.untitle')}
       </Typography>
 
       <Typography
@@ -40,8 +35,8 @@ const Detailtab = ({ question }) => {
           textTransform: "capitalize",
         }}
       >
-        <span style={{ color: "#09c" }}>clarification :</span>{" "}
-        {question.clarification_text || "unclarification"}
+        <span style={{ color: "#09c" }}>{t('questions.question_detials.detials_tab.clarification')} :</span>{" "}
+        {question.clarification_text || "{t('questions.question_detials.detials_tab.unclarification')}"}
       </Typography>
 
       <Box
@@ -55,7 +50,7 @@ const Detailtab = ({ question }) => {
         }}
       >
         <Card sx={{ maxWidth: 345, flex: 1, minWidth: "250px" }}>
-          <CardHeader title="Title Image" />
+          <CardHeader title={t('questions.question_detials.detials_tab.title_image')} />
           <CardMedia
             component="img"
             height="250"
@@ -70,12 +65,12 @@ const Detailtab = ({ question }) => {
               size="small"
               href={question.image}
             >
-              Open Full Image
+              {t('questions.question_detials.detials_tab.full_image')}
             </Link>
           </CardContent>
         </Card>
         <Card sx={{ maxWidth: 345, flex: 1, minWidth: "250px" }}>
-          <CardHeader title="Clarification Image" />
+          <CardHeader title={t('questions.question_detials.detials_tab.clarification_image')} />
           <CardMedia
             component="img"
             height="250"
@@ -90,13 +85,13 @@ const Detailtab = ({ question }) => {
               size="small"
               href={question.clarification_image}
             >
-              Open Full Image
+              {t('questions.question_detials.detials_tab.full_image')}
             </Link>
           </CardContent>
         </Card>
       </Box>
       <Typography variant="h5" mb={2}>
-        Choices :
+      {t('questions.question_detials.detials_tab.choices')}
       </Typography>
       {question.choices.length === 0 && (
         <Typography
@@ -105,7 +100,7 @@ const Detailtab = ({ question }) => {
             textAlign: "center",
           }}
         >
-          no choices
+          {t('questions.question_detials.detials_tab.no_choices')}
         </Typography>
       )}
       <Box

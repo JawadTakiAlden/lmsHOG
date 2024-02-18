@@ -7,9 +7,11 @@ import { gridSpacing } from "../../../../constant";
 import { CreateOutlined, ImageOutlined } from "@mui/icons-material";
 import VisuallyHiddenInput from "../../../../components/VisuallyHiddenInput/VisuallyHiddenInput";
 import useCreateNews from "../../../../api/useCreateNews";
+import { useTranslation } from "react-i18next";
 
 const CreateNews = () => {
     const createNews = useCreateNews()
+    const {t} = useTranslation()
   const handelCreate = (values) => {
     createNews.callFunction(values)
   };
@@ -51,10 +53,10 @@ const CreateNews = () => {
               <Grid container spacing={gridSpacing}>
                 <Grid item xs={12} sm={6}>
                   <FormControl fullWidth sx={{ maxWidth: "500px" }}>
-                    <InputLabel>News Title</InputLabel>
+                    <InputLabel>{t('news.create_news.labels.title')}</InputLabel>
                     <OutlinedInput
                       type="text"
-                      label="News Title"
+                      label={t('news.create_news.labels.title')}
                       name="title"
                       onChange={handleChange}
                       value={values.title}
@@ -68,10 +70,10 @@ const CreateNews = () => {
                 </Grid>
                 <Grid item xs={12} sm={6}>
                   <FormControl fullWidth sx={{ maxWidth: "500px" }}>
-                    <InputLabel>News Title</InputLabel>
+                    <InputLabel>{t('news.create_news.labels.position')}</InputLabel>
                     <OutlinedInput
                       type="number"
-                      label="News Position"
+                      label={t('news.create_news.labels.position')}
                       name="position"
                       onChange={handleChange}
                       value={values.position}
@@ -85,7 +87,7 @@ const CreateNews = () => {
                 </Grid>
                 <Grid item xs={12} sm={6}>
                   <FormControlLabel
-                    label="Visibility"
+                    label={t('news.create_news.labels.is_visible')}
                     name="is_visible"
                     onChange={handleChange}
                     checked={values.is_visible}
@@ -99,7 +101,7 @@ const CreateNews = () => {
                   variant="contained"
                   startIcon={<ImageOutlined />}
                 >
-                  Upload Image
+                  {t('news.create_news.labels.image')}
                   <VisuallyHiddenInput
                     type="file"
                     accept="image/png , image/jpg , image/jpeg"
@@ -126,10 +128,11 @@ const CreateNews = () => {
                       startIcon={<CreateOutlined />}
                       loading={createNews.isPending}
                     >
-                      Save
+                      {t('news.create_news.labels.create_btn')}
                     </LoadingButton>
-                    <Button color="warning" onClick={handleReset}>
-                      Reset
+                    <Button color="warning" variant="outlined"
+                      size="large" onClick={handleReset}>
+                     {t('news.create_news.labels.reset_btn')}
                     </Button>
                   </Box>
                 </Grid>

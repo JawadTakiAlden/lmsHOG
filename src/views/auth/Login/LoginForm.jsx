@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import {
   FormControl,
   Box,
-  Button,
   IconButton,
   InputLabel,
   OutlinedInput,
@@ -17,12 +16,14 @@ import { useMutation } from "@tanstack/react-query";
 import { useSnackbar } from "notistack";
 import { useNavigate } from "react-router";
 import { LoadingButton } from "@mui/lab";
+import { useTranslation } from "react-i18next";
 
 function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
   const { enqueueSnackbar } = useSnackbar();
   const naviaget = useNavigate();
   const handleClickShowPassword = () => setShowPassword((show) => !show);
+  const {t} = useTranslation()
 
   const loginMutation = useMutation({
     mutationFn: LoginRequest,
@@ -53,7 +54,6 @@ function LoginForm() {
 
   const handleSubmit = (values) => {
     loginMutation.mutate(values);
-    // naviaget("/dashboard/default");
   };
 
   return (
@@ -78,11 +78,12 @@ function LoginForm() {
           }) => (
             <form onSubmit={handleSubmit}>
               <FormControl fullWidth sx={{ mb: 4 }}>
-                <InputLabel>Phone</InputLabel>
+                <InputLabel>{t('login_page.login_form.input_labels.phone')}</InputLabel>
                 <OutlinedInput
                   type="text"
-                  label="Phone"
+                  label={t('login_page.login_form.input_labels.phone')}
                   name="phone"
+                  autoFocus
                   onChange={handleChange}
                   value={values.phone}
                   error={touched.phone && errors.phone}
@@ -92,7 +93,7 @@ function LoginForm() {
                 )}
               </FormControl>
               <FormControl fullWidth variant="outlined" sx={{ mb: 4 }}>
-                <InputLabel>Password</InputLabel>
+                <InputLabel>{t('login_page.login_form.input_labels.password')}</InputLabel>
                 <OutlinedInput
                   onChange={handleChange}
                   type={showPassword ? "text" : "password"}
@@ -109,7 +110,7 @@ function LoginForm() {
                       {showPassword ? <VisibilityOff /> : <Visibility />}
                     </IconButton>
                   </InputAdornment>}
-                  label="Password" />
+                  label={t('login_page.login_form.input_labels.password')} />
                 {touched.password && errors.password && (
                   <FormHelperText error>{errors.password}</FormHelperText>
                 )}
@@ -123,7 +124,7 @@ function LoginForm() {
                 startIcon={<Login />}
                 variant="contained"
               >
-                <span>sign in</span>
+                <span>{t('login_page.login_form.sign_in_btn')}</span>
               </LoadingButton>
             </form>
           )}

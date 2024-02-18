@@ -5,40 +5,42 @@ import TableWrapper from '../../../../components/TableWrapper'
 import { MaterialReactTable, useMaterialReactTable } from 'material-react-table'
 import { useNavigate } from 'react-router'
 import { Refresh, SettingsOutlined } from '@mui/icons-material'
+import { useTranslation } from 'react-i18next'
 
 const AllQuiz = () => {
     const quizzes = useGetQuizzes()
     const navigate = useNavigate()
+    const {t} = useTranslation()
   const columns = useMemo(
     () => [
       {
         accessorKey: "id",
-        header: "ID",
+        header: t('quizzes.quizzes_list.headers.id'),
         size: 50,
       },
       {
         accessorKey: "title",
-        header: "Quiz Title",
+        header: t('quizzes.quizzes_list.headers.title'),
         size: 150,
       },
       {
         accessorKey: "description",
-        header: "Quiz Description",
+        header: t('quizzes.quizzes_list.headers.description'),
         size: 150,
       },
       {
         accessorKey: "number_of_questions",
-        header: "Number Of Question",
+        header: t('quizzes.quizzes_list.headers.number_of_questions'),
         size: 150,
       },
       {
         accessorKey: "number_of_visible_question",
-        header: "Number Of Visible Question",
+        header: t('quizzes.quizzes_list.headers.number_of_visible_question'),
         size: 150,
       },
       {
         accessorKey: "number_of_invisible_question",
-        header: "Number Of Inisible Question",
+        header: t('quizzes.quizzes_list.headers.number_of_invisible_question'),
         size: 150,
       },
     ],
@@ -48,7 +50,7 @@ const AllQuiz = () => {
     columns,
     data: quizzes?.data?.data?.data || [],
     renderTopToolbarCustomActions: () => (
-      <Tooltip arrow title="Refresh Data">
+      <Tooltip arrow title={t('public.table.tooltip.refresh')}>
         <IconButton onClick={quizzes.refetch}>
           <Refresh />
         </IconButton>
@@ -70,7 +72,7 @@ const AllQuiz = () => {
     enableRowActions : true,
     renderRowActions: ({ row }) => (
       <Box sx={{ display: "flex", gap: "1rem" }}>
-        <Tooltip title="settings">
+        <Tooltip title={t('public.table.tooltip.settings')}>
           <IconButton onClick={() => navigate(`/details/quiz/${row.original.id}`)}>
             <SettingsOutlined />
           </IconButton>

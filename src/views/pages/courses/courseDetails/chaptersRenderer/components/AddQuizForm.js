@@ -5,8 +5,10 @@ import * as yup from 'yup'
 import { LoadingButton } from "@mui/lab";
 import { CreateOutlined } from "@mui/icons-material";
 import useGetQuizzes from "../../../../../../api/useGetQuizzes";
+import { useTranslation } from "react-i18next";
 const AddQuizForm = ({chapter , handelClose}) => {
     const quizzes = useGetQuizzes()
+    const {t} = useTranslation()
     const addQuizToChapter = useAddQuizToChapter()
   return (
     <Box
@@ -41,10 +43,10 @@ const AddQuizForm = ({chapter , handelClose}) => {
           }) => (
             <form onSubmit={handleSubmit}>
               <FormControl sx={{ mb: 2, mt: 2 }} fullWidth>
-                <InputLabel>Quiz</InputLabel>
+                <InputLabel>{t('courses.detaisl.details_tab.chapter_renderer.chapter_card.add_quiz_form.labels.quiz')}</InputLabel>
                 <Select
                   value={values.quiz_id}
-                  label="Quiz"
+                  label={t('courses.detaisl.details_tab.chapter_renderer.chapter_card.add_quiz_form.labels.quiz')}
                   onChange={handleChange}
                   onBlur={handleBlur}
                   name="quiz_id"
@@ -56,7 +58,7 @@ const AddQuizForm = ({chapter , handelClose}) => {
                             <CircularProgress />
                         </Box>)
                         : quizzes.isError ? (
-                            <Button fullWidth onClick={() => quizzes.refetch}>try agian</Button>
+                            <Button fullWidth onClick={() => quizzes.refetch}>{t('courses.detaisl.details_tab.chapter_renderer.chapter_card.add_quiz_form.labels.refetch_btn')}</Button>
                         )
                         : (
                             quizzes?.data?.data?.data?.map(quiz => (
@@ -71,7 +73,7 @@ const AddQuizForm = ({chapter , handelClose}) => {
               </FormControl>
               <FormControlLabel
                 sx={{ mb: 2 }}
-                label="Visibility"
+                label={t('courses.detaisl.details_tab.chapter_renderer.chapter_card.add_quiz_form.labels.is_visible')}
                 name="is_visible"
                 onChange={handleChange}
                 checked={values.is_visible}
@@ -93,10 +95,10 @@ const AddQuizForm = ({chapter , handelClose}) => {
                   startIcon={<CreateOutlined />}
                   loading={addQuizToChapter.isPending}
                 >
-                  Create
+                  {t('courses.detaisl.details_tab.chapter_renderer.chapter_card.add_quiz_form.labels.create_btn')}
                 </LoadingButton>
                 <Button color="warning" onClick={handelClose}>
-                        Cancel
+                {t('courses.detaisl.details_tab.chapter_renderer.chapter_card.add_quiz_form.labels.cancel_btn')}
                       </Button>
               </Box>
             </form>

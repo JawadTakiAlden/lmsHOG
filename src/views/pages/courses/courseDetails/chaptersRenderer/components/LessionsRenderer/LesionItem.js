@@ -23,18 +23,19 @@ import {
   ListItemIcon,
   ListItemText,
   Tooltip,
-  Typography,
   useTheme,
 } from "@mui/material";
 import React, { useState } from "react";
 import Transition from "../../../../../../../components/BottomTranstion";
 import useDeleteLesion from "../../../../../../../api/useDeleteLesion";
 import UpdateLesionForm from "./UpdateLesionForm";
+import { useTranslation } from "react-i18next";
 
 const LesionItem = ({ last, lesion }) => {
   const [deleteOpen, setDeleteOpen] = useState(false);
   const [editOpen, setEditOpen] = useState(false);
   const [contentOpen, setContentOpen] = useState(false);
+  const {t} = useTranslation()
 
   const handelContentToggle = () => {
     setContentOpen(prev => !prev);
@@ -92,7 +93,7 @@ const LesionItem = ({ last, lesion }) => {
               {lesion.title} &#9;{" "}
               {lesion.is_open ? (
                 <span style={{ color: theme.palette.primary.main }}>
-                  [free]
+                  [{t('courses.detaisl.details_tab.chapter_renderer.chapter_card.lesion_renderer.lesion_item.free')}]
                 </span>
               ) : (
                 <span style={{ color: theme.palette.primary.main }}>
@@ -108,12 +109,12 @@ const LesionItem = ({ last, lesion }) => {
               gap: "10px",
             }}
           >
-            <Tooltip title={"delete"}>
+            <Tooltip title={t('courses.detaisl.details_tab.chapter_renderer.chapter_card.lesion_renderer.lesion_item.delete_tooltip')}>
               <IconButton onClick={handelDeleteClick} color="error">
                 <DeleteOutlined />
               </IconButton>
             </Tooltip>
-            <Tooltip title={"edit"}>
+            <Tooltip title={t('courses.detaisl.details_tab.chapter_renderer.chapter_card.lesion_renderer.lesion_item.edit_tooltip')}>
               <IconButton onClick={handelEditToggle}>
                 <EditOutlined />
               </IconButton>
@@ -132,19 +133,19 @@ const LesionItem = ({ last, lesion }) => {
               <ListItemIcon>
                 <InfoOutlined />
               </ListItemIcon>
-              <ListItemText>Time : {lesion.time}</ListItemText>
+              <ListItemText>{t('courses.detaisl.details_tab.chapter_renderer.chapter_card.lesion_renderer.lesion_item.list.1')} : {lesion.time}</ListItemText>
             </ListItem>
             <ListItem>
               <ListItemIcon>
                 <InfoOutlined />
               </ListItemIcon>
-              <ListItemText>Visiblity : {lesion.is_visible ? 'Visible' : 'Invisible'}</ListItemText>
+              <ListItemText>{t('courses.detaisl.details_tab.chapter_renderer.chapter_card.lesion_renderer.lesion_item.list.2')} : {lesion.is_visible ? 'Visible' : 'Invisible'}</ListItemText>
             </ListItem>
             <ListItem>
               <ListItemIcon>
                 <InfoOutlined />
               </ListItemIcon>
-              <ListItemText>Free : {lesion.is_open ? 'Yes' : 'No'}</ListItemText>
+              <ListItemText>{t('courses.detaisl.details_tab.chapter_renderer.chapter_card.lesion_renderer.lesion_item.list.3')} : {lesion.is_open ? 'Yes' : 'No'}</ListItemText>
             </ListItem>
           </List>
         </Collapse>
@@ -158,10 +159,10 @@ const LesionItem = ({ last, lesion }) => {
         keepMounted
         onClose={handelDeleteClose}
       >
-        <DialogTitle>Delete Chapter Confirmtion</DialogTitle>
+        <DialogTitle>{t('courses.detaisl.details_tab.chapter_renderer.chapter_card.lesion_renderer.lesion_item.dialog.title')}</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            are you sure you want to delete this chapter
+          {t('courses.detaisl.details_tab.chapter_renderer.chapter_card.lesion_renderer.lesion_item.dialog.text')}
           </DialogContentText>
         </DialogContent>
         <DialogActions>
@@ -172,7 +173,7 @@ const LesionItem = ({ last, lesion }) => {
             variant="outlined"
             sx={{ borderRadius: "12px" }}
           >
-            Cancel
+            {t('courses.detaisl.details_tab.chapter_renderer.chapter_card.lesion_renderer.lesion_item.dialog.cancel_btn')}
           </Button>
           <LoadingButton
             loading={deleteLesion.isPending}
@@ -185,7 +186,7 @@ const LesionItem = ({ last, lesion }) => {
               deleteLesion.callFuntion();
             }}
           >
-            Accept
+            {t('courses.detaisl.details_tab.chapter_renderer.chapter_card.lesion_renderer.lesion_item.dialog.accept_btn')}
           </LoadingButton>
         </DialogActions>
       </Dialog>

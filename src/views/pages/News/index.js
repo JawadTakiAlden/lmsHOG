@@ -10,26 +10,28 @@ import useGetNews from "../../../api/useGetNews";
 import { Refresh, SettingsOutlined } from "@mui/icons-material";
 import TableWrapper from "../../../components/TableWrapper";
 import { useNavigate } from "react-router";
+import { useTranslation } from "react-i18next";
 
 const News = () => {
   const switchermutate = useSwitchNewsVisibility();
   const news = useGetNews();
+  const {t} = useTranslation()
   const navigate = useNavigate()
   const columns = useMemo(
     () => [
       {
         accessorKey: "id",
-        header: "ID",
+        header: t('news.news_list.headers.id'),
         size: 50,
       },
       {
         accessorKey: "title",
-        header: "Title",
+        header: t('news.news_list.headers.title'),
         size: 150,
       },
       {
         accessorKey : 'image',
-        header : 'Image',
+        header : t('news.news_list.headers.image'),
         size : 150,
         Cell : ({row}) => {
           return <Box>
@@ -48,7 +50,7 @@ const News = () => {
       },
       {
         accessorKey: "is_visible",
-        header: "Visibility",
+        header: t('news.news_list.headers.is_visible'),
         Cell: ({ row }) => {
           return (
             <Swicther
@@ -66,7 +68,7 @@ const News = () => {
     columns,
     data: news?.data?.data?.data || [],
     renderTopToolbarCustomActions: () => (
-      <Tooltip arrow title="Refresh Data">
+      <Tooltip arrow title={t('public.table.tooltip.refresh')}>
         <IconButton onClick={news.refetch}>
           <Refresh />
         </IconButton>
@@ -88,7 +90,7 @@ const News = () => {
     enableRowActions: true,
     renderRowActions: ({ row }) => (
       <Box sx={{ display: "flex", gap: "1rem" }}>
-        <Tooltip title="settings">
+        <Tooltip title={t('public.table.tooltip.settings')}>
           <IconButton
             onClick={() => navigate(`/details/news/${row.original.id}`)}
           >

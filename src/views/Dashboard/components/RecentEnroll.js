@@ -7,24 +7,26 @@ import {
 } from 'material-react-table';
 import useGetRecentEnrolled from "../../../api/useGetRecentEnrolled";
 import { Refresh } from "@mui/icons-material";
+import { useTranslation } from "react-i18next";
 const RecentEnroll = () => {
+  const {t} = useTranslation()
   const columns = useMemo(
     () => [
       {
         accessorKey: 'course_title', //access nested data with dot notation
-        header: 'Course Title',
+        header: t('dashboard.recent_enroll.table_headers.course_title'),
       },
       {
         accessorKey: 'student_name', //normal accessorKey
-        header: 'Student Name',
+        header: t('dashboard.recent_enroll.table_headers.student_name'),
       },
       {
         accessorKey: 'phone',
-        header: 'Phone',
+        header: t('dashboard.recent_enroll.table_headers.phone'),
       },
       {
         accessorKey: 'created_at',
-        header: 'Enroll Date',
+        header: t('dashboard.recent_enroll.table_headers.created_at'),
       }
     ],
     [],

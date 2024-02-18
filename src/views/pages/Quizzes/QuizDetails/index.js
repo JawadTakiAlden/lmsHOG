@@ -8,9 +8,11 @@ import { ArrowBack } from '@mui/icons-material'
 import { useNavigate } from 'react-router'
 import QuestionInfo from './QuestionInfo'
 import DeleteSection from './DeleteSection'
+import { useTranslation } from 'react-i18next'
 
 const QuizDetials = () => {
     const quizDetaisl = useShowQuiz()
+    const {t} = useTranslation()
     const navigate = useNavigate()
     if(quizDetaisl.isLoading){
         return <Box
@@ -37,7 +39,7 @@ const QuizDetials = () => {
                 <ArrowBack />
             </IconButton>
             <Typography variant='h4' sx={{mb : 2}}>
-                Quiz Details
+                {t('quizzes.quiz_details.h1')}
             </Typography>
             <Typography variant='h5' sx={{textTransform : 'capitalize' , mb : 1}}>
                 {quizDetaisl?.data?.data?.data?.title}

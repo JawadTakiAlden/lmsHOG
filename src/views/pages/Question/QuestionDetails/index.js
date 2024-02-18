@@ -8,10 +8,12 @@ import useShowQuestion from '../../../../api/useShowQuestion'
 import { ClipLoader } from 'react-spinners'
 import ChoicesTab from './ChoicesTab'
 import DeleteTab from './DeleteTab'
+import { useTranslation } from 'react-i18next'
 
 const QuestionDetails = () => {
     const navigate = useNavigate()
     const [value, setValue] = React.useState("1");
+    const {t} = useTranslation()
     const questionDetaisl = useShowQuestion()
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -45,10 +47,10 @@ const QuestionDetails = () => {
         <TabContext value={value}>
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
         <TabList onChange={handleChange} aria-label="lab API tabs example">
-          <Tab label="Detial" value="1" />
-          <Tab label="Update" value="2" />
-          <Tab label="Choices" value="3" />
-          <Tab label="Delete" value="4" />
+          <Tab label={t('questions.question_detials.tabs.1')} value="1" />
+          <Tab label={t('questions.question_detials.tabs.2')} value="2" />
+          <Tab label={t('questions.question_detials.tabs.3')} value="3" />
+          <Tab label={t('questions.question_detials.tabs.4')} value="4" />
         </TabList>
       </Box>
       <TabPanel value="1">

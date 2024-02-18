@@ -7,23 +7,26 @@ import useSwitchBlockedStatus from '../../../../api/useSwitchBlockedStatus'
 import Swicther from '../../../../components/Switcher'
 import StudentDetialPanel from './studentDetialPanel'
 import TableWrapper from '../../../../components/TableWrapper'
+import { useTranslation } from 'react-i18next'
+import { MRT_Localization_AR } from 'material-react-table/locales/ar';
 
 const StudentList = () => {
   const {data , isLoading , isError , isRefetching , refetch} = useGetStudentList()
   const switchermutate = useSwitchBlockedStatus(refetch)
+  const {t} = useTranslation()
     const columns = useMemo(() => {
         return [
             {
                 accessorKey: 'full_name', 
-                header: 'Student Name',
+                header: t('students.student_list.headers.full_name'),
             },
             {
                 accessorKey: 'phone', 
-                header: 'Phone Number',
+                header: t('students.student_list.headers.phone'),
             },
             {
                 accessorKey: 'is_blocked',
-                header: 'Blocked Status',
+                header: t('students.student_list.headers.is_blocked'),
                 Cell : ({row}) => {
                     return <Swicther originalRow={row.original} checkedAttribute={'is_blocked'} switchermutate={switchermutate}/>
                 }
@@ -35,7 +38,7 @@ const StudentList = () => {
         muiToolbarAlertBannerProps: isError
           ? {
               color: 'error',
-              children: 'Error loading data',
+              children: t('students.student_list.table.error_message'),
             }
           : undefined,
         renderTopToolbarCustomActions: () => (
@@ -63,10 +66,10 @@ const StudentList = () => {
                 fontSize : '32px'
             }}
         >
-            Student List
+         {t('students.student_list.main_header.keyword')}   
         </Typography>
         <TableWrapper>
-          <MaterialReactTable  table={table} />
+          <MaterialReactTable localization={MRT_Localization_AR}  table={table} />
         </TableWrapper>
     </Box>
   )

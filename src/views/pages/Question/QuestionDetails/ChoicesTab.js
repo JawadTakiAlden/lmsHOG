@@ -2,10 +2,11 @@ import { Box, Button, Card, CardActions, CardContent, CardMedia, Collapse, Typog
 import React, { useState } from 'react'
 import ChoiceCard from './ChoiceCard'
 import AddChoiceForm from './AddChoiceForm'
+import { useTranslation } from 'react-i18next'
 
 const ChoicesTab = ({question}) => {
     const [addChoiceFormOpen , setAddChoiceFormOpen] = useState(false)
-
+  const {t} = useTranslation()
     const handelAddChoiceFormToggle = () => {
         setAddChoiceFormOpen(prev => !prev)
     }
@@ -29,7 +30,7 @@ const ChoicesTab = ({question}) => {
                     mb : 2
                 }}
             >
-                Add Choice
+                {t('questions.question_detials.choices_tab.add_btn')}
             </Button>
             <Collapse in={addChoiceFormOpen}>
                 <AddChoiceForm handelClose={handelAddChoiceFormClose} />
@@ -42,7 +43,7 @@ const ChoicesTab = ({question}) => {
             textAlign: "center",
           }}
         >
-          no choices
+          {t('questions.question_detials.detials_tab.no_choices')}
         </Typography>
       )}
       <Box
