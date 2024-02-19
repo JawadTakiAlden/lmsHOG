@@ -42,8 +42,7 @@ function LoginForm() {
     },
     onError: (error) => {
       if (error.response) {
-        const message = error.response.data.message;
-        enqueueSnackbar(message, { variant: "error" });
+        enqueueSnackbar(error.response.data.message, { variant: "error" });
       }
     },
   });
@@ -54,6 +53,7 @@ function LoginForm() {
 
   const handleSubmit = (values) => {
     loginMutation.mutate(values);
+    // console.log(values)
   };
 
   return (
@@ -69,8 +69,14 @@ function LoginForm() {
         }}
       >
         <Formik
-          initialValues={initialValues}
-          validationSchema={validationSchema}
+          initialValues={{
+            phone: "",
+            password: "",
+          }}
+          validationSchema={Yup.object().shape({
+            phone: Yup.string().required("Phone is required"),
+            password: Yup.string().min(4).required("password is required"),
+          })}
           onSubmit={handleSubmit}
         >
           {({
@@ -134,14 +140,5 @@ function LoginForm() {
   );
 }
 
-const initialValues = {
-  phone: "",
-  password: "",
-};
-
-const validationSchema = Yup.object().shape({
-  phone: Yup.string().required("Phone is required"),
-  password: Yup.string().min(4).required("password is required"),
-});
 
 export default LoginForm;
