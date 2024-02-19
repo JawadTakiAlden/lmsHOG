@@ -9,7 +9,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { SnackbarProvider } from "notistack";
 import './i18n';
 const root = ReactDOM.createRoot(document.getElementById("root"));
-const client = new QueryClient();
+const client = new QueryClient()
 root.render(
   <React.StrictMode>
     <Provider store={store}>

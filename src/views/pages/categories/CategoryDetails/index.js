@@ -7,6 +7,7 @@ import useShowCategoryDetails from "../../../../api/useShowCategoryDetails";
 import { useParams } from "react-router";
 import { ClipLoader } from "react-spinners";
 import { useTranslation } from "react-i18next";
+import LogoLoader from "../../../../components/LogoLoader";
 
 const CategoryDetails = () => {
   const [value, setValue] = React.useState("1");
@@ -27,12 +28,7 @@ const CategoryDetails = () => {
             justifyContent : 'center'
         }}
     >
-        <ClipLoader
-        loading={categoryDetails.isLoading}
-        size={150}
-        aria-label="Loading Spinner"
-        data-testid="loader"
-      />
+        <LogoLoader />
     </Box>
   }
 

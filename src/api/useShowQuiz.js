@@ -1,6 +1,7 @@
 import { useParams } from "react-router";
 import { request } from "./request";
 import { useQuery } from "@tanstack/react-query";
+import useErrorHandeler from "./errorHandler";
 
 const useShowQuiz = () => {
     const { quiz_id } = useParams();
@@ -13,6 +14,7 @@ const useShowQuiz = () => {
         queryKey : [`show-quiz-detials-${quiz_id}`],
         queryFn : showQuizDetails,
     })
+    useErrorHandeler(query)
   return query
 }
 

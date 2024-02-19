@@ -2,14 +2,11 @@ import React from "react";
 import { Box, useTheme, IconButton, Select, MenuItem } from "@mui/material";
 import { MenuOpen } from "@mui/icons-material";
 import { useDispatch } from "react-redux";
-import { SET_DIRECTION, TOGGLE_COLAPSED } from "../../../store/slices/customization/customization";
+import { SET_DIRECTION } from "../../../store/slices/customization/customization";
 import { useTranslation } from "react-i18next";
-const Header = ({withoutSidebar}) => {
+const Header = ({handleDrawerToggle}) => {
   const theme = useTheme();
   const dispatch = useDispatch();
-  const togleOpenSidebar = () => {
-    dispatch(TOGGLE_COLAPSED());
-  }
   const {i18n} = useTranslation()
   return (
     <Box
@@ -25,7 +22,10 @@ const Header = ({withoutSidebar}) => {
       }}
     >
       <IconButton
-        onClick={togleOpenSidebar}
+        sx={{
+          display : { md : 'none'}
+        }}
+        onClick={() => handleDrawerToggle()}
       >
         <MenuOpen />
       </IconButton>
@@ -38,7 +38,7 @@ const Header = ({withoutSidebar}) => {
           document.dir = dir
         }}
       >
-        <MenuItem value={'ar'}>Ar</MenuItem>
+        <MenuItem value={'ar'}>{i18n.language === 'en' ? "Ar" : "عربي"}</MenuItem>
         <MenuItem value={'en'}>En</MenuItem>
       </Select>
     </Box>

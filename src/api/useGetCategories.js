@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query"
 import { request } from "./request"
+import useErrorHandeler from "./errorHandler"
 
 const getCategoriesRequest = () => {
     return request({
@@ -12,6 +13,7 @@ const useGetCategories = () => {
         queryKey : ['get-categories'],
         queryFn : getCategoriesRequest
     })
+    useErrorHandeler(query)
   return query
 }
 

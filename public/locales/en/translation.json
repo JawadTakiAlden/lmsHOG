@@ -1,4 +1,70 @@
 {
+  "sidebar" : {
+    "items" : {
+      "dashboard" : "Dashboard",
+      "students" : {
+        "group" : "Student",
+        "items" : {
+          "1" : "All",
+          "2" : "New Enroll",
+          "3" : "Enrolled Students"
+        }
+      },
+      "courses" : {
+        "group" : "Courses",
+        "items" : {
+          "1" : "All Courses",
+          "2" : "Create Course"
+        }
+      },
+      "accounts" : {
+        "group" : "Accounts",
+        "items" : {
+          "1" : "All Accounts",
+          "2" : "Create Account"
+        }
+      },
+      "categories" : {
+        "group" : "Categories",
+        "items" : {
+          "1" : "All Categories",
+          "2" : "Create Category"
+        }
+      },
+      "news" : {
+        "group" : "News",
+        "items" : {
+          "1" : "All News",
+          "2" : "Create News"
+        }
+      },
+      "statistics" : {
+        "group" : "Statistics",
+        "items" : {
+          "1" : "Reset"
+        }
+      },
+      "activation_code" : {
+        "group" : "Activation Code",
+        "items" : {
+          "1" : "All Activation Code"
+        }
+      },
+      "questions" : {
+        "group" : "Questions",
+        "items" : {
+          "1" : "All Questions",
+          "2" : "Create Question"
+        }
+      },
+      "quizzes" : {
+        "group" : "Quizzes",
+        "items" : {
+          "1" : "All Quizzes"
+        }
+      }
+    }
+  },
   "login_page": {
     "login_keyword": {
       "part_1": "Log",
@@ -40,6 +106,7 @@
       }
     },
     "recent_enroll": {
+      "h1" : "Recent Enroll",
       "table_headers": {
         "course_title": "Course Title",
         "student_name": "Student Name",

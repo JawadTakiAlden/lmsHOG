@@ -21,6 +21,7 @@ import DeleteTab from "./DeleteTab";
 import StudentTab from "./StudentTab";
 import ValuesOfCourseTab from "./ValuesOfCourseTab";
 import { useTranslation } from "react-i18next";
+import LogoLoader from "../../../../components/LogoLoader";
 
 const CourseDetails = () => {
   const { course_id } = useParams();
@@ -43,7 +44,7 @@ const CourseDetails = () => {
           justifyContent: "center",
         }}
       >
-          <CircularProgress  />
+          <LogoLoader />
       </Box>
     );
   }

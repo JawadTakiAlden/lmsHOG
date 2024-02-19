@@ -63,6 +63,16 @@ function App() {
   const {direction} = useSelector(state => state.customization)
   const theme = createTheme({
     direction,
+    components : {
+      MuiButton : {
+        styleOverrides :{
+          startIcon : {
+            marginRight : direction === 'ltr' ? '8px' : '-4px',
+            marginLeft : direction === 'ltr' ? '-4px' : '8px',
+          }
+        }
+      }
+    },
     palette: {
       background: {
         default: "#FCFCFC",

@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import {request} from './request'
+import useErrorHandeler from './errorHandler'
 
 const getStudentsRequest = () => {
     return request({
@@ -11,6 +12,7 @@ const useGetStudentList = () => {
         queryKey : ['get-all-students'],
         queryFn : getStudentsRequest
     })
+    useErrorHandeler(query)
   return query
 }
 

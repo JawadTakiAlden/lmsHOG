@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query"
 import { useParams } from "react-router";
 import { request } from "./request";
+import useErrorHandeler from "./errorHandler";
 
 
 const useShowNewsDetails = () => {
@@ -14,6 +15,7 @@ const useShowNewsDetails = () => {
         queryKey : [`show-news-details-${news_id}`],
         queryFn : showNewsDetailsRequest,
     })
+    useErrorHandeler(query)
   return query
 }
 

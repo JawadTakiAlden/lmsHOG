@@ -6,6 +6,7 @@ import useShowNewsDetails from '../../../../api/useShowNewsDetails';
 import DetailsTab from './DetailsTab';
 import DeleteTab from './DeleteTab';
 import { useTranslation } from 'react-i18next';
+import LogoLoader from '../../../../components/LogoLoader';
 
 const NewsDetails = () => {
   const [value, setValue] = React.useState("1");
@@ -25,12 +26,7 @@ const NewsDetails = () => {
             justifyContent : 'center'
         }}
     >
-        <ClipLoader
-        loading={categoryDetails.isLoading}
-        size={150}
-        aria-label="Loading Spinner"
-        data-testid="loader"
-      />
+        <LogoLoader />
     </Box>
   }
   return (

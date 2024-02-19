@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import {request} from './request'
+import useErrorHandeler from './errorHandler'
 
 const getNewsRequest = () => {
     return request({
@@ -11,6 +12,7 @@ const useGetNews = () => {
         queryKey : ['get-all-news'],
         queryFn : getNewsRequest
     })
+    useErrorHandeler(query)
   return query
 }
 

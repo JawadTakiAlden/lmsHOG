@@ -72,7 +72,7 @@ const UpdateChapterForm = ({ chapter , handelClose }) => {
                 <FormControlLabel
                     control={<Switch />}
                     name="is_visible"
-                    value={values.is_visible}
+                    checked={values.is_visible}
                     onChange={handleChange} 
                     label={t('courses.detaisl.details_tab.chapter_renderer.chapter_card.update_chapter_form.labels.is_visible')}
                 />

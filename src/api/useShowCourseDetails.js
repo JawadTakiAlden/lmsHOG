@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import {request} from './request'
+import useErrorHandeler from './errorHandler'
 
 const showCourseDetailsRequest = (options) => {
     return request({
@@ -11,6 +12,7 @@ const useShowCourseDetails = (options) => {
         queryKey : [`show-course-details-${options.course_id}`],
         queryFn : () => showCourseDetailsRequest(options),
     })
+    useErrorHandeler(query)
   return query
 }
 

@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router'
 import QuestionInfo from './QuestionInfo'
 import DeleteSection from './DeleteSection'
 import { useTranslation } from 'react-i18next'
+import LogoLoader from '../../../../components/LogoLoader'
 
 const QuizDetials = () => {
     const quizDetaisl = useShowQuiz()
@@ -24,12 +25,7 @@ const QuizDetials = () => {
                 justifyContent : 'center'
             }}
         >
-            <ClipLoader
-            loading={quizDetaisl.isLoading}
-            size={150}
-            aria-label="Loading Spinner"
-            data-testid="loader"
-          />
+            <LogoLoader />
         </Box>
       }
   return (

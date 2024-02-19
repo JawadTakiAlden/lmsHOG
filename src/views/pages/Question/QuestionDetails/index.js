@@ -9,6 +9,7 @@ import { ClipLoader } from 'react-spinners'
 import ChoicesTab from './ChoicesTab'
 import DeleteTab from './DeleteTab'
 import { useTranslation } from 'react-i18next'
+import LogoLoader from '../../../../components/LogoLoader'
 
 const QuestionDetails = () => {
     const navigate = useNavigate()
@@ -29,12 +30,7 @@ const QuestionDetails = () => {
             justifyContent : 'center'
         }}
     >
-        <ClipLoader
-        loading={questionDetaisl.isLoading}
-        size={150}
-        aria-label="Loading Spinner"
-        data-testid="loader"
-      />
+        <LogoLoader />
     </Box>
   }
   return (

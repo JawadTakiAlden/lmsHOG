@@ -69,7 +69,7 @@ const RecentEnroll = () => {
           fontWeight: "500",
         }}
       >
-        Recent Enroll
+        {t('dashboard.recent_enroll.h1')}
       </Typography>
       <Box
         sx={{

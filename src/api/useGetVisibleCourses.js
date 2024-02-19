@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import {request} from './request'
+import useErrorHandeler from './errorHandler'
 
 const visibleCoursesRequest = () => {
     return request({
@@ -11,6 +12,7 @@ const useGetVisibleCourses = () => {
         queryKey : [`get-visible-courses`],
         queryFn : visibleCoursesRequest
     })
+    useErrorHandeler(query)
   return query
 }
 

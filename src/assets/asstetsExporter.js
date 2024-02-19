@@ -1,5 +1,6 @@
 import Login from "./images/login.png";
-export const images = { Login };
+import Loading from "./images/loading.gif";
+export const images = { Login ,Loading };
 
 export const logo = (
   <svg

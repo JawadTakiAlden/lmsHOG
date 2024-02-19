@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import {request} from './request'
+import useErrorHandeler from './errorHandler'
 
 const recentEnrolledRequst = () => {
     return request({
@@ -11,6 +12,7 @@ const useGetRecentEnrolled = () => {
         queryKey : ['get-recent-enrolled'],
         queryFn : recentEnrolledRequst
     })
+    useErrorHandeler(query)
   return query
 }
 

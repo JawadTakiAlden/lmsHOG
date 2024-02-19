@@ -6,34 +6,36 @@ import {
   sidebarClasses,
 } from "react-pro-sidebar";
 import { Link, useLocation } from "react-router-dom";
-import { menuitems } from "../../../menu_items";
+import { useMenuItems } from "../../../menu_items";
 import GroubItems from "../GroubItems/GroubItems";
 import LogoSection from "../LogoSection/LogoSection";
-import { useTheme } from "@mui/material";
+import { Box, Divider, Drawer, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar, useTheme } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { SET_MENU_ITEM } from "../../../store/slices/customization/customization";
-const DashboardSidebar = () => {
+import { drawerWidth } from "../../../constant";
+import { Inbox, Mail } from "@mui/icons-material";
+const DashboardSidebar = ({ mobileOpen, handleDrawerTransitionEnd,handleDrawerClose, window }) => {
   const theme = useTheme();
   const dispatch = useDispatch();
   const location = useLocation()
-  const customization = useSelector((state) => state.customization);
-  return (
+  const {id , direction} = useSelector((state) => state.customization);
+  const menuitems = useMenuItems()
+  
+
+  const drawer = (
     <Sidebar
-      collapsed={customization.opened}
-      breakPoint="md"
+      breakPoint="xs"
+      rtl={direction === 'rtl'}
+      width={drawerWidth}
       rootStyles={{
         borderRight: "none",
-        height  :'100vh',
-        position : 'sticky',
-        top : '0',
-        boxShadow: "1px 2px 12.600000381469727px 0px #0000001A",
+        position : "relative !important",
         [`.${sidebarClasses.container}`]: {
           backgroundColor: "white",
         },
       }}
     >
-      {!customization.opened && <LogoSection />}
-
+     <LogoSection />
       <Menu
         menuItemStyles={{
           button: ({ active, level, isSubmenu, open }) => {
@@ -54,7 +56,7 @@ const DashboardSidebar = () => {
           ) : (
             <MenuItem
               key={i}
-              active={(item.id === customization.id && location.pathname === item.path) || location.pathname === item.path}
+              active={(item.id === id && location.pathname === item.path) || location.pathname === item.path}
               onClick={() => {
                 dispatch(SET_MENU_ITEM(item.id));
               }}
@@ -67,6 +69,60 @@ const DashboardSidebar = () => {
         })}
       </Menu>
     </Sidebar>
+  )
+
+  const container = window !== undefined ? () => window().document.body : undefined;
+
+  return (
+    <Box
+        component="nav"
+        sx={{ width: { md: drawerWidth }, flexShrink: { md: 0 } }}
+      >
+        <Drawer
+        PaperProps={{
+          sx : {
+            borderRight : 'none',
+            boxShadow : '1px 0px 10px -6px #000000cc',
+          }
+        }}
+          anchor={direction === 'ltr' ? 'left' : 'right'}
+          container={container}
+          SlideProps={{
+            direction : direction === 'ltr' ? 'right' : 'left'
+          }}
+          variant="temporary"
+          open={mobileOpen}
+          onTransitionEnd={() => handleDrawerTransitionEnd()}
+          onClose={() => handleDrawerClose()}
+          ModalProps={{
+            keepMounted: true,// Better open performance on mobile.
+            
+          }}
+          sx={{
+            display: { xs: 'block', md: 'none' },
+            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+          }}
+        >
+          {drawer}
+        </Drawer>
+        <Drawer
+        anchor={direction === 'ltr' ? 'left' : 'right'}
+        PaperProps={{
+          sx : {
+            borderRight : 'none',
+            boxShadow : '1px 0px 10px -6px #000000cc'
+          }
+        }}
+          variant="permanent"
+          sx={{
+            display: { xs: 'none', md: 'block' },
+            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+          }}
+          open
+        >
+          {drawer}
+        </Drawer>
+      </Box>
   );
 };
 
