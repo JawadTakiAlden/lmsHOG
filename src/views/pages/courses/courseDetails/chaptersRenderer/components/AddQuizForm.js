@@ -26,7 +26,8 @@ const AddQuizForm = ({chapter , handelClose}) => {
           initialValues={{
             quiz_id: "",
             is_visible: false,
-            chapter_id : chapter.id
+            chapter_id : chapter.id,
+            is_free  : false
           }}
           validationSchema={yup.object({
             quiz_id: yup.string().max(255).required("select quiz rqeuired"),
@@ -77,6 +78,14 @@ const AddQuizForm = ({chapter , handelClose}) => {
                 name="is_visible"
                 onChange={handleChange}
                 checked={values.is_visible}
+                control={<Checkbox />}
+              />
+              <FormControlLabel
+                sx={{ mb: 2 }}
+                label={t('courses.detaisl.details_tab.chapter_renderer.chapter_card.add_quiz_form.labels.is_free')}
+                name="is_free"
+                onChange={handleChange}
+                checked={values.is_free}
                 control={<Checkbox />}
               />
               <Box

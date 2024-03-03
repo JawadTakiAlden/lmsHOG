@@ -53,7 +53,6 @@ function LoginForm() {
 
   const handleSubmit = (values) => {
     loginMutation.mutate(values);
-    // console.log(values)
   };
 
   return (

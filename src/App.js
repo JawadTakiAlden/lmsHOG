@@ -17,7 +17,6 @@ import { lazy } from "react";
 import MinimalLayout from "./layouts/MinimalLayout";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
-import RTL from "./components/RTL";
 const Login = Loadable(lazy(() => import("./views/auth/Login/Login")));
 const Dashboard = Loadable(lazy(() => import("./views/Dashboard")));
 const StudentList = Loadable(
@@ -96,7 +95,7 @@ function App() {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <NavigationOnScroll>
-          <RTL>
+          {/* <RTL> */}
             <Routes>
               <Route path="/" element={<Login />} />
               <Route path="dashboard" element={<MainLayout />}>
@@ -142,7 +141,7 @@ function App() {
                 <Route path="quiz/:quiz_id" element={<QuizDetials />} />
               </Route>
             </Routes>
-          </RTL>
+          {/* </RTL> */}
         </NavigationOnScroll>
       </ThemeProvider>
     </StyledEngineProvider>

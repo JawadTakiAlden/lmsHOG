@@ -113,6 +113,12 @@
         "phone": "Phone",
         "created_at": "Enroll Date"
       }
+    },
+    "notification" : {
+      "labels" : {
+        "title" : "Title",
+        "body" : "Body"
+      }
     }
   },
   "students": {
@@ -255,8 +261,10 @@
                 "quiz": "Quiz",
                 "refetch_btn": "Refetch",
                 "is_visible": "Visibility",
+                "is_free" : "Is Free",
                 "create_btn": "Create",
-                "cancel_btn": "Cancel"
+                "cancel_btn": "Cancel",
+                "update_btn" : "Update"
               }
             },
             "lesion_renderer": {
@@ -515,6 +523,7 @@
     "generate": {
       "labels": {
         "type": "Code Type",
+        "title" : "File name",
         "type_options": {
           "single": "Single",
           "shared": "Shared",

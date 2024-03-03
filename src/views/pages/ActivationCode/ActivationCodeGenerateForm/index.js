@@ -59,6 +59,7 @@ const ActivationCodeGenerateForm = () => {
           quantity: 1,
           number_of_courses: 1,
           courses: [],
+          title : ''
         }}
         validationSchema={validationSchema}
       >
@@ -114,6 +115,23 @@ const ActivationCodeGenerateForm = () => {
                   />
                   {touched.quantity && errors.quantity && (
                     <FormHelperText error>{errors.quantity}</FormHelperText>
+                  )}
+                </FormControl>
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <FormControl fullWidth>
+                  <InputLabel>{t('activation_codes.generate.labels.title')}</InputLabel>
+                  <OutlinedInput
+                    type="text"
+                    label={t('activation_codes.generate.labels.title')}
+                    name="title"
+                    onChange={handleChange}
+                    value={values.title}
+                    error={touched.title && errors.title}
+                    onBlur={handleBlur}
+                  />
+                  {touched.title && errors.title && (
+                    <FormHelperText error>{errors.title}</FormHelperText>
                   )}
                 </FormControl>
               </Grid>
@@ -303,6 +321,7 @@ const ActivationCodeGenerateForm = () => {
 
 const validationSchema = yup.object({
   type: yup.string(),
+  title : yup.string().nullable().max(255),
   quantity: yup
     .number()
     .min(1)

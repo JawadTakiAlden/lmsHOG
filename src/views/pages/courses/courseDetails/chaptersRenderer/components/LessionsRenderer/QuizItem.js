@@ -1,5 +1,6 @@
 import {
     DeleteOutlined,
+    EditOutlined,
     InfoOutlined,
     MoreOutlined,
     QuizOutlined,
@@ -26,9 +27,11 @@ import {
 import { useNavigate } from "react-router";
 import useRemoveQuizFromChapter from "../../../../../../../api/useRemoveQuizFromChapter";
 import { useTranslation } from "react-i18next";
+import UpdateQuizFrom from "./UpdateQuizFrom";
 
 const QuizItem = ({quiz , last}) => {
     const [deleteOpen, setDeleteOpen] = useState(false);
+    const [editOpen, setEditOpen] = useState(false);
   const [contentOpen, setContentOpen] = useState(false);
   const navigate = useNavigate()
   const {t} = useTranslation()
@@ -40,6 +43,14 @@ const QuizItem = ({quiz , last}) => {
   const handelDeleteClick = () => {
     setDeleteOpen(true);
   };
+
+  const handelEditToggel = () => {
+    setEditOpen((prev) => !prev)
+  }
+
+  const handelEditClose = () => {
+    setEditOpen(false)
+  }
 
   const handelDeleteClose = () => {
     setDeleteOpen(false);
@@ -86,8 +97,14 @@ const QuizItem = ({quiz , last}) => {
               <IconButton onClick={handelDeleteClick} color="error">
                 <DeleteOutlined />
               </IconButton>
+              <IconButton onClick={handelEditToggel} color="primary">
+                <EditOutlined />
+              </IconButton>
           </Box>
         </Box>
+        <Collapse in={editOpen}>
+          <UpdateQuizFrom quiz={quiz} handelEditClose={handelEditClose} />
+        </Collapse>
         <Collapse in={contentOpen}>
           <List>
             <ListItem>
