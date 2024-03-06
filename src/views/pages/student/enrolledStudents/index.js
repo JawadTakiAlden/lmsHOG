@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router'
 import SimpleAlterPopup from '../../../../components/SimpleAlterPopup/SimpleAlterPopup'
 import useCancelInroll from '../../../../api/useCancelInroll'
 import { useTranslation } from 'react-i18next'
+import useGetCourses from '../../../../api/useGetCourses'
 
 const EnrolledStudents = () => {
   const {data , isLoading , isError , error, refetch , isRefetching} = useGetAllInroled()
@@ -17,6 +18,7 @@ const EnrolledStudents = () => {
   const [cancelOpen, setCancelOpen] = React.useState(false);
   const [clickedRow, setClickedRow] = useState(null)
   const {t} = useTranslation()
+  const courses = useGetCourses()
 
   const handleClickCancelOpen = () => {
     setCancelOpen(true);
@@ -30,6 +32,8 @@ const EnrolledStudents = () => {
       {
         accessorKey: 'course_title', 
         header: t('students.enrolled_students.headers.course_title'),
+        filterVariant: 'select',
+        filterSelectOptions : courses?.data?.data?.data?.map(course => course.name) || []
       },
       {
         accessorKey: 'name',
@@ -50,10 +54,10 @@ const EnrolledStudents = () => {
             .toLocaleTimeString()}`,
       },
     ],
-    [],
+    [courses.isLoading],
   );
   const table = useMaterialReactTable({
-    columns,
+    columns : columns,
     muiToolbarAlertBannerProps: isError
       ? {
           color: 'error',

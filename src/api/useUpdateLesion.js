@@ -9,7 +9,10 @@ const useUpdateLesion = (option) => {
     const updateLesionRequest = (data) => {
         return request({
             url : `/lesions/update/${option.lesion_id}`,
-            method : 'patch',
+            method : 'post',
+            headers : {
+                'Content-Type' : 'multipart/form-data'
+            },
             data
         })
     }

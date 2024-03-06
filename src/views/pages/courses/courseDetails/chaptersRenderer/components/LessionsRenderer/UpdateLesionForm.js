@@ -31,13 +31,13 @@ const UpdateLesionForm = ({ lesion, handelClose }) => {
   const updateLesion = useUpdateLesion({ lesion_id: lesion.id });
   const handleUpdateLesion = (values) => {
     let dataChangedToSend = {
-      ...(values.type !== lesion.type && {type : values.type}),
       ...(values.pdfFile && {pdfFile : values.pdfFile}),
-      videoURI: values.videoURI,
-      is_visible : values.is_visible,
-      is_open : values.is_open,
+      ...(values.videoURI && {videoURI : values.videoURI}),
+      is_visible : +values.is_visible,
+      is_open : +values.is_open,
       title : values.title,
-      time : values.time
+      time : values.time,
+      description : values.description
     }
     updateLesion.callFunction(dataChangedToSend)
   };
@@ -55,13 +55,12 @@ const UpdateLesionForm = ({ lesion, handelClose }) => {
         onSubmit={handleUpdateLesion}
         validationSchema={validationSchema}
         initialValues={{
-          videoURI: lesion.link_uri,
-          pdfFile : null,
           is_visible : lesion.is_visible,
           is_open : lesion.is_open,
-          type : lesion.type,
           title : lesion.title,
-          time : lesion.time
+          time : lesion.time,
+          type : lesion.type,
+          description : lesion.description
         }}
       >
         {({
@@ -75,7 +74,7 @@ const UpdateLesionForm = ({ lesion, handelClose }) => {
         }) => (
           <form onSubmit={handleSubmit}>
             <Grid container spacing={gridSpacing}>
-              <Grid item xs={12} sm={6}>
+              {/* <Grid item xs={12} sm={6}>
                 <FormControl fullWidth>
                   <InputLabel>{t('courses.detaisl.details_tab.chapter_renderer.chapter_card.lesion_renderer.lesion_item.update_lesion_form.labels.type')}</InputLabel>
                   <Select
@@ -94,7 +93,7 @@ const UpdateLesionForm = ({ lesion, handelClose }) => {
                     <FormHelperText error>{errors.type}</FormHelperText>
                   )}
                 </FormControl>
-              </Grid>
+              </Grid> */}
               <Grid item xs={12} sm={6}>
                 <FormControl fullWidth>
                   <InputLabel>{t('courses.detaisl.details_tab.chapter_renderer.chapter_card.lesion_renderer.lesion_item.update_lesion_form.labels.title')}</InputLabel>
@@ -130,6 +129,25 @@ const UpdateLesionForm = ({ lesion, handelClose }) => {
                   />
                   {touched.time && errors.time && (
                     <FormHelperText error>{errors.time}</FormHelperText>
+                  )}
+                </FormControl>
+              </Grid>
+              }
+              {
+                values.type === 'pdf' && <Grid item xs={12} sm={6}>
+                <FormControl fullWidth>
+                  <InputLabel>{t('courses.detaisl.details_tab.chapter_renderer.chapter_card.lesion_renderer.lesion_item.update_lesion_form.labels.description')}</InputLabel>
+                  <OutlinedInput
+                    type="text"
+                    label={t('courses.detaisl.details_tab.chapter_renderer.chapter_card.lesion_renderer.lesion_item.update_lesion_form.labels.description')}
+                    name="description"
+                    onChange={handleChange}
+                    value={values.description}
+                    error={touched.description && errors.description}
+                    onBlur={handleBlur}
+                  />
+                  {touched.description && errors.description && (
+                    <FormHelperText error>{errors.description}</FormHelperText>
                   )}
                 </FormControl>
               </Grid>

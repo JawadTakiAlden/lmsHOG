@@ -119,6 +119,17 @@
         "title" : "Title",
         "body" : "Body"
       }
+    },
+    "enrolment_with_codes" : {
+      "labels" : {
+        "name" : "Course Name",
+        "count_by_single" : "Count By Single",
+        "count_by_shared" : "Count By Shared",
+        "count_by_shared_selected" : "Count By Shared Selected",
+        "total" : "Total",
+        "manual_enrolment" : "Manual Enrolment"
+      },
+      "h1" : "Enrolment Classification By Code type"
     }
   },
   "students": {
@@ -289,7 +300,8 @@
                     "is_visible": "Visibility",
                     "is_open": "Is Free",
                     "create_btn": "Create",
-                    "cancel_btn": "Cancel"
+                    "cancel_btn": "Cancel",
+                    "description" : "Description"
                   }
                 },
                 "dialog": {

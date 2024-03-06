@@ -5,6 +5,7 @@ import WelcomeMessage from "./components/WelcomeMessage";
 import StatisticsCards from "./components/StatisticsCards";
 import RecentEnroll from "./components/RecentEnroll";
 import PushNotification from "./components/PushNotification";
+import CoursesWithTypeOfCode from "./components/CoursesWithTypeOfCode";
 const Dashboard = () => {
   return (
     <Grid container spacing={gridSpacing}>
@@ -16,6 +17,9 @@ const Dashboard = () => {
       </Grid>
       <Grid item xs={12}>
         <RecentEnroll />
+      </Grid>
+      <Grid item xs={12}>
+        <CoursesWithTypeOfCode />
       </Grid>
       <Grid item xs={12}>
         <PushNotification />

@@ -1,6 +1,7 @@
 import {
   Delete,
   DeleteOutlined,
+  DescriptionOutlined,
   EditOutlined,
   InfoOutlined,
   LockOutlined,
@@ -23,6 +24,7 @@ import {
   ListItemIcon,
   ListItemText,
   Tooltip,
+  Typography,
   useTheme,
 } from "@mui/material";
 import React, { useState } from "react";
@@ -122,7 +124,29 @@ const LesionItem = ({ last, lesion }) => {
           </Box>
         </Box>
         <Collapse in={contentOpen}>
+          <Typography
+            sx={{
+              color : 'grey',
+              mb : 2,
+              fontSize :'17px',
+              pl : 2,
+              lineHeight: '1.6'
+            }}
+          >
+            
+          </Typography>
           <List>
+            <ListItem
+              sx={{
+                backgroundColor : '#dff1ff',
+                borderRadius : '8px',
+              }}
+            >
+              <ListItemIcon>
+                <DescriptionOutlined />
+              </ListItemIcon>
+              <ListItemText>{lesion.description || 'no description'}</ListItemText>
+            </ListItem>
             <ListItem>
               <ListItemIcon>
                 <InfoOutlined />
