@@ -1,5 +1,6 @@
 import { LoadingButton } from "@mui/lab";
 import {
+  Autocomplete,
   Box,
   Button,
   CircularProgress,
@@ -12,9 +13,10 @@ import {
   OutlinedInput,
   Select,
   Switch,
+  TextField,
 } from "@mui/material";
 import { Formik } from "formik";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as yup from "yup";
 import { gridSpacing } from "../../../../../../../constant";
 import { CancelOutlined, CreateOutlined, PictureAsPdfOutlined } from "@mui/icons-material";
@@ -22,17 +24,20 @@ import useUpdateLesion from "../../../../../../../api/useUpdateLesion";
 import { useTranslation } from "react-i18next";
 import useGetVideos from "../../../../../../../api/useGetVideos";
 import VisuallyHiddenInput from "../../../../../../../components/VisuallyHiddenInput/VisuallyHiddenInput";
+import useDebounce from "../../../../../../../utils/useDebounce";
 
 const lesionTypes = ["video", "pdf"];
 
 const UpdateLesionForm = ({ lesion, handelClose }) => {
   const {t} = useTranslation()
-  const videos = useGetVideos();
+  const [inputValue, setInputValue] = useState("");
+  const videos = useGetVideos(inputValue);
+  const [videoUriOpen, setVideoUriOpen] = useState(false);
   const updateLesion = useUpdateLesion({ lesion_id: lesion.id });
   const handleUpdateLesion = (values) => {
     let dataChangedToSend = {
       ...(values.pdfFile && {pdfFile : values.pdfFile}),
-      ...(values.videoURI && {videoURI : values.videoURI}),
+      ...(values.videoURI && {videoURI : values.videoURI.uri}),
       is_visible : +values.is_visible,
       is_open : +values.is_open,
       title : values.title,
@@ -41,6 +46,15 @@ const UpdateLesionForm = ({ lesion, handelClose }) => {
     }
     updateLesion.callFunction(dataChangedToSend)
   };
+
+  const handelRefetchOnSearch = useDebounce(() => {
+    videos.refetch()
+  }, 500);
+
+  useEffect(() => {
+    handelRefetchOnSearch()
+  } , [inputValue])
+
   return (
     <Box
       sx={{
@@ -155,47 +169,52 @@ const UpdateLesionForm = ({ lesion, handelClose }) => {
               {values.type === "video" ? (
                 <Grid item xs={12} sm={6}>
                   <FormControl fullWidth>
-                    <InputLabel>{t('courses.detaisl.details_tab.chapter_renderer.chapter_card.lesion_renderer.lesion_item.update_lesion_form.labels.link')}</InputLabel>
-                    <Select
-                      value={values.videoURI}
-                      onChange={handleChange}
+                    <Autocomplete
+                      open={videoUriOpen}
+                      onOpen={() => {
+                        setVideoUriOpen(true);
+                      }}
+                      onClose={() => {
+                        setVideoUriOpen(false);
+                      }}
+                      filterOptions={(x) => x}
+                      disableCloseOnSelect
+                      isOptionEqualToValue={(option, value) =>
+                        option.uri === value.uri
+                      }
+                      id="videoURI"
+                      name={"videoURI"}
                       onBlur={handleBlur}
-                      name="videoURI"
-                      label={t('courses.detaisl.details_tab.chapter_renderer.chapter_card.lesion_renderer.lesion_item.update_lesion_form.labels.link')}
-                      error={touched.videoURI && errors.videoURI}
-                    >
-                      {videos.isLoading ? (
-                        <Box
-                          sx={{
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center",
+                      getOptionLabel={(option) => option.name}
+                      options={videos?.data?.data?.data || []}
+                      loading={videos.isLoading || videos.isRefetching}
+                      onChange={(event, newValue) => {
+                        setFieldValue("videoURI", newValue);
+                      }}
+                      onInputChange={(event, newInputValue) => {
+                        setInputValue(newInputValue)
+                      }}
+                      renderInput={(params) => (
+                        <TextField
+                          {...params}
+                          label={t('courses.detaisl.details_tab.chapter_renderer.chapter_card.lesion_renderer.lesion_item.update_lesion_form.labels.link')}
+                          name="videoURI"
+                          onBlur={handleBlur}
+                          error={touched.videoURI && errors.videoURI}
+                          InputProps={{
+                            ...params.InputProps,
+                            endAdornment: (
+                              <React.Fragment>
+                                {videos.isLoading ||  videos.isRefetching ? (
+                                  <CircularProgress color="inherit" size={20} />
+                                ) : null}
+                                {params.InputProps.endAdornment}
+                              </React.Fragment>
+                            ),
                           }}
-                        >
-                          <CircularProgress />
-                        </Box>
-                      ) : videos.isError ? (
-                        <Box
-                          sx={{
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center",
-                          }}
-                        >
-                          <Button
-                            color="error"
-                            variant="outlined"
-                            onClick={videos.refetch}
-                          >
-                            {t('courses.detaisl.details_tab.chapter_renderer.chapter_card.lesion_renderer.lesion_item.update_lesion_form.labels.refetch_btn')}
-                          </Button>
-                        </Box>
-                      ) : (
-                        videos?.data?.data?.data.map((video) => (
-                          <MenuItem value={video.uri}>{video.name}</MenuItem>
-                        ))
+                        />
                       )}
-                    </Select>
+                    />
                     {touched.videoURI && errors.videoURI && (
                       <FormHelperText error>{errors.videoURI}</FormHelperText>
                     )}
@@ -273,6 +292,13 @@ const UpdateLesionForm = ({ lesion, handelClose }) => {
 };
 
 const validationSchema = yup.object({
+  videoURI: yup.mixed(),
+  time: yup.number().when("type", {
+    is: "pdf",
+    then: (schema) => schema.min(0).required('estimated time is required'),
+  }),
+  title : yup.string().nullable().max(255),
+  description : yup.string().nullable().max(600)
 });
 
 export default UpdateLesionForm;

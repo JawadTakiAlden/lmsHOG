@@ -2,12 +2,14 @@ import { useQuery } from '@tanstack/react-query'
 import {request} from './request'
 import useErrorHandeler from './errorHandler'
 
-const getVideosRequest = () => {
-    return request({
-        url : `/videos/get`
-    })
-}
-const useGetVideos = () => {
+
+const useGetVideos = (link = "") => {
+
+    const getVideosRequest = () => {
+        return request({
+            url : `/videos/get?link=${link}`
+        })
+    }
     const query = useQuery({
         queryKey : [`get-videos`],
         queryFn : getVideosRequest

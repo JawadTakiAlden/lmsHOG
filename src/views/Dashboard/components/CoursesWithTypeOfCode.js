@@ -31,6 +31,10 @@ const CoursesWithTypeOfCode = () => {
         header: t('dashboard.enrolment_with_codes.labels.count_by_shared_selected'),
       },
       {
+        accessorKey: 'number_gift_code_enrolment',
+        header: t('dashboard.enrolment_with_codes.labels.count_by_gift'),
+      },
+      {
         accessorKey: 'manual_enrolment',
         header: t('dashboard.enrolment_with_codes.labels.manual_enrolment'),
       }

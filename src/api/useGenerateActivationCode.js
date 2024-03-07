@@ -1,28 +1,25 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useSnackbar } from "notistack";
 import { request } from "./request";
+import useDownloadFile from "./useDownloadFile";
 
 const useGenerateActivationCode = () => {
     const { enqueueSnackbar } = useSnackbar();
     const queryClient = useQueryClient()
+    const download = useDownloadFile()
     const generateCodeRequest = (data) => {
         return request({
             url : `/activationCodes/generate`,
             method : 'post',
             data : data,
-            responseType: 'blob'
         })
     }
     const query = useMutation({
         mutationKey : [`generate-codes`],
         mutationFn : generateCodeRequest,
         onSuccess : (data) => {
-            const url = window.URL.createObjectURL(new Blob([data.data]));
-            const link = document.createElement('a');
-            link.href = url;
-            link.setAttribute('download', 'last-generated-activation-code.xlsx');
-            document.body.appendChild(link);
-            link.click();
+            download.callFuntion(data.data.data)
+            enqueueSnackbar(data?.data?.message , {variant : 'success'})
             queryClient.refetchQueries([`get-files`]);
         },
         onError : (error) => {

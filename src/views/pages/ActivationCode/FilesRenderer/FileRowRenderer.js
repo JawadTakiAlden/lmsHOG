@@ -22,7 +22,7 @@ const FileRowRenderer = ({file}) => {
             borderRadius : '10px',
             px : 2,
             py : 1,
-            justifyContent : {xs : 'space-between'  , md : 'flex-start'},
+            justifyContent : 'space-between',
             flexDirection : {xs: 'column' , sm :'row'}
           }}
         >

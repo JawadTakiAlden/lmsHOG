@@ -10,6 +10,7 @@ import ChoicesTab from './ChoicesTab'
 import DeleteTab from './DeleteTab'
 import { useTranslation } from 'react-i18next'
 import LogoLoader from '../../../../components/LogoLoader'
+import UpdateTab from './UpdateTab'
 
 const QuestionDetails = () => {
     const navigate = useNavigate()
@@ -51,6 +52,9 @@ const QuestionDetails = () => {
       </Box>
       <TabPanel value="1">
         <Detailtab question={questionDetaisl?.data?.data?.data} />
+      </TabPanel>
+      <TabPanel value="2">
+        <UpdateTab question={questionDetaisl?.data?.data?.data} />
       </TabPanel>
       <TabPanel value="3">
         <ChoicesTab question={questionDetaisl?.data?.data?.data} />

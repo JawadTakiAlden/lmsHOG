@@ -47,6 +47,7 @@ const QuestionDetails = Loadable(lazy(() => import("./views/pages/Question/Quest
 const QuestionsList = Loadable(lazy(() => import("./views/pages/Question/QuestionsList")));
 const CreateQuestion = Loadable(lazy(() => import("./views/pages/Question/CreateQuestion")));
 const ActivationCode = Loadable(lazy(() => import("./views/pages/ActivationCode")));
+const CheckCode = Loadable(lazy(() => import("./views/pages/ActivationCode/CheckCode")));
 const ResetPage = Loadable(lazy(() => import("./views/pages/Statistics")));
 const CreateCourse = Loadable(lazy(() => import("./views/pages/courses/CreateCourse")));
 const CreateNews = Loadable(lazy(() => import("./views/pages/News/CreateNews")));
@@ -128,7 +129,10 @@ function App() {
                   <Route path="all" element={<News />} />
                   <Route path="create" element={<CreateNews />} />
                 </Route>
-                <Route path="activationCode" element={<ActivationCode />} />
+                <Route path="activationCode">
+                  <Route path="all" element={<ActivationCode />} />
+                  <Route path="check" element={<CheckCode />} />
+                </Route>
               </Route>
               <Route path="statistics">
                 <Route path="reset" element={<ResetPage />} />

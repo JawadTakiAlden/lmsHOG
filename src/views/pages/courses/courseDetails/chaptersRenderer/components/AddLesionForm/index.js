@@ -20,7 +20,7 @@ import {
   styled,
 } from "@mui/material";
 import { Formik } from "formik";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { gridSpacing } from "../../../../../../../constant";
 import {
   CancelOutlined,
@@ -34,6 +34,7 @@ import * as yup from "yup";
 import useGetVideos from "../../../../../../../api/useGetVideos";
 import VisuallyHiddenInput from "../../../../../../../components/VisuallyHiddenInput/VisuallyHiddenInput";
 import { useTranslation } from "react-i18next";
+import useDebounce from "../../../../../../../utils/useDebounce";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -78,8 +79,10 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 const lesionTypes = ["video", "pdf"];
 
 const AddLesionForm = ({ chapter, handelClose }) => {
+  const [videoUriOpen, setVideoUriOpen] = useState(false);
+  const [inputValue, setInputValue] = useState("");
   const createLesion = useCreateLesion();
-  const videos = useGetVideos();
+  const videos = useGetVideos(inputValue);
   const { t } = useTranslation();
   const handleCreateNewLesion = (values) => {
     let valuesToSubmit = {
@@ -93,10 +96,18 @@ const AddLesionForm = ({ chapter, handelClose }) => {
     if (values.type === "pdf") {
       valuesToSubmit.pdfFile = values.pdfFile;
     } else {
-      valuesToSubmit.videoURI = values.videoURI;
+      valuesToSubmit.videoURI = values.videoURI.uri;
     }
     createLesion.callFunction(valuesToSubmit);
   };
+
+  const handelRefetchOnSearch = useDebounce(() => {
+    videos.refetch()
+  }, 500);
+
+  useEffect(() => {
+    handelRefetchOnSearch()
+  } , [inputValue])
   return (
     <Box
       sx={{
@@ -228,12 +239,61 @@ const AddLesionForm = ({ chapter, handelClose }) => {
                     )}
                   /> */}
                   <FormControl fullWidth>
-                    <InputLabel>
+                    {/* <InputLabel>
                       {t(
                         "courses.detaisl.details_tab.chapter_renderer.chapter_card.add_lesion_form.labels.link"
                       )}
-                    </InputLabel>
-                    <Select
+                    </InputLabel> */}
+                    <Autocomplete
+                      open={videoUriOpen}
+                      onOpen={() => {
+                        setVideoUriOpen(true);
+                      }}
+                      onClose={() => {
+                        setVideoUriOpen(false);
+                      }}
+                      filterOptions={(x) => x}
+                      disableCloseOnSelect
+                      isOptionEqualToValue={(option, value) =>
+                        option.uri === value.uri
+                      }
+                      id="videoURI"
+                      name={"videoURI"}
+                      onBlur={handleBlur}
+                      getOptionLabel={(option) => option.name}
+                      options={videos?.data?.data?.data || []}
+                      loading={videos.isLoading||videos.isRefetching}
+                      onChange={(event, newValue) => {
+                        setFieldValue("videoURI", newValue);
+                      }}
+                      // inputValue={inputValue}
+                      onInputChange={(event, newInputValue) => {
+                        setInputValue(newInputValue)
+                      }}
+                      renderInput={(params) => (
+                        <TextField
+                          {...params}
+                          label={t(
+                            "courses.detaisl.details_tab.chapter_renderer.chapter_card.add_lesion_form.labels.link"
+                          )}
+                          name="videoURI"
+                          onBlur={handleBlur}
+                          error={touched.videoURI && errors.videoURI}
+                          InputProps={{
+                            ...params.InputProps,
+                            endAdornment: (
+                              <React.Fragment>
+                                {videos.isLoading || videos.isRefetching ? (
+                                  <CircularProgress color="inherit" size={20} />
+                                ) : null}
+                                {params.InputProps.endAdornment}
+                              </React.Fragment>
+                            ),
+                          }}
+                        />
+                      )}
+                    />
+                    {/* <Select
                       value={values.videoURI}
                       onChange={handleChange}
                       onBlur={handleBlur}
@@ -287,7 +347,7 @@ const AddLesionForm = ({ chapter, handelClose }) => {
                           <MenuItem value={video.uri}>{video.name}</MenuItem>
                         ))
                       )}
-                    </Select>
+                    </Select> */}
                     {touched.videoURI && errors.videoURI && (
                       <FormHelperText error>{errors.videoURI}</FormHelperText>
                     )}
@@ -385,7 +445,7 @@ const validationSchema = yup.object({
     then: (schema) => schema.required("pdf file is required"),
     otherwise: (schema) => schema.notRequired(),
   }),
-  videoURI: yup.string().when("type", {
+  videoURI: yup.mixed().when("type", {
     is: "video",
     then: (schema) => schema.required("video is required"),
     otherwise: (schema) => schema.notRequired(),

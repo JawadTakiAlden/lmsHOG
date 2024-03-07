@@ -151,7 +151,13 @@ export const useMenuItems = () => {
         {
           id: "all-activation-code",
           title:t('sidebar.items.activation_code.items.1'),
-          path: "/dashboard/activationCode",
+          path: "/dashboard/activationCode/all",
+          type: "item",
+        },
+        {
+          id: "check-activation-code",
+          title:t('sidebar.items.activation_code.items.2'),
+          path: "/dashboard/activationCode/check",
           type: "item",
         },
       ],

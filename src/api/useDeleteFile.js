@@ -1,7 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useSnackbar } from 'notistack';
-import React, { useState } from 'react'
-import { useNavigate, useParams } from 'react-router';
+import { useState } from 'react'
 import { request } from './request';
 
 const useDeleteFile = () => {

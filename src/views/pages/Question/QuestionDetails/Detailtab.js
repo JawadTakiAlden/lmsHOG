@@ -53,6 +53,7 @@ const Detailtab = ({ question }) => {
           <CardHeader title={t('questions.question_detials.detials_tab.title_image')} />
           <CardMedia
             component="img"
+            loading="lazy"
             height="250"
             image={question.image}
             alt={question.image}
@@ -73,6 +74,7 @@ const Detailtab = ({ question }) => {
           <CardHeader title={t('questions.question_detials.detials_tab.clarification_image')} />
           <CardMedia
             component="img"
+            loading="lazy"
             height="250"
             image={question.clarification_image}
             alt={question.clarification_image}

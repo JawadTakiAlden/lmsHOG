@@ -1,4 +1,5 @@
 import {
+  Autocomplete,
   Box,
   Button,
   Checkbox,
@@ -11,10 +12,11 @@ import {
   MenuItem,
   OutlinedInput,
   Select,
+  TextField,
   useTheme,
 } from "@mui/material";
 import { Formik } from "formik";
-import React from "react";
+import React, { useState } from "react";
 import * as yup from "yup";
 import { gridSpacing } from "../../../../constant";
 import useGetCourses from "../../../../api/useGetCourses";
@@ -23,25 +25,29 @@ import { NoteAddOutlined } from "@mui/icons-material";
 import useGenerateActivationCode from "../../../../api/useGenerateActivationCode";
 import { useTranslation } from "react-i18next";
 
-
-
 function getStyles(id, courses, theme) {
   return {
     fontWeight:
-    courses.indexOf(id) === -1
+      courses.indexOf(id) === -1
         ? theme.typography.fontWeightRegular
         : theme.typography.fontWeightMedium,
   };
 }
 
-
 const ActivationCodeGenerateForm = () => {
   const courses = useGetCourses();
-  const theme =  useTheme()
-  const {t} = useTranslation()
+  const [sharedOpen, setSharedOpen] = useState(false);
+  const theme = useTheme();
+  const { t } = useTranslation();
   const generateCodes = useGenerateActivationCode();
   const handelGenerate = (values) => {
-    generateCodes.callFuntion(values);
+    let data = {
+      ...values
+    }
+    if(values.type === 'shared'){
+      data.courses = data.courses.map(course => course.id)
+    }
+    generateCodes.callFuntion(data);
   };
 
   return (
@@ -59,7 +65,7 @@ const ActivationCodeGenerateForm = () => {
           quantity: 1,
           number_of_courses: 1,
           courses: [],
-          title : ''
+          title: "",
         }}
         validationSchema={validationSchema}
       >
@@ -77,19 +83,34 @@ const ActivationCodeGenerateForm = () => {
             <Grid container spacing={gridSpacing}>
               <Grid item xs={12} sm={6}>
                 <FormControl fullWidth>
-                  <InputLabel>{t('activation_codes.generate.labels.type')}</InputLabel>
+                  <InputLabel>
+                    {t("activation_codes.generate.labels.type")}
+                  </InputLabel>
                   <Select
                     name="type"
                     onChange={handleChange}
                     onBlur={handleBlur}
                     value={values.type}
                     error={touched.type && errors.type}
-                    label={t('activation_codes.generate.labels.type')}
+                    label={t("activation_codes.generate.labels.type")}
                   >
-                    <MenuItem value={"single"}>{t('activation_codes.generate.labels.type_options.single')}</MenuItem>
-                    <MenuItem value={"shared"}>{t('activation_codes.generate.labels.type_options.shared')}</MenuItem>
+                    <MenuItem value={"single"}>
+                      {t(
+                        "activation_codes.generate.labels.type_options.single"
+                      )}
+                    </MenuItem>
+                    <MenuItem value={"shared"}>
+                      {t(
+                        "activation_codes.generate.labels.type_options.shared"
+                      )}
+                    </MenuItem>
                     <MenuItem value={"shared_selected"}>
-                    {t('activation_codes.generate.labels.type_options.shared_selected')}
+                      {t(
+                        "activation_codes.generate.labels.type_options.shared_selected"
+                      )}
+                    </MenuItem>
+                    <MenuItem value={"gift"}>
+                      {t("activation_codes.generate.labels.type_options.gift")}
                     </MenuItem>
                   </Select>
                   {touched.type && errors.type && (
@@ -99,10 +120,12 @@ const ActivationCodeGenerateForm = () => {
               </Grid>
               <Grid item xs={12} sm={6}>
                 <FormControl fullWidth>
-                  <InputLabel>{t('activation_codes.generate.labels.quantity')}</InputLabel>
+                  <InputLabel>
+                    {t("activation_codes.generate.labels.quantity")}
+                  </InputLabel>
                   <OutlinedInput
                     type="number"
-                    label={t('activation_codes.generate.labels.quantity')}
+                    label={t("activation_codes.generate.labels.quantity")}
                     name="quantity"
                     onChange={handleChange}
                     value={values.quantity}
@@ -120,10 +143,12 @@ const ActivationCodeGenerateForm = () => {
               </Grid>
               <Grid item xs={12} sm={6}>
                 <FormControl fullWidth>
-                  <InputLabel>{t('activation_codes.generate.labels.title')}</InputLabel>
+                  <InputLabel>
+                    {t("activation_codes.generate.labels.title")}
+                  </InputLabel>
                   <OutlinedInput
                     type="text"
-                    label={t('activation_codes.generate.labels.title')}
+                    label={t("activation_codes.generate.labels.title")}
                     name="title"
                     onChange={handleChange}
                     value={values.title}
@@ -138,10 +163,14 @@ const ActivationCodeGenerateForm = () => {
               {values.type === "shared_selected" ? (
                 <Grid item xs={12} sm={6}>
                   <FormControl fullWidth>
-                    <InputLabel>{t('activation_codes.generate.labels.num_of_courses')}</InputLabel>
+                    <InputLabel>
+                      {t("activation_codes.generate.labels.num_of_courses")}
+                    </InputLabel>
                     <OutlinedInput
                       type="number"
-                      label={t('activation_codes.generate.labels.num_of_courses')}
+                      label={t(
+                        "activation_codes.generate.labels.num_of_courses"
+                      )}
                       name="number_of_courses"
                       onChange={handleChange}
                       fullWidth
@@ -165,7 +194,9 @@ const ActivationCodeGenerateForm = () => {
               {values.type === "single" ? (
                 <Grid item xs={12} sm={6}>
                   <FormControl fullWidth>
-                    <InputLabel>{t('activation_codes.generate.labels.courses')}</InputLabel>
+                    <InputLabel>
+                      {t("activation_codes.generate.labels.courses")}
+                    </InputLabel>
                     <Select
                       fullWidth
                       value={values.courses}
@@ -173,7 +204,11 @@ const ActivationCodeGenerateForm = () => {
                       onChange={(event) => {
                         setFieldValue("courses", [event.target.value]);
                       }}
-                      input={<OutlinedInput label={t('activation_codes.generate.labels.courses')} />}
+                      input={
+                        <OutlinedInput
+                          label={t("activation_codes.generate.labels.courses")}
+                        />
+                      }
                     >
                       {courses.isLoading ? (
                         <Box
@@ -194,13 +229,15 @@ const ActivationCodeGenerateForm = () => {
                           }}
                         >
                           <Button color="warning" variant="outlined">
-                          {t('activation_codes.generate.labels.refetch_btn')}
+                            {t("activation_codes.generate.labels.refetch_btn")}
                           </Button>
                         </Box>
                       ) : courses?.data?.data?.data.length === 0 ? (
                         <ListItemText
                           sx={{ textAlign: "center" }}
-                          primary={t('activation_codes.generate.labels.no_courses_text')}
+                          primary={t(
+                            "activation_codes.generate.labels.no_courses_text"
+                          )}
                         />
                       ) : (
                         courses?.data?.data?.data.map((course) => {
@@ -221,70 +258,50 @@ const ActivationCodeGenerateForm = () => {
               ) : undefined}
               {values.type === "shared" ? (
                 <Grid item xs={12} sm={6}>
-                  <FormControl fullWidth>
-                    <InputLabel>{t('activation_codes.generate.labels.courses')}</InputLabel>
-                    <Select
-                      fullWidth
-                      value={values.courses}
-                      name="courses"
-                      multiple
-                      onChange={(event) => {
-                        const {
-                          target: { value },
-                        } = event;
-                        setFieldValue('courses',
-                          value,
-                        );
-                        setFieldValue("courses", [event.target.value]);
-                      }}
-                      input={<OutlinedInput label={t('activation_codes.generate.labels.courses')} />}
-                    >
-                      {courses.isLoading ? (
-                        <Box
-                          sx={{
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center",
-                          }}
-                        >
-                          <CircularProgress color="primary" />
-                        </Box>
-                      ) : courses.isError ? (
-                        <Box
-                          sx={{
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center",
-                          }}
-                        >
-                          <Button color="warning" variant="outlined">
-                          {t('activation_codes.generate.labels.refetch_btn')}
-                          </Button>
-                        </Box>
-                      ) : courses?.data?.data?.data.length === 0 ? (
-                        <ListItemText
-                          sx={{ textAlign: "center" }}
-                          primary={t('activation_codes.generate.labels.no_courses_text')}
-                        />
-                      ) : (
-                        courses?.data?.data?.data.map((course) => {
-                          return (
-                            <MenuItem
-              key={course.id}
-              value={course.id}
-              style={getStyles(course.id, values.courses, theme)}
-            >
-              {course.name}
-            </MenuItem>
-                          );
-                        })
-                      )}
-                      {}
-                    </Select>
-                    {touched.courses && errors.courses && (
-                      <FormHelperText error>{errors.courses}</FormHelperText>
+                  <Autocomplete
+                    multiple
+                    open={sharedOpen}
+                    onOpen={() => {
+                      setSharedOpen(true);
+                    }}
+                    onClose={() => {
+                      setSharedOpen(false);
+                    }}
+                    disableCloseOnSelect
+                    isOptionEqualToValue={(option, value) =>
+                      option.id === value.id
+                    }
+                    id="courses"
+                    name={"courses"}
+                    onBlur={handleBlur}
+                    getOptionLabel={(option) => option.name}
+                    options={courses?.data?.data?.data || []}
+                    loading={courses.isLoading}
+                    value={values.courses}
+                    onChange={(e, v) => {
+                      setFieldValue("courses", v);
+                    }}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        label={t("activation_codes.generate.labels.courses")}
+                        name="courses"
+                        onBlur={handleBlur}
+                        error={touched.courses && errors.courses}
+                        InputProps={{
+                          ...params.InputProps,
+                          endAdornment: (
+                            <React.Fragment>
+                              {courses.isLoading ? (
+                                <CircularProgress color="inherit" size={20} />
+                              ) : null}
+                              {params.InputProps.endAdornment}
+                            </React.Fragment>
+                          ),
+                        }}
+                      />
                     )}
-                  </FormControl>
+                  />
                 </Grid>
               ) : undefined}
               <Grid item xs={12}>
@@ -303,11 +320,15 @@ const ActivationCodeGenerateForm = () => {
                     startIcon={<NoteAddOutlined />}
                     loading={generateCodes.isPending}
                   >
-                    {t('activation_codes.generate.labels.create_btn')}
+                    {t("activation_codes.generate.labels.create_btn")}
                   </LoadingButton>
-                  <Button color="warning" variant="outlined"
-                    size="large" onClick={handleReset}>
-                    {t('activation_codes.generate.labels.reset_btn')}
+                  <Button
+                    color="warning"
+                    variant="outlined"
+                    size="large"
+                    onClick={handleReset}
+                  >
+                    {t("activation_codes.generate.labels.reset_btn")}
                   </Button>
                 </Box>
               </Grid>
@@ -321,7 +342,7 @@ const ActivationCodeGenerateForm = () => {
 
 const validationSchema = yup.object({
   type: yup.string(),
-  title : yup.string().nullable().max(255),
+  title: yup.string().nullable().max(255),
   quantity: yup
     .number()
     .min(1)

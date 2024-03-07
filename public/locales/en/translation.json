@@ -47,7 +47,8 @@
       "activation_code" : {
         "group" : "Activation Code",
         "items" : {
-          "1" : "All Activation Code"
+          "1" : "All Activation Code",
+          "2" : "Check Code Status"
         }
       },
       "questions" : {
@@ -126,6 +127,7 @@
         "count_by_single" : "Count By Single",
         "count_by_shared" : "Count By Shared",
         "count_by_shared_selected" : "Count By Shared Selected",
+        "count_by_gift" : "Count By Gift",
         "total" : "Total",
         "manual_enrolment" : "Manual Enrolment"
       },
@@ -539,7 +541,8 @@
         "type_options": {
           "single": "Single",
           "shared": "Shared",
-          "shared_selected": "Shared Selected"
+          "shared_selected": "Shared Selected",
+          "gift" : "Gift"
         },
         "quantity": "Quantity",
         "num_of_courses": "Number Of Courses",
