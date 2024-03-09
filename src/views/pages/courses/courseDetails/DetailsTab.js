@@ -60,7 +60,7 @@ const DetailsTab = ({ data, courseDetails }) => {
             }}
             switchermutate={visibleSwitcher}
             checkedAttribute={"is_visible"}
-            label={t('courses.detaisl.details_tab.switcher.1')}
+            label={t('courses.detaisl.details_tab.switcher.2')}
           />
         </Box>
         <Button
