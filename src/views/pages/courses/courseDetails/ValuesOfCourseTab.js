@@ -108,8 +108,8 @@ const ValuesOfCourseTab = ({ course }) => {
           <Button onClick={() => {
             handleClose()
             addValueFormik.handleReset()
-            }} variant="outlined" color="error" disabled={createValue.isPending}>{t('courses.detaisl.values_tab.dialogs.add_dialog.input_label')}</Button>
-          <LoadingButton loading={createValue.isPending}  type="submit" variant="contained">{t('courses.detaisl.values_tab.dialogs.add_dialog.cancel_btn')}</LoadingButton>
+            }} variant="outlined" color="error" disabled={createValue.isPending}>{t('courses.detaisl.values_tab.dialogs.add_dialog.cancel_btn')}</Button>
+          <LoadingButton loading={createValue.isPending}  type="submit" variant="contained">{t('courses.detaisl.values_tab.dialogs.add_dialog.create_btn')}</LoadingButton>
         </DialogActions>
       </Dialog>
     </Fragment>
