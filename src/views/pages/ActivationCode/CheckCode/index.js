@@ -122,6 +122,10 @@ const CheckCode = () => {
                     accessorKey : "activator",
                     header : 'Activator'
                 },
+                {
+                    accessorKey : "phone",
+                    header : 'Phone'
+                },
             ]}
             enableBottomToolbar={false}
             enableColumnActions={false}
