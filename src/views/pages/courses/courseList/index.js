@@ -27,7 +27,7 @@ const CourseList = () => {
         },
         {
             accessorKey: 'telegram_channel_link',
-            header : t('courses.courses_list.headers.name'),
+            header : t('courses.courses_list.headers.telegram_channel_link'),
             Cell : ({row}) => {
               return <Typography
                 component={'a'}
@@ -46,7 +46,7 @@ const CourseList = () => {
             accessorFn: (originalRow) => (originalRow.is_open ? 'true' : 'false'),
             id: 'is_open',
             filterVariant: 'checkbox',
-            header : t('courses.courses_list.headers.name'),
+            header : t('courses.courses_list.headers.is_open'),
             Cell : ({row}) => {
                 return <Swicther originalRow={row.original} switchermutate={switchOpen} checkedAttribute={'is_open'}/>
             }
@@ -55,7 +55,7 @@ const CourseList = () => {
             accessorFn: (originalRow) => (originalRow.is_visible ? 'true' : 'false'), //must be strings
             id: 'is_visible',
             filterVariant: 'checkbox',
-            header : t('courses.courses_list.headers.name'),
+            header : t('courses.courses_list.headers.is_visible'),
             Cell : ({row}) => {
                 return <Swicther originalRow={row.original} switchermutate={switchVisibility} checkedAttribute={'is_visible'}/>
             }
