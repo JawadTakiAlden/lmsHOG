@@ -17,8 +17,9 @@ import { lazy } from "react";
 import MinimalLayout from "./layouts/MinimalLayout";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
+import MainLayout from "./layouts/MainLayout"
+import Dashboard from './views/Dashboard'
 const Login = Loadable(lazy(() => import("./views/auth/Login/Login")));
-const Dashboard = Loadable(lazy(() => import("./views/Dashboard")));
 const StudentList = Loadable(
   lazy(() => import("./views/pages/student/studentList"))
 );
@@ -55,7 +56,6 @@ const NewsDetails = Loadable(lazy(() => import("./views/pages/News/NewsDetails")
 const News = Loadable(lazy(() => import("./views/pages/News")));
 const CategoryDetails = Loadable(lazy(() => import("./views/pages/categories/CategoryDetails")));
 const CreateCategroy = Loadable(lazy(() => import("./views/pages/categories/CreateCategory")));
-const MainLayout = Loadable(lazy(() => import("./layouts/MainLayout")));
 
 
 
