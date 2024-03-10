@@ -3,6 +3,8 @@ import TableWrapper from '../../../../../components/TableWrapper'
 import { MaterialReactTable, useMaterialReactTable } from 'material-react-table'
 import useGetCoursesOfStudent from '../../../../../api/useGetCoursesOfStudent'
 import { useTranslation } from 'react-i18next'
+import { Box } from '@mui/material'
+import ResetPasswordForm from './ResetPasswordForm'
 
 const StudentDetialPanel = ({originalRow}) => {
     const {data , isLoading , isError , isRefetching } = useGetCoursesOfStudent(originalRow.id)
@@ -43,9 +45,12 @@ const StudentDetialPanel = ({originalRow}) => {
         }
     })
   return (
-    <TableWrapper>
-        <MaterialReactTable table={table} />
-    </TableWrapper>
+    <Box>
+      <TableWrapper>
+          <MaterialReactTable table={table} />
+      </TableWrapper>
+      <ResetPasswordForm userID={originalRow.id} />
+    </Box>
   )
 }
 

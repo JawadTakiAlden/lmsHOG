@@ -153,6 +153,10 @@
           "name": "Course Name",
           "created_at": "Enroll Date",
           "telegram_channel_link": "Telegram Channel"
+        },
+        "reset_password_form" : {
+          "password" : "Password",
+          "reset_password_btn" : "Reset Password"
         }
       }
     },
