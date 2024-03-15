@@ -84,7 +84,7 @@ const AddChapterForm = ({course_id}) => {
 
 const initialValues = {
     name : '',
-    is_visible : false,
+    is_visible : true,
 }
 
 const validationSchema = yup.object({

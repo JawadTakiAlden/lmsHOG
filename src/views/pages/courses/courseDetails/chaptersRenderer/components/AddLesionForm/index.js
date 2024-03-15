@@ -124,7 +124,7 @@ const AddLesionForm = ({ chapter, handelClose }) => {
         initialValues={{
           videoURI: "",
           pdfFile: null,
-          is_visible: false,
+          is_visible: true,
           is_open: false,
           type: "video",
           chapter_id: chapter.id,

@@ -25,7 +25,7 @@ const AddQuizForm = ({chapter , handelClose}) => {
           }}
           initialValues={{
             quiz_id: "",
-            is_visible: false,
+            is_visible: true,
             chapter_id : chapter.id,
             is_free  : false
           }}

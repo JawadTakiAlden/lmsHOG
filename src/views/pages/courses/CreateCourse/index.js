@@ -46,7 +46,7 @@ const CreateCourse = () => {
         initialValues={{
           name: "",
           image: "",
-          is_visible: false,
+          is_visible: true,
           is_open: false,
           telegram_channel_link: "",
           teachers: [],
