@@ -4,7 +4,7 @@ import useErrorHandeler from './errorHandler'
 
 const getStudentsRequest = () => {
     return request({
-        url : '/users/all'
+        url : '/users/students'
     })
 }
 const useGetStudentList = () => {
