@@ -51,6 +51,7 @@ const StudentList = () => {
         enableColumnOrdering : true,
         renderDetailPanel : ({row }) => {
           return <StudentDetialPanel originalRow={row.original} />
+          // return <span>jawad</span>
         },
         data : data?.data?.data || [],
         state : {

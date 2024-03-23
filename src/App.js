@@ -10,15 +10,17 @@ import { Routes, Route } from "react-router";
 import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
-import { arSA } from '@mui/material/locale';
+import { arSA } from "@mui/material/locale";
 import "@fontsource/roboto/700.css";
 import Loadable from "./components/Loadable";
 import { lazy } from "react";
 import MinimalLayout from "./layouts/MinimalLayout";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
-import MainLayout from "./layouts/MainLayout"
-import Dashboard from './views/Dashboard'
+import MainLayout from "./layouts/MainLayout";
+import Dashboard from "./views/Dashboard";
+import ProtectedRoute from "./components/ProtectedRoute";
+import LoginWrapper from "./components/LoginWrapper";
 const Login = Loadable(lazy(() => import("./views/auth/Login/Login")));
 const StudentList = Loadable(
   lazy(() => import("./views/pages/student/studentList"))
@@ -42,54 +44,78 @@ const AllAccounts = Loadable(
 const EnrolledStudents = Loadable(
   lazy(() => import("./views/pages/student/enrolledStudents"))
 );
-const QuizDetials = Loadable(lazy(() => import("./views/pages/Quizzes/QuizDetails")));
+const QuizDetials = Loadable(
+  lazy(() => import("./views/pages/Quizzes/QuizDetails"))
+);
 const AllQuiz = Loadable(lazy(() => import("./views/pages/Quizzes/AllQuiz")));
-const QuestionDetails = Loadable(lazy(() => import("./views/pages/Question/QuestionDetails")));
-const QuestionsList = Loadable(lazy(() => import("./views/pages/Question/QuestionsList")));
-const CreateQuestion = Loadable(lazy(() => import("./views/pages/Question/CreateQuestion")));
-const ActivationCode = Loadable(lazy(() => import("./views/pages/ActivationCode")));
-const CheckCode = Loadable(lazy(() => import("./views/pages/ActivationCode/CheckCode")));
+const QuestionDetails = Loadable(
+  lazy(() => import("./views/pages/Question/QuestionDetails"))
+);
+const QuestionsList = Loadable(
+  lazy(() => import("./views/pages/Question/QuestionsList"))
+);
+const CreateQuestion = Loadable(
+  lazy(() => import("./views/pages/Question/CreateQuestion"))
+);
+const ActivationCode = Loadable(
+  lazy(() => import("./views/pages/ActivationCode"))
+);
+const CheckCode = Loadable(
+  lazy(() => import("./views/pages/ActivationCode/CheckCode"))
+);
 const ResetPage = Loadable(lazy(() => import("./views/pages/Statistics")));
-const CreateCourse = Loadable(lazy(() => import("./views/pages/courses/CreateCourse")));
-const CreateNews = Loadable(lazy(() => import("./views/pages/News/CreateNews")));
-const NewsDetails = Loadable(lazy(() => import("./views/pages/News/NewsDetails")));
+const CreateCourse = Loadable(
+  lazy(() => import("./views/pages/courses/CreateCourse"))
+);
+const CreateNews = Loadable(
+  lazy(() => import("./views/pages/News/CreateNews"))
+);
+const NewsDetails = Loadable(
+  lazy(() => import("./views/pages/News/NewsDetails"))
+);
 const News = Loadable(lazy(() => import("./views/pages/News")));
-const CategoryDetails = Loadable(lazy(() => import("./views/pages/categories/CategoryDetails")));
-const CreateCategroy = Loadable(lazy(() => import("./views/pages/categories/CreateCategory")));
-
-
+const CategoryDetails = Loadable(
+  lazy(() => import("./views/pages/categories/CategoryDetails"))
+);
+const CreateCategroy = Loadable(
+  lazy(() => import("./views/pages/categories/CreateCategory"))
+);
 
 function App() {
-  const {direction} = useSelector(state => state.customization)
-  const theme = createTheme({
-    direction,
-    components : {
-      MuiButton : {
-        styleOverrides :{
-          startIcon : {
-            marginRight : direction === 'ltr' ? '8px' : '-4px',
-            marginLeft : direction === 'ltr' ? '-4px' : '8px',
-          }
-        }
-      }
-    },
-    palette: {
-      background: {
-        default: "#FCFCFC",
+  const { direction } = useSelector((state) => state.customization);
+  const theme = createTheme(
+    {
+      direction,
+      components: {
+        MuiButton: {
+          styleOverrides: {
+            startIcon: {
+              marginRight: direction === "ltr" ? "8px" : "-4px",
+              marginLeft: direction === "ltr" ? "-4px" : "8px",
+            },
+          },
+        },
       },
-      primary: {
-        main: "#0794EB",
+      palette: {
+        background: {
+          default: "#FCFCFC",
+        },
+        primary: {
+          main: "#0794EB",
+        },
+      },
+      typography: {
+        fontFamily:
+          direction === "ltr" ? `"Nunito", sans-serif` : `Hacen Tunisia`,
+        mainContent: {
+          width: "100%",
+          minHeight: "calc(100vh - 88px)",
+          flexGrow: 1,
+        },
       },
     },
-    typography: {
-      fontFamily : direction === 'ltr' ? `"Nunito", sans-serif` : `Hacen Tunisia`,
-      mainContent: {
-        width: "100%",
-        minHeight: "calc(100vh - 88px)",
-        flexGrow: 1,
-      },
-    },
-  } , arSA);
+    arSA
+  );
 
   return (
     <StyledEngineProvider injectFirst>
@@ -97,8 +123,9 @@ function App() {
         <CssBaseline />
         <NavigationOnScroll>
           {/* <RTL> */}
-            <Routes>
-              <Route path="/" element={<Login />} />
+          <Routes>
+            <Route path="/" element={<Login />} />
+            <Route element={<ProtectedRoute />}>
               <Route path="dashboard" element={<MainLayout />}>
                 <Route path="quizzes">
                   <Route path="all" element={<AllQuiz />} />
@@ -139,12 +166,19 @@ function App() {
               </Route>
               <Route path="details" element={<MinimalLayout />}>
                 <Route path="course/:course_id" element={<CourseDetails />} />
-                <Route path="category/:category_id" element={<CategoryDetails />} />
+                <Route
+                  path="category/:category_id"
+                  element={<CategoryDetails />}
+                />
                 <Route path="news/:news_id" element={<NewsDetails />} />
-                <Route path="question/:question_id" element={<QuestionDetails />} />
+                <Route
+                  path="question/:question_id"
+                  element={<QuestionDetails />}
+                />
                 <Route path="quiz/:quiz_id" element={<QuizDetials />} />
               </Route>
-            </Routes>
+            </Route>
+          </Routes>
           {/* </RTL> */}
         </NavigationOnScroll>
       </ThemeProvider>

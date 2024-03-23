@@ -5,6 +5,7 @@ import useGetCoursesOfStudent from '../../../../../api/useGetCoursesOfStudent'
 import { useTranslation } from 'react-i18next'
 import { Box } from '@mui/material'
 import ResetPasswordForm from './ResetPasswordForm'
+import DeleteAccountButton from './DeleteAccountButton'
 
 const StudentDetialPanel = ({originalRow}) => {
     const {data , isLoading , isError , isRefetching } = useGetCoursesOfStudent(originalRow.id)
@@ -22,7 +23,7 @@ const StudentDetialPanel = ({originalRow}) => {
             accessorKey : 'telegram_channel_link',
             header : t('students.student_list.student_detail.headers.telegram_channel_link'),
             Cell : ({row}) => {
-                return <a target='_blank' href={row.original.telegram_channel_link}>{row.original.telegram_channel_link}</a>
+                return <a target='_blank' rel='noreferrer' href={row.original.telegram_channel_link}>{row.original.telegram_channel_link}</a>
             }
         }
     ] , [])
@@ -46,6 +47,7 @@ const StudentDetialPanel = ({originalRow}) => {
     })
   return (
     <Box>
+      <DeleteAccountButton userID={originalRow.id} />
       <TableWrapper>
           <MaterialReactTable table={table} />
       </TableWrapper>
