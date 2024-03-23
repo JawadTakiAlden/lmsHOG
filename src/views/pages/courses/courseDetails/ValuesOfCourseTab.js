@@ -22,8 +22,8 @@ import { useTranslation } from "react-i18next";
 
 const ValuesOfCourseTab = ({ course }) => {
   const [open, setOpen] = useState(false);
-  const createValue = useCreateNewValue()
-  const {t} = useTranslation()
+  const createValue = useCreateNewValue();
+  const { t } = useTranslation();
   const addValueFormik = useFormik({
     initialValues: {
       value: "",
@@ -32,7 +32,7 @@ const ValuesOfCourseTab = ({ course }) => {
       value: yup.string().required("value is required"),
     }),
     onSubmit: (values) => {
-        createValue.callFuntion(values)
+      createValue.callFuntion(values);
     },
   });
 
@@ -55,7 +55,7 @@ const ValuesOfCourseTab = ({ course }) => {
           }}
         >
           <Button variant="contained" onClick={handleClickOpen} size="large">
-            {t('courses.detaisl.values_tab.buttons.0')}
+            {t("courses.detaisl.values_tab.buttons.0")}
           </Button>
         </Box>
         {course.values.length === 0 ? (
@@ -68,11 +68,11 @@ const ValuesOfCourseTab = ({ course }) => {
               textTransform: "capitalize",
             }}
           >
-            {t('courses.detaisl.values_tab.no_values')}
+            {t("courses.detaisl.values_tab.no_values")}
           </Typography>
         ) : undefined}
         {course.values.map((value) => (
-            <ValueCard key={value.id} value={value}/>
+          <ValueCard key={value.id} value={value} />
         ))}
       </Box>
       <Dialog
@@ -80,36 +80,59 @@ const ValuesOfCourseTab = ({ course }) => {
         onClose={handleClose}
         PaperProps={{
           component: "form",
-          onSubmit: addValueFormik.handleSubmit
+          onSubmit: addValueFormik.handleSubmit,
         }}
       >
-        <DialogTitle>{t('courses.detaisl.values_tab.dialogs.add_dialog.title')}</DialogTitle>
+        <DialogTitle>
+          {t("courses.detaisl.values_tab.dialogs.add_dialog.title")}
+        </DialogTitle>
         <DialogContent>
           <DialogContentText>
-          {t('courses.detaisl.values_tab.dialogs.add_dialog.desc')}
+            {t("courses.detaisl.values_tab.dialogs.add_dialog.desc")}
           </DialogContentText>
-          <FormControl sx={{mt : 2}} fullWidth>
-            <InputLabel>{t('courses.detaisl.values_tab.dialogs.add_dialog.input_label')}</InputLabel>
+          <FormControl sx={{ mt: 2 }} fullWidth>
+            <InputLabel>
+              {t("courses.detaisl.values_tab.dialogs.add_dialog.input_label")}
+            </InputLabel>
             <OutlinedInput
               type="text"
-              label={t('courses.detaisl.values_tab.dialogs.add_dialog.input_label')}
+              label={t(
+                "courses.detaisl.values_tab.dialogs.add_dialog.input_label"
+              )}
               name="value"
               onChange={addValueFormik.handleChange}
               value={addValueFormik.values.value}
-              error={addValueFormik.touched.value && addValueFormik.errors.value}
+              error={
+                addValueFormik.touched.value && addValueFormik.errors.value
+              }
               onBlur={addValueFormik.handleBlur}
             />
             {addValueFormik.touched.value && addValueFormik.errors.value && (
-              <FormHelperText error>{addValueFormik.errors.value}</FormHelperText>
+              <FormHelperText error>
+                {addValueFormik.errors.value}
+              </FormHelperText>
             )}
           </FormControl>
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => {
-            handleClose()
-            addValueFormik.handleReset()
-            }} variant="outlined" color="error" disabled={createValue.isPending}>{t('courses.detaisl.values_tab.dialogs.add_dialog.cancel_btn')}</Button>
-          <LoadingButton loading={createValue.isPending}  type="submit" variant="contained">{t('courses.detaisl.values_tab.dialogs.add_dialog.create_btn')}</LoadingButton>
+          <Button
+            onClick={() => {
+              handleClose();
+              addValueFormik.handleReset();
+            }}
+            variant="outlined"
+            color="error"
+            disabled={createValue.isPending}
+          >
+            {t("courses.detaisl.values_tab.dialogs.add_dialog.cancel_btn")}
+          </Button>
+          <LoadingButton
+            loading={createValue.isPending}
+            type="submit"
+            variant="contained"
+          >
+            {t("courses.detaisl.values_tab.dialogs.add_dialog.create_btn")}
+          </LoadingButton>
         </DialogActions>
       </Dialog>
     </Fragment>

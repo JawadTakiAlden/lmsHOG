@@ -12,7 +12,7 @@ import ChoiceCard from "./ChoiceCard";
 import { useTranslation } from "react-i18next";
 
 const Detailtab = ({ question }) => {
-  const {t} = useTranslation()
+  const { t } = useTranslation();
   return (
     <Box>
       <Typography
@@ -23,8 +23,10 @@ const Detailtab = ({ question }) => {
           fontSize: "1.2rem",
         }}
       >
-        <span style={{ color: "#09c" }}>{t('questions.question_detials.detials_tab.title')} : </span>{" "}
-        {question.title || t('questions.question_detials.detials_tab.untitle')}
+        <span style={{ color: "#09c" }}>
+          {t("questions.question_detials.detials_tab.title")} :{" "}
+        </span>{" "}
+        {question.title || t("questions.question_detials.detials_tab.untitle")}
       </Typography>
 
       <Typography
@@ -35,8 +37,11 @@ const Detailtab = ({ question }) => {
           textTransform: "capitalize",
         }}
       >
-        <span style={{ color: "#09c" }}>{t('questions.question_detials.detials_tab.clarification')} :</span>{" "}
-        {question.clarification_text || "{t('questions.question_detials.detials_tab.unclarification')}"}
+        <span style={{ color: "#09c" }}>
+          {t("questions.question_detials.detials_tab.clarification")} :
+        </span>{" "}
+        {question.clarification_text ||
+          "{t('questions.question_detials.detials_tab.unclarification')}"}
       </Typography>
 
       <Box
@@ -50,7 +55,9 @@ const Detailtab = ({ question }) => {
         }}
       >
         <Card sx={{ maxWidth: 345, flex: 1, minWidth: "250px" }}>
-          <CardHeader title={t('questions.question_detials.detials_tab.title_image')} />
+          <CardHeader
+            title={t("questions.question_detials.detials_tab.title_image")}
+          />
           <CardMedia
             component="img"
             loading="lazy"
@@ -66,12 +73,16 @@ const Detailtab = ({ question }) => {
               size="small"
               href={question.image}
             >
-              {t('questions.question_detials.detials_tab.full_image')}
+              {t("questions.question_detials.detials_tab.full_image")}
             </Link>
           </CardContent>
         </Card>
         <Card sx={{ maxWidth: 345, flex: 1, minWidth: "250px" }}>
-          <CardHeader title={t('questions.question_detials.detials_tab.clarification_image')} />
+          <CardHeader
+            title={t(
+              "questions.question_detials.detials_tab.clarification_image"
+            )}
+          />
           <CardMedia
             component="img"
             loading="lazy"
@@ -87,13 +98,13 @@ const Detailtab = ({ question }) => {
               size="small"
               href={question.clarification_image}
             >
-              {t('questions.question_detials.detials_tab.full_image')}
+              {t("questions.question_detials.detials_tab.full_image")}
             </Link>
           </CardContent>
         </Card>
       </Box>
       <Typography variant="h5" mb={2}>
-      {t('questions.question_detials.detials_tab.choices')}
+        {t("questions.question_detials.detials_tab.choices")}
       </Typography>
       {question.choices.length === 0 && (
         <Typography
@@ -102,7 +113,7 @@ const Detailtab = ({ question }) => {
             textAlign: "center",
           }}
         >
-          {t('questions.question_detials.detials_tab.no_choices')}
+          {t("questions.question_detials.detials_tab.no_choices")}
         </Typography>
       )}
       <Box
@@ -112,19 +123,16 @@ const Detailtab = ({ question }) => {
           justifyContent: "center",
         }}
       >
-        {question.choices.map(
-          (choice, index) => (
-            <Box
-                sx={{
-                    flexBasis : '25%',
-                    minWidth : '250px',
-                   
-                }}
-            >
-                <ChoiceCard key={index} choice={choice} />
-            </Box>
-          )
-        )}
+        {question.choices.map((choice, index) => (
+          <Box
+            sx={{
+              flexBasis: "25%",
+              minWidth: "250px",
+            }}
+          >
+            <ChoiceCard key={index} choice={choice} />
+          </Box>
+        ))}
       </Box>
     </Box>
   );

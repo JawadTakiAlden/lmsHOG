@@ -18,18 +18,18 @@ import {
 import { Formik } from "formik";
 import React from "react";
 import useCreateQuiz from "../../../../api/useCreateQuiz";
-import * as yup from 'yup'
+import * as yup from "yup";
 import { useTranslation } from "react-i18next";
 
 const CreateQuizModel = ({ open, handleClose, table }) => {
   const createQuiz = useCreateQuiz();
-  const {t} = useTranslation()
+  const { t } = useTranslation();
   return (
     <Dialog open={open} onClose={handleClose}>
-      <DialogTitle> {t('quizzes.create_quiz_mode.title')}</DialogTitle>
+      <DialogTitle> {t("quizzes.create_quiz_mode.title")}</DialogTitle>
       <DialogContent>
         <DialogContentText>
-          {t('quizzes.create_quiz_mode.text')}
+          {t("quizzes.create_quiz_mode.text")}
         </DialogContentText>
         <Formik
           onSubmit={(values) => {
@@ -62,10 +62,13 @@ const CreateQuizModel = ({ open, handleClose, table }) => {
           }) => (
             <form onSubmit={handleSubmit}>
               <FormControl sx={{ mb: 2, mt: 2 }} fullWidth>
-                <InputLabel> {t('quizzes.create_quiz_mode.labels.title')}</InputLabel>
+                <InputLabel>
+                  {" "}
+                  {t("quizzes.create_quiz_mode.labels.title")}
+                </InputLabel>
                 <OutlinedInput
                   type="text"
-                  label={t('quizzes.create_quiz_mode.labels.title')}
+                  label={t("quizzes.create_quiz_mode.labels.title")}
                   name="title"
                   required
                   onChange={handleChange}
@@ -78,10 +81,12 @@ const CreateQuizModel = ({ open, handleClose, table }) => {
                 )}
               </FormControl>
               <FormControl fullWidth sx={{ mb: 2 }}>
-                <InputLabel>{t('quizzes.create_quiz_mode.labels.description')}</InputLabel>
+                <InputLabel>
+                  {t("quizzes.create_quiz_mode.labels.description")}
+                </InputLabel>
                 <OutlinedInput
                   type="text"
-                  label={t('quizzes.create_quiz_mode.labels.description')}
+                  label={t("quizzes.create_quiz_mode.labels.description")}
                   name="description"
                   onChange={handleChange}
                   value={values.description}
@@ -94,7 +99,7 @@ const CreateQuizModel = ({ open, handleClose, table }) => {
               </FormControl>
               <FormControlLabel
                 sx={{ mb: 2 }}
-                label={t('quizzes.create_quiz_mode.labels.is_visible')}
+                label={t("quizzes.create_quiz_mode.labels.is_visible")}
                 name="is_visible"
                 onChange={handleChange}
                 checked={values.is_visible}
@@ -115,7 +120,7 @@ const CreateQuizModel = ({ open, handleClose, table }) => {
                   startIcon={<CreateOutlined />}
                   loading={createQuiz.isPending}
                 >
-                  {t('quizzes.create_quiz_mode.labels.create_btn')}
+                  {t("quizzes.create_quiz_mode.labels.create_btn")}
                 </LoadingButton>
                 {/* <Button color="warning" onClick={handleReset}>
                       Reset
@@ -132,7 +137,7 @@ const CreateQuizModel = ({ open, handleClose, table }) => {
           variant="outlined"
           startIcon={<CancelOutlined />}
         >
-         {t('quizzes.create_quiz_mode.labels.cancel_btn')}
+          {t("quizzes.create_quiz_mode.labels.cancel_btn")}
         </Button>
       </DialogActions>
     </Dialog>

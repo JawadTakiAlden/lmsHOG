@@ -37,10 +37,10 @@ const LesionItem = ({ last, lesion }) => {
   const [deleteOpen, setDeleteOpen] = useState(false);
   const [editOpen, setEditOpen] = useState(false);
   const [contentOpen, setContentOpen] = useState(false);
-  const {t} = useTranslation()
+  const { t } = useTranslation();
 
   const handelContentToggle = () => {
-    setContentOpen(prev => !prev);
+    setContentOpen((prev) => !prev);
   };
 
   const handelEditToggle = () => {
@@ -79,7 +79,7 @@ const LesionItem = ({ last, lesion }) => {
             justifyContent: "space-between",
           }}
         >
-          <ListItem sx={{cursor : 'pointer'}} onClick={handelContentToggle}>
+          <ListItem sx={{ cursor: "pointer" }} onClick={handelContentToggle}>
             <ListItemIcon>
               {lesion?.type === "video" ? (
                 <VideoFileOutlined />
@@ -95,7 +95,11 @@ const LesionItem = ({ last, lesion }) => {
               {lesion.title} &#9;{" "}
               {lesion.is_open ? (
                 <span style={{ color: theme.palette.primary.main }}>
-                  [{t('courses.detaisl.details_tab.chapter_renderer.chapter_card.lesion_renderer.lesion_item.free')}]
+                  [
+                  {t(
+                    "courses.detaisl.details_tab.chapter_renderer.chapter_card.lesion_renderer.lesion_item.free"
+                  )}
+                  ]
                 </span>
               ) : (
                 <span style={{ color: theme.palette.primary.main }}>
@@ -111,12 +115,20 @@ const LesionItem = ({ last, lesion }) => {
               gap: "10px",
             }}
           >
-            <Tooltip title={t('courses.detaisl.details_tab.chapter_renderer.chapter_card.lesion_renderer.lesion_item.delete_tooltip')}>
+            <Tooltip
+              title={t(
+                "courses.detaisl.details_tab.chapter_renderer.chapter_card.lesion_renderer.lesion_item.delete_tooltip"
+              )}
+            >
               <IconButton onClick={handelDeleteClick} color="error">
                 <DeleteOutlined />
               </IconButton>
             </Tooltip>
-            <Tooltip title={t('courses.detaisl.details_tab.chapter_renderer.chapter_card.lesion_renderer.lesion_item.edit_tooltip')}>
+            <Tooltip
+              title={t(
+                "courses.detaisl.details_tab.chapter_renderer.chapter_card.lesion_renderer.lesion_item.edit_tooltip"
+              )}
+            >
               <IconButton onClick={handelEditToggle}>
                 <EditOutlined />
               </IconButton>
@@ -126,26 +138,26 @@ const LesionItem = ({ last, lesion }) => {
         <Collapse in={contentOpen}>
           <Typography
             sx={{
-              color : 'grey',
-              mb : 2,
-              fontSize :'17px',
-              pl : 2,
-              lineHeight: '1.6'
+              color: "grey",
+              mb: 2,
+              fontSize: "17px",
+              pl: 2,
+              lineHeight: "1.6",
             }}
-          >
-            
-          </Typography>
+          ></Typography>
           <List>
             <ListItem
               sx={{
-                backgroundColor : '#dff1ff',
-                borderRadius : '8px',
+                backgroundColor: "#dff1ff",
+                borderRadius: "8px",
               }}
             >
               <ListItemIcon>
                 <DescriptionOutlined />
               </ListItemIcon>
-              <ListItemText>{lesion.description || 'no description'}</ListItemText>
+              <ListItemText>
+                {lesion.description || "no description"}
+              </ListItemText>
             </ListItem>
             <ListItem>
               <ListItemIcon>
@@ -157,19 +169,34 @@ const LesionItem = ({ last, lesion }) => {
               <ListItemIcon>
                 <InfoOutlined />
               </ListItemIcon>
-              <ListItemText>{t('courses.detaisl.details_tab.chapter_renderer.chapter_card.lesion_renderer.lesion_item.list.1')} : {lesion.time}</ListItemText>
+              <ListItemText>
+                {t(
+                  "courses.detaisl.details_tab.chapter_renderer.chapter_card.lesion_renderer.lesion_item.list.1"
+                )}{" "}
+                : {lesion.time}
+              </ListItemText>
             </ListItem>
             <ListItem>
               <ListItemIcon>
                 <InfoOutlined />
               </ListItemIcon>
-              <ListItemText>{t('courses.detaisl.details_tab.chapter_renderer.chapter_card.lesion_renderer.lesion_item.list.2')} : {lesion.is_visible ? 'Visible' : 'Invisible'}</ListItemText>
+              <ListItemText>
+                {t(
+                  "courses.detaisl.details_tab.chapter_renderer.chapter_card.lesion_renderer.lesion_item.list.2"
+                )}{" "}
+                : {lesion.is_visible ? "Visible" : "Invisible"}
+              </ListItemText>
             </ListItem>
             <ListItem>
               <ListItemIcon>
                 <InfoOutlined />
               </ListItemIcon>
-              <ListItemText>{t('courses.detaisl.details_tab.chapter_renderer.chapter_card.lesion_renderer.lesion_item.list.3')} : {lesion.is_open ? 'Yes' : 'No'}</ListItemText>
+              <ListItemText>
+                {t(
+                  "courses.detaisl.details_tab.chapter_renderer.chapter_card.lesion_renderer.lesion_item.list.3"
+                )}{" "}
+                : {lesion.is_open ? "Yes" : "No"}
+              </ListItemText>
             </ListItem>
           </List>
         </Collapse>
@@ -183,10 +210,16 @@ const LesionItem = ({ last, lesion }) => {
         keepMounted
         onClose={handelDeleteClose}
       >
-        <DialogTitle>{t('courses.detaisl.details_tab.chapter_renderer.chapter_card.lesion_renderer.lesion_item.dialog.title')}</DialogTitle>
+        <DialogTitle>
+          {t(
+            "courses.detaisl.details_tab.chapter_renderer.chapter_card.lesion_renderer.lesion_item.dialog.title"
+          )}
+        </DialogTitle>
         <DialogContent>
           <DialogContentText>
-          {t('courses.detaisl.details_tab.chapter_renderer.chapter_card.lesion_renderer.lesion_item.dialog.text')}
+            {t(
+              "courses.detaisl.details_tab.chapter_renderer.chapter_card.lesion_renderer.lesion_item.dialog.text"
+            )}
           </DialogContentText>
         </DialogContent>
         <DialogActions>
@@ -197,7 +230,9 @@ const LesionItem = ({ last, lesion }) => {
             variant="outlined"
             sx={{ borderRadius: "12px" }}
           >
-            {t('courses.detaisl.details_tab.chapter_renderer.chapter_card.lesion_renderer.lesion_item.dialog.cancel_btn')}
+            {t(
+              "courses.detaisl.details_tab.chapter_renderer.chapter_card.lesion_renderer.lesion_item.dialog.cancel_btn"
+            )}
           </Button>
           <LoadingButton
             loading={deleteLesion.isPending}
@@ -210,7 +245,9 @@ const LesionItem = ({ last, lesion }) => {
               deleteLesion.callFuntion();
             }}
           >
-            {t('courses.detaisl.details_tab.chapter_renderer.chapter_card.lesion_renderer.lesion_item.dialog.accept_btn')}
+            {t(
+              "courses.detaisl.details_tab.chapter_renderer.chapter_card.lesion_renderer.lesion_item.dialog.accept_btn"
+            )}
           </LoadingButton>
         </DialogActions>
       </Dialog>

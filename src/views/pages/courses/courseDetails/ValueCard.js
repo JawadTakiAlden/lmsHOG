@@ -20,7 +20,7 @@ import { useTranslation } from "react-i18next";
 const ValueCard = ({ value }) => {
   const [open, setOpen] = useState(false);
   const theme = useTheme();
-  const {t} = useTranslation()
+  const { t } = useTranslation();
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
   const handleClickOpen = () => {
     setOpen(true);
@@ -29,7 +29,7 @@ const ValueCard = ({ value }) => {
   const handleClose = () => {
     setOpen(false);
   };
-  const deleteValue = useDeleteValue(value.id , handleClose)
+  const deleteValue = useDeleteValue(value.id, handleClose);
   return (
     <Fragment>
       <Box
@@ -58,25 +58,33 @@ const ValueCard = ({ value }) => {
           </IconButton>
         </Box>
       </Box>
-      <Dialog
-        fullScreen={fullScreen}
-        open={open}
-        onClose={handleClose}
-      >
+      <Dialog fullScreen={fullScreen} open={open} onClose={handleClose}>
         <DialogTitle>
-          {t('courses.detaisl.values_tab.value_card.dialog.title')}
+          {t("courses.detaisl.values_tab.value_card.dialog.title")}
         </DialogTitle>
         <DialogContent>
           <DialogContentText>
-          {t('courses.detaisl.values_tab.value_card.dialog.desc')}
+            {t("courses.detaisl.values_tab.value_card.dialog.desc")}
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button autoFocus disabled={deleteValue.isPending} variant="outlined" color="error" onClick={handleClose}>
-          {t('courses.detaisl.values_tab.value_card.dialog.cancel_btn')}
+          <Button
+            autoFocus
+            disabled={deleteValue.isPending}
+            variant="outlined"
+            color="error"
+            onClick={handleClose}
+          >
+            {t("courses.detaisl.values_tab.value_card.dialog.cancel_btn")}
           </Button>
-          <LoadingButton loading={deleteValue.isPending} onClick={() => deleteValue.callFuntion()} variant="contained" color="primary" autoFocus>
-          {t('courses.detaisl.values_tab.value_card.dialog.accept_btn')}
+          <LoadingButton
+            loading={deleteValue.isPending}
+            onClick={() => deleteValue.callFuntion()}
+            variant="contained"
+            color="primary"
+            autoFocus
+          >
+            {t("courses.detaisl.values_tab.value_card.dialog.accept_btn")}
           </LoadingButton>
         </DialogActions>
       </Dialog>

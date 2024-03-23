@@ -29,13 +29,13 @@ const EditTab = ({ data }) => {
   const teachers = useGetTeachers();
   const [categoriesOpen, setCategoriesOpen] = useState(false);
   const [teachersOpen, setTeachersOpen] = useState(false);
-  const updateCourse = useUpdateCourse()
-  const {t} = useTranslation()
+  const updateCourse = useUpdateCourse();
+  const { t } = useTranslation();
   const [image, setImage] = useState(null);
   const updateHandler = (values) => {
     let teachers = values.teachers.map((teacher) => teacher.id);
     let categories = values.categories.map((category) => category.id);
-    updateCourse.callFunction({...values , teachers , categories})
+    updateCourse.callFunction({ ...values, teachers, categories });
   };
 
   return (
@@ -86,29 +86,29 @@ const EditTab = ({ data }) => {
         )}
       </Box>
       <Formik
-         onSubmit={updateHandler}
-         initialValues={{
-           name: data.name,
-           is_visible: data.is_visible,
-           is_open: data.is_open,
-           telegram_channel_link: data.telegram_channel_link,
-           teachers: data.teachers,
-           categories: data.categories,
-         }}
-         validationSchema={yup.object({
-           name: yup.string().max(255).required("name is required"),
-           telegram_channel_link: yup
-             .string()
-             .required("telegram channel link is required"),
-           teachers: yup
-             .array()
-             .min(1)
-             .required("at least you should select one teacher"),
-           categories: yup
-             .array()
-             .min(1)
-             .required("at least you should select one category"),
-         })}
+        onSubmit={updateHandler}
+        initialValues={{
+          name: data.name,
+          is_visible: data.is_visible,
+          is_open: data.is_open,
+          telegram_channel_link: data.telegram_channel_link,
+          teachers: data.teachers,
+          categories: data.categories,
+        }}
+        validationSchema={yup.object({
+          name: yup.string().max(255).required("name is required"),
+          telegram_channel_link: yup
+            .string()
+            .required("telegram channel link is required"),
+          teachers: yup
+            .array()
+            .min(1)
+            .required("at least you should select one teacher"),
+          categories: yup
+            .array()
+            .min(1)
+            .required("at least you should select one category"),
+        })}
       >
         {({
           errors,
@@ -123,10 +123,12 @@ const EditTab = ({ data }) => {
             <Grid container spacing={gridSpacing}>
               <Grid item xs={12} sm={6}>
                 <FormControl fullWidth>
-                  <InputLabel>{t('courses.detaisl.edit_tab.labels.name')}</InputLabel>
+                  <InputLabel>
+                    {t("courses.detaisl.edit_tab.labels.name")}
+                  </InputLabel>
                   <OutlinedInput
                     type="text"
-                    label={t('courses.detaisl.edit_tab.labels.name')}
+                    label={t("courses.detaisl.edit_tab.labels.name")}
                     name="name"
                     onChange={handleChange}
                     value={values.name}
@@ -140,10 +142,14 @@ const EditTab = ({ data }) => {
               </Grid>
               <Grid item xs={12} sm={6}>
                 <FormControl fullWidth>
-                  <InputLabel>{t('courses.detaisl.edit_tab.labels.telegram_channel_link')}</InputLabel>
+                  <InputLabel>
+                    {t("courses.detaisl.edit_tab.labels.telegram_channel_link")}
+                  </InputLabel>
                   <OutlinedInput
                     type="text"
-                    label={t('courses.detaisl.edit_tab.labels.telegram_channel_link')}
+                    label={t(
+                      "courses.detaisl.edit_tab.labels.telegram_channel_link"
+                    )}
                     name="telegram_channel_link"
                     onChange={handleChange}
                     value={values.telegram_channel_link}
@@ -188,7 +194,7 @@ const EditTab = ({ data }) => {
                   renderInput={(params) => (
                     <TextField
                       {...params}
-                      label={t('courses.detaisl.edit_tab.labels.categories')}
+                      label={t("courses.detaisl.edit_tab.labels.categories")}
                       name="categories"
                       onBlur={handleBlur}
                       error={touched.categories && errors.categories}
@@ -237,7 +243,7 @@ const EditTab = ({ data }) => {
                   renderInput={(params) => (
                     <TextField
                       {...params}
-                      label={t('courses.detaisl.edit_tab.labels.teachers')}
+                      label={t("courses.detaisl.edit_tab.labels.teachers")}
                       name="teachers"
                       onBlur={handleBlur}
                       error={touched.teachers && errors.teachers}
@@ -262,13 +268,13 @@ const EditTab = ({ data }) => {
               <Grid item xs={12}>
                 <FormControlLabel
                   control={<Switch defaultChecked={values.is_visible} />}
-                  label={t('courses.detaisl.edit_tab.labels.is_visible')}
+                  label={t("courses.detaisl.edit_tab.labels.is_visible")}
                   name="is_visible"
                   onChange={handleChange}
                 />
                 <FormControlLabel
                   control={<Switch defaultChecked={values.is_open} />}
-                  label={t('courses.detaisl.edit_tab.labels.is_open')}
+                  label={t("courses.detaisl.edit_tab.labels.is_open")}
                   name="is_open"
                   onChange={handleChange}
                 />
@@ -280,12 +286,12 @@ const EditTab = ({ data }) => {
                     variant="contained"
                     startIcon={<ImageOutlined />}
                   >
-                    {t('courses.detaisl.edit_tab.labels.image')}
+                    {t("courses.detaisl.edit_tab.labels.image")}
                     <VisuallyHiddenInput
                       type="file"
                       accept="image/png , image/jpg , image/jpeg"
                       onChange={(e) => {
-                        setFieldValue('image' , e.target.files[0])
+                        setFieldValue("image", e.target.files[0]);
                         setImage(e.target.files[0]);
                       }}
                     />
@@ -310,7 +316,7 @@ const EditTab = ({ data }) => {
                     startIcon={<CreateOutlined />}
                     variant="contained"
                   >
-                    <span>{t('courses.detaisl.edit_tab.labels.save_btn')}</span>
+                    <span>{t("courses.detaisl.edit_tab.labels.save_btn")}</span>
                   </LoadingButton>
                 </Box>
               </Grid>
@@ -321,6 +327,5 @@ const EditTab = ({ data }) => {
     </Box>
   );
 };
-
 
 export default EditTab;

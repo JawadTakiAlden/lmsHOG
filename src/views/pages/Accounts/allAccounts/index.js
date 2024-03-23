@@ -26,14 +26,13 @@ import useDeleteAccountMutation from "../../../../api/useDeleteAccountMutation";
 import { useTranslation } from "react-i18next";
 
 const AllAccounts = () => {
-  const { data, isError, isLoading, isRefetching, refetch } =
-    useGetAccounts();
+  const { data, isError, isLoading, isRefetching, refetch } = useGetAccounts();
   const switchermutate = useSwitchBlockedStatus(refetch);
   const [open, setOpen] = React.useState({
     status: false,
     row: null,
   });
-  const {t} = useTranslation()
+  const { t , i18n} = useTranslation();
 
   const handleClickOpen = (id) => {
     setOpen({ row: id, status: true });
@@ -56,15 +55,15 @@ const AllAccounts = () => {
     () => [
       {
         accessorKey: "full_name",
-        header: t('accounts.account_list.headers.full_name'),
+        header: t("accounts.account_list.headers.full_name"),
       },
       {
         accessorKey: "phone",
-        header: t('accounts.account_list.headers.phone'),
+        header: t("accounts.account_list.headers.phone"),
       },
       {
         accessorKey: "type",
-        header: t('accounts.account_list.headers.type'),
+        header: t("accounts.account_list.headers.type"),
         editVariant: "select",
         editSelectOptions: ["student", "teacher", "admin"],
         Cell: ({ row }) => {
@@ -91,7 +90,7 @@ const AllAccounts = () => {
       },
       {
         accessorKey: "is_blocked",
-        header: t('accounts.account_list.headers.is_blocked'),
+        header: t("accounts.account_list.headers.is_blocked"),
         editVariant: "select",
         editSelectOptions: ["true", "false"],
         Cell: ({ row }) => {
@@ -151,9 +150,9 @@ const AllAccounts = () => {
           maxWidth: "100%",
         }}
       >
-          <TableWrapper>
-            <MaterialReactTable table={table} />
-          </TableWrapper>
+        <TableWrapper>
+          <MaterialReactTable table={table} />
+        </TableWrapper>
       </Box>
       <Dialog
         open={open.status}
@@ -161,10 +160,12 @@ const AllAccounts = () => {
         keepMounted
         onClose={handleClose}
       >
-        <DialogTitle>{t('accounts.dialogs.delete_account.dialog_title')}</DialogTitle>
+        <DialogTitle>
+          {t("accounts.dialogs.delete_account.dialog_title")}
+        </DialogTitle>
         <DialogContent>
           <DialogContentText>
-          {t('accounts.dialogs.delete_account.dialog_content_text')}
+            {t("accounts.dialogs.delete_account.dialog_content_text")}
           </DialogContentText>
         </DialogContent>
         <DialogActions>
@@ -174,7 +175,7 @@ const AllAccounts = () => {
             variant="outlined"
             sx={{ borderRadius: "12px" }}
           >
-           {t('accounts.dialogs.delete_account.disagree_btn')}
+            {t("accounts.dialogs.delete_account.disagree_btn")}
           </Button>
           <LoadingButton
             loading={deleteAccount.isPending}
@@ -185,7 +186,7 @@ const AllAccounts = () => {
             sx={{ borderRadius: "12px" }}
             onClick={deleteAccountHandler}
           >
-            {t('accounts.dialogs.delete_account.accept_btn')}
+            {t("accounts.dialogs.delete_account.accept_btn")}
           </LoadingButton>
         </DialogActions>
       </Dialog>

@@ -1,20 +1,28 @@
-import { Box, Button, FormControl, FormHelperText, Grid, InputLabel, OutlinedInput } from '@mui/material';
-import { Formik } from 'formik';
-import React from 'react'
-import * as yup from 'yup'
-import VisuallyHiddenInput from '../../../../components/VisuallyHiddenInput/VisuallyHiddenInput';
-import { LoadingButton } from '@mui/lab';
-import { useTranslation } from 'react-i18next';
-import { gridSpacing } from '../../../../constant';
-import { CreateOutlined, ImageOutlined } from '@mui/icons-material';
-import useUpdateQuestion from '../../../../api/useUpdateQuestion';
+import {
+  Box,
+  Button,
+  FormControl,
+  FormHelperText,
+  Grid,
+  InputLabel,
+  OutlinedInput,
+} from "@mui/material";
+import { Formik } from "formik";
+import React from "react";
+import * as yup from "yup";
+import VisuallyHiddenInput from "../../../../components/VisuallyHiddenInput/VisuallyHiddenInput";
+import { LoadingButton } from "@mui/lab";
+import { useTranslation } from "react-i18next";
+import { gridSpacing } from "../../../../constant";
+import { CreateOutlined, ImageOutlined } from "@mui/icons-material";
+import useUpdateQuestion from "../../../../api/useUpdateQuestion";
 
-const UpdateTab = ({question}) => {
-    const {t} = useTranslation()
-    const updateQuestion = useUpdateQuestion()
-    const createQuestionHandler = (values) => {
-        updateQuestion.callFunction(values)
-    }
+const UpdateTab = ({ question }) => {
+  const { t } = useTranslation();
+  const updateQuestion = useUpdateQuestion();
+  const createQuestionHandler = (values) => {
+    updateQuestion.callFunction(values);
+  };
   return (
     <Box>
       <Formik
@@ -52,10 +60,12 @@ const UpdateTab = ({question}) => {
             <Grid container spacing={gridSpacing}>
               <Grid item xs={12} sm={6}>
                 <FormControl fullWidth>
-                  <InputLabel>{t('questions.create_question.labels.title')}</InputLabel>
+                  <InputLabel>
+                    {t("questions.create_question.labels.title")}
+                  </InputLabel>
                   <OutlinedInput
                     type="text"
-                    label={t('questions.create_question.labels.title')}
+                    label={t("questions.create_question.labels.title")}
                     name="title"
                     onChange={handleChange}
                     value={values.title}
@@ -74,7 +84,7 @@ const UpdateTab = ({question}) => {
                     variant="contained"
                     startIcon={<ImageOutlined />}
                   >
-                    {t('questions.create_question.labels.image')}
+                    {t("questions.create_question.labels.image")}
                     <VisuallyHiddenInput
                       type="file"
                       onBlur={handleBlur}
@@ -117,10 +127,14 @@ const UpdateTab = ({question}) => {
               ) : undefined}
               <Grid item xs={12} sm={6}>
                 <FormControl fullWidth>
-                  <InputLabel>{t('questions.create_question.labels.clarification_text')}</InputLabel>
+                  <InputLabel>
+                    {t("questions.create_question.labels.clarification_text")}
+                  </InputLabel>
                   <OutlinedInput
                     type="text"
-                    label={t('questions.create_question.labels.clarification_text')}
+                    label={t(
+                      "questions.create_question.labels.clarification_text"
+                    )}
                     name="clarification_text"
                     onChange={handleChange}
                     value={values.clarification_text}
@@ -143,7 +157,7 @@ const UpdateTab = ({question}) => {
                     variant="contained"
                     startIcon={<ImageOutlined />}
                   >
-                    {t('questions.create_question.labels.clarification_image')}
+                    {t("questions.create_question.labels.clarification_image")}
                     <VisuallyHiddenInput
                       type="file"
                       onBlur={handleBlur}
@@ -200,17 +214,17 @@ const UpdateTab = ({question}) => {
                 loading={updateQuestion.isPending}
                 startIcon={<CreateOutlined />}
               >
-                {t('questions.create_question.labels.create_btn')}
+                {t("questions.create_question.labels.create_btn")}
               </LoadingButton>
               <Button onClick={handleReset} color="warning" variant="outlined">
-              {t('questions.create_question.labels.reset_btn')}
+                {t("questions.create_question.labels.reset_btn")}
               </Button>
             </Box>
           </form>
         )}
       </Formik>
     </Box>
-  )
-}
+  );
+};
 
-export default UpdateTab
+export default UpdateTab;

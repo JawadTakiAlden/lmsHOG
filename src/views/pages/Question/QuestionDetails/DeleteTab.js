@@ -1,26 +1,35 @@
-import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Tooltip, Typography } from '@mui/material';
-import React, { useState } from 'react'
-import useDeleteQuestion from '../../../../api/useDeleteQuestion';
-import { LoadingButton } from '@mui/lab';
-import { CancelOutlined, DeleteOutlined } from '@mui/icons-material';
-import Transition from '../../../../components/Transition';
-import { useTranslation } from 'react-i18next';
+import {
+  Box,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  Typography,
+} from "@mui/material";
+import React, { useState } from "react";
+import useDeleteQuestion from "../../../../api/useDeleteQuestion";
+import { LoadingButton } from "@mui/lab";
+import { CancelOutlined } from "@mui/icons-material";
+import Transition from "../../../../components/Transition";
+import { useTranslation } from "react-i18next";
 
 const DeleteTab = () => {
-    const deleteQuestions = useDeleteQuestion()
-    const [open, setOpen] = useState(false);
-    const {t} = useTranslation()
-  
-    const handleClickOpen = () => {
-      setOpen(true);
-    };
-  
-    const handleClose = () => {
-      setOpen(false);
-    };
+  const deleteQuestions = useDeleteQuestion();
+  const [open, setOpen] = useState(false);
+  const { t } = useTranslation();
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
   return (
     <>
-    <Box
+      <Box
         sx={{
           boxShadow: "inset 1px 1px 10px -6px #888",
           overflow: "hidden",
@@ -38,7 +47,7 @@ const DeleteTab = () => {
             textAlign: "center",
           }}
         >
-          {t('questions.question_detials.delete_tab.h1')}
+          {t("questions.question_detials.delete_tab.h1")}
         </Typography>
         <Typography
           sx={{
@@ -48,7 +57,7 @@ const DeleteTab = () => {
             mb: 2,
           }}
         >
-         {t('questions.question_detials.delete_tab.desc')}
+          {t("questions.question_detials.delete_tab.desc")}
         </Typography>
         <Box
           sx={{
@@ -58,9 +67,9 @@ const DeleteTab = () => {
             mb: 1,
           }}
         >
-            <Button onClick={handleClickOpen} color="error" variant="contained">
-              Delete
-            </Button>
+          <Button onClick={handleClickOpen} color="error" variant="contained">
+            Delete
+          </Button>
         </Box>
       </Box>
       <Dialog
@@ -69,19 +78,36 @@ const DeleteTab = () => {
         keepMounted
         onClose={handleClose}
       >
-        <DialogTitle>{t('questions.question_detials.delete_tab.dialog.title')}</DialogTitle>
+        <DialogTitle>
+          {t("questions.question_detials.delete_tab.dialog.title")}
+        </DialogTitle>
         <DialogContent>
-          <DialogContentText >
-          {t('questions.question_detials.delete_tab.dialog.text')}
+          <DialogContentText>
+            {t("questions.question_detials.delete_tab.dialog.text")}
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} color="error" startIcon={<CancelOutlined />} disabled={deleteQuestions.isPending} variant="outlined">{t('questions.question_detials.delete_tab.cancel_btn')}</Button>
-          <LoadingButton  loading={deleteQuestions.isPending} onClick={deleteQuestions.callFuntion}  color="error" variant="contained">{t('questions.question_detials.delete_tab.delete_btn')}</LoadingButton>
+          <Button
+            onClick={handleClose}
+            color="error"
+            startIcon={<CancelOutlined />}
+            disabled={deleteQuestions.isPending}
+            variant="outlined"
+          >
+            {t("questions.question_detials.delete_tab.cancel_btn")}
+          </Button>
+          <LoadingButton
+            loading={deleteQuestions.isPending}
+            onClick={deleteQuestions.callFuntion}
+            color="error"
+            variant="contained"
+          >
+            {t("questions.question_detials.delete_tab.delete_btn")}
+          </LoadingButton>
         </DialogActions>
       </Dialog>
     </>
-  )
-}
+  );
+};
 
-export default DeleteTab
+export default DeleteTab;

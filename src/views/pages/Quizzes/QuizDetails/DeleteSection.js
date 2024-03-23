@@ -1,26 +1,36 @@
-import { DeleteOutlined } from '@mui/icons-material';
-import { LoadingButton } from '@mui/lab';
-import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField, Tooltip, Typography } from '@mui/material';
-import React, { useState } from 'react'
-import useDeleteQuiz from '../../../../api/useDeleteQuiz';
-import { useTranslation } from 'react-i18next';
+import { LoadingButton } from "@mui/lab";
+import {
+  Box,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  TextField,
+  Tooltip,
+  Typography,
+} from "@mui/material";
+import React, { useState } from "react";
+import useDeleteQuiz from "../../../../api/useDeleteQuiz";
+import { useTranslation } from "react-i18next";
 
-const DeleteSection = ({quiz}) => {
-    const deleteQuiz = useDeleteQuiz()
-    const [open, setOpen] = useState(false);
-    const [quizTitle , setQuizTitle] = useState("")
-    const {t} = useTranslation()
-  
-    const handleClickOpen = () => {
-      setOpen(true);
-    };
-  
-    const handleClose = () => {
-      setOpen(false);
-    };
+const DeleteSection = ({ quiz }) => {
+  const deleteQuiz = useDeleteQuiz();
+  const [open, setOpen] = useState(false);
+  const [quizTitle, setQuizTitle] = useState("");
+  const { t } = useTranslation();
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
   return (
     <>
-    <Box
+      <Box
         sx={{
           boxShadow: "inset 1px 1px 10px -6px #888",
           overflow: "hidden",
@@ -38,7 +48,7 @@ const DeleteSection = ({quiz}) => {
             textAlign: "center",
           }}
         >
-          {t('quizzes.quiz_details.delete_section.h1')}
+          {t("quizzes.quiz_details.delete_section.h1")}
         </Typography>
         <Typography
           sx={{
@@ -48,7 +58,7 @@ const DeleteSection = ({quiz}) => {
             mb: 2,
           }}
         >
-          {t('quizzes.quiz_details.delete_section.desc')}
+          {t("quizzes.quiz_details.delete_section.desc")}
         </Typography>
         <Box
           sx={{
@@ -58,26 +68,28 @@ const DeleteSection = ({quiz}) => {
             mb: 1,
           }}
         >
-            <Button onClick={handleClickOpen} color="error" variant="contained">
-            {t('quizzes.quiz_details.delete_section.delete_btn')}
-            </Button>
+          <Button onClick={handleClickOpen} color="error" variant="contained">
+            {t("quizzes.quiz_details.delete_section.delete_btn")}
+          </Button>
         </Box>
       </Box>
-    <Dialog
+      <Dialog
         open={open}
         onClose={handleClose}
         PaperProps={{
-          component: 'form',
+          component: "form",
           onSubmit: (event) => {
             event.preventDefault();
-            deleteQuiz.callFuntion()
+            deleteQuiz.callFuntion();
           },
         }}
       >
-        <DialogTitle>{t('quizzes.quiz_details.delete_section.dialog.title')} {quiz.title}</DialogTitle>
+        <DialogTitle>
+          {t("quizzes.quiz_details.delete_section.dialog.title")} {quiz.title}
+        </DialogTitle>
         <DialogContent>
           <DialogContentText>
-          {t('quizzes.quiz_details.delete_section.dialog.text')}
+            {t("quizzes.quiz_details.delete_section.dialog.text")}
           </DialogContentText>
           <TextField
             autoFocus
@@ -85,26 +97,28 @@ const DeleteSection = ({quiz}) => {
             margin="dense"
             onChange={(e) => setQuizTitle(e.target.value)}
             value={quizTitle}
-            label={t('quizzes.quiz_details.delete_section.dialog.input_label')}
+            label={t("quizzes.quiz_details.delete_section.dialog.input_label")}
             type="text"
             fullWidth
             variant="standard"
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>{t('quizzes.quiz_details.delete_section.cancel_btn')}</Button>
+          <Button onClick={handleClose}>
+            {t("quizzes.quiz_details.delete_section.cancel_btn")}
+          </Button>
           <LoadingButton
             color="error"
             disabled={quizTitle !== quiz.title}
             loading={deleteQuiz.isPending}
             type="submit"
           >
-            {t('quizzes.quiz_details.delete_section.delete_btn')}
+            {t("quizzes.quiz_details.delete_section.delete_btn")}
           </LoadingButton>
         </DialogActions>
       </Dialog>
     </>
-  )
-}
+  );
+};
 
-export default DeleteSection
+export default DeleteSection;

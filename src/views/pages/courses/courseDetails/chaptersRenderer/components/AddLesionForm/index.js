@@ -7,17 +7,12 @@ import {
   FormControlLabel,
   FormHelperText,
   Grid,
-  IconButton,
-  InputAdornment,
-  InputBase,
   InputLabel,
   MenuItem,
   OutlinedInput,
   Select,
   Switch,
   TextField,
-  alpha,
-  styled,
 } from "@mui/material";
 import { Formik } from "formik";
 import React, { useEffect, useState } from "react";
@@ -26,7 +21,6 @@ import {
   CancelOutlined,
   CreateOutlined,
   PictureAsPdfOutlined,
-  SearchOutlined,
 } from "@mui/icons-material";
 import useCreateLesion from "../../../../../../../api/useCreateLesion";
 import { LoadingButton } from "@mui/lab";
@@ -36,45 +30,7 @@ import VisuallyHiddenInput from "../../../../../../../components/VisuallyHiddenI
 import { useTranslation } from "react-i18next";
 import useDebounce from "../../../../../../../utils/useDebounce";
 
-const Search = styled("div")(({ theme }) => ({
-  position: "relative",
-  borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
-  "&:hover": {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
-  },
-  marginRight: theme.spacing(2),
-  marginLeft: 0,
-  width: "100%",
-  [theme.breakpoints.up("sm")]: {
-    marginLeft: theme.spacing(3),
-    width: "auto",
-  },
-}));
 
-const SearchIconWrapper = styled("div")(({ theme }) => ({
-  padding: theme.spacing(0, 2),
-  height: "100%",
-  position: "absolute",
-  pointerEvents: "none",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-}));
-
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: "inherit",
-  "& .MuiInputBase-input": {
-    padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create("width"),
-    width: "100%",
-    [theme.breakpoints.up("md")]: {
-      width: "20ch",
-    },
-  },
-}));
 
 const lesionTypes = ["video", "pdf"];
 
@@ -102,12 +58,12 @@ const AddLesionForm = ({ chapter, handelClose }) => {
   };
 
   const handelRefetchOnSearch = useDebounce(() => {
-    videos.refetch()
+    videos.refetch();
   }, 500);
 
   useEffect(() => {
-    handelRefetchOnSearch()
-  } , [inputValue])
+    handelRefetchOnSearch();
+  }, [inputValue]);
   return (
     <Box
       sx={{
@@ -222,28 +178,6 @@ const AddLesionForm = ({ chapter, handelClose }) => {
               )}
               {values.type === "video" ? (
                 <Grid item xs={12} sm={6}>
-                  {/* <Autocomplete
-                    freeSolo
-                    disableClearable
-                    options={videos?.data?.data?.data.map((option) => option.name) || []}
-                    loading={videos.isLoading}
-                    renderInput={(params) => (
-                      <TextField
-                        {...params}
-                        label="Search input"
-                        InputProps={{
-                          ...params.InputProps,
-                          type: "search",
-                        }}
-                      />
-                    )}
-                  /> */}
-                  <FormControl fullWidth>
-                    {/* <InputLabel>
-                      {t(
-                        "courses.detaisl.details_tab.chapter_renderer.chapter_card.add_lesion_form.labels.link"
-                      )}
-                    </InputLabel> */}
                     <Autocomplete
                       open={videoUriOpen}
                       onOpen={() => {
@@ -262,13 +196,12 @@ const AddLesionForm = ({ chapter, handelClose }) => {
                       onBlur={handleBlur}
                       getOptionLabel={(option) => option.name}
                       options={videos?.data?.data?.data || []}
-                      loading={videos.isLoading||videos.isRefetching}
+                      loading={videos.isLoading || videos.isRefetching}
                       onChange={(event, newValue) => {
                         setFieldValue("videoURI", newValue);
                       }}
-                      // inputValue={inputValue}
                       onInputChange={(event, newInputValue) => {
-                        setInputValue(newInputValue)
+                        setInputValue(newInputValue);
                       }}
                       renderInput={(params) => (
                         <TextField
@@ -293,65 +226,9 @@ const AddLesionForm = ({ chapter, handelClose }) => {
                         />
                       )}
                     />
-                    {/* <Select
-                      value={values.videoURI}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      name="videoURI"
-                      label={t(
-                        "courses.detaisl.details_tab.chapter_renderer.chapter_card.add_lesion_form.labels.link"
-                      )}
-                      error={touched.videoURI && errors.videoURI}
-                    >
-                      {videos.isRefetching && (
-                        <Box
-                          sx={{
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center",
-                          }}
-                        >
-                          <CircularProgress size={20} />
-                        </Box>
-                      )}
-                      {videos.isLoading ? (
-                        <Box
-                          sx={{
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center",
-                          }}
-                        >
-                          <CircularProgress />
-                        </Box>
-                      ) : videos.isError ? (
-                        <Box
-                          sx={{
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center",
-                          }}
-                        >
-                          <Button
-                            color="error"
-                            variant="outlined"
-                            onClick={videos.refetch}
-                          >
-                            {t(
-                              "courses.detaisl.details_tab.chapter_renderer.chapter_card.add_lesion_form.labels.refetch_btn"
-                            )}
-                          </Button>
-                        </Box>
-                      ) : (
-                        videos?.data?.data?.data.map((video) => (
-                          <MenuItem value={video.uri}>{video.name}</MenuItem>
-                        ))
-                      )}
-                    </Select> */}
                     {touched.videoURI && errors.videoURI && (
                       <FormHelperText error>{errors.videoURI}</FormHelperText>
                     )}
-                  </FormControl>
                 </Grid>
               ) : (
                 <Grid item xs={12} sm={6}>
@@ -381,22 +258,30 @@ const AddLesionForm = ({ chapter, handelClose }) => {
 
               <Grid item xs={12} sm={6}>
                 <FormControlLabel
-                  control={<Switch />}
+                  control={
+                    <Switch
+                      name="is_visible"
+                      value={values.is_visible}
+                      onChange={handleChange}
+                      defaultChecked={values.is_visible}
+                    />
+                  }
                   label={t(
                     "courses.detaisl.details_tab.chapter_renderer.chapter_card.add_lesion_form.labels.is_visible"
                   )}
-                  name="is_visible"
-                  value={values.is_visible}
-                  onChange={handleChange}
                 />
                 <FormControlLabel
-                  control={<Switch />}
+                  control={
+                    <Switch
+                      name="is_open"
+                      value={values.is_open}
+                      onChange={handleChange}
+                      defaultChecked={values.is_open}
+                    />
+                  }
                   label={t(
                     "courses.detaisl.details_tab.chapter_renderer.chapter_card.add_lesion_form.labels.is_open"
                   )}
-                  name="is_open"
-                  value={values.is_open}
-                  onChange={handleChange}
                 />
               </Grid>
             </Grid>

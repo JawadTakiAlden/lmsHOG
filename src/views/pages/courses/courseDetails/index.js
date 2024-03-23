@@ -9,7 +9,7 @@ import {
   useTheme,
 } from "@mui/material";
 import React from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import useShowCourseDetails from "../../../../api/useShowCourseDetails";
 import Tab from "@mui/material/Tab";
 import TabContext from "@mui/lab/TabContext";
@@ -27,11 +27,11 @@ const CourseDetails = () => {
   const { course_id } = useParams();
   const courseDetails = useShowCourseDetails({ course_id });
   const [value, setValue] = React.useState("1");
-  const {t} = useTranslation()
+  const { t } = useTranslation();
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const theme = useTheme();
   if (courseDetails.isLoading) {
     return (
@@ -44,13 +44,13 @@ const CourseDetails = () => {
           justifyContent: "center",
         }}
       >
-          <LogoLoader />
+        <LogoLoader />
       </Box>
     );
   }
 
-  if(courseDetails.isError){
-    return "error"
+  if (courseDetails.isError) {
+    return "error";
   }
   return (
     <Box
@@ -72,7 +72,7 @@ const CourseDetails = () => {
       <IconButton onClick={() => navigate(-1)}>
         <ArrowBack />
       </IconButton>
-      
+
       <Box
         sx={{
           mb: 3,
@@ -90,7 +90,7 @@ const CourseDetails = () => {
             mb: 1,
           }}
         >
-          {t('courses.detaisl.h1')}
+          {t("courses.detaisl.h1")}
         </Typography>
         <Typography
           sx={{
@@ -102,7 +102,7 @@ const CourseDetails = () => {
             width: "fit-content",
           }}
         >
-          {t('courses.detaisl.h2')}
+          {t("courses.detaisl.h2")}
         </Typography>
       </Box>
 
@@ -151,18 +151,31 @@ const CourseDetails = () => {
       <TabContext value={value}>
         <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
           <TabList onChange={handleChange} aria-label="lab API tabs example">
-            <Tab label={t('courses.detaisl.tabs.1')} value="1" />
-            <Tab label={t('courses.detaisl.tabs.2')}  value="2" />
-            <Tab label={t('courses.detaisl.tabs.3')}  value="3" />
-            <Tab label={t('courses.detaisl.tabs.4')}  value="4" />
-            <Tab label={t('courses.detaisl.tabs.5')}  value="5" />
+            <Tab label={t("courses.detaisl.tabs.1")} value="1" />
+            <Tab label={t("courses.detaisl.tabs.2")} value="2" />
+            <Tab label={t("courses.detaisl.tabs.3")} value="3" />
+            <Tab label={t("courses.detaisl.tabs.4")} value="4" />
+            <Tab label={t("courses.detaisl.tabs.5")} value="5" />
           </TabList>
         </Box>
-        <TabPanel value="1"><DetailsTab data={courseDetails?.data?.data?.data} courseDetails={courseDetails} /></TabPanel>
-        <TabPanel value="2"><EditTab data={courseDetails?.data?.data?.data} /></TabPanel>
-        <TabPanel value="3"><DeleteTab data={courseDetails?.data?.data?.data} /></TabPanel>
-        <TabPanel value="4"><StudentTab /></TabPanel>
-        <TabPanel value="5"><ValuesOfCourseTab course={courseDetails?.data?.data?.data} /></TabPanel>
+        <TabPanel value="1">
+          <DetailsTab
+            data={courseDetails?.data?.data?.data}
+            courseDetails={courseDetails}
+          />
+        </TabPanel>
+        <TabPanel value="2">
+          <EditTab data={courseDetails?.data?.data?.data} />
+        </TabPanel>
+        <TabPanel value="3">
+          <DeleteTab data={courseDetails?.data?.data?.data} />
+        </TabPanel>
+        <TabPanel value="4">
+          <StudentTab />
+        </TabPanel>
+        <TabPanel value="5">
+          <ValuesOfCourseTab course={courseDetails?.data?.data?.data} />
+        </TabPanel>
       </TabContext>
     </Box>
   );

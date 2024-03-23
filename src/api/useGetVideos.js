@@ -7,7 +7,7 @@ const useGetVideos = (link = "") => {
 
     const getVideosRequest = () => {
         return request({
-            url : `/videos/get?link=${link}`
+            url : `/videos/get${link ? `?link=${link}` : ''}`
         })
     }
     const query = useQuery({

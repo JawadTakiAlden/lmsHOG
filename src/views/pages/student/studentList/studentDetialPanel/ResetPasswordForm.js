@@ -1,4 +1,8 @@
-import { PasswordOutlined, Visibility, VisibilityOff } from "@mui/icons-material";
+import {
+  PasswordOutlined,
+  Visibility,
+  VisibilityOff,
+} from "@mui/icons-material";
 import { LoadingButton } from "@mui/lab";
 import {
   Box,
@@ -15,16 +19,16 @@ import { useTranslation } from "react-i18next";
 import * as yup from "yup";
 import useResetPassword from "../../../../../api/useResetPassword";
 
-const ResetPasswordForm = ({userID}) => {
+const ResetPasswordForm = ({ userID }) => {
   const { t } = useTranslation();
-  const resetPassword = useResetPassword()
+  const resetPassword = useResetPassword();
   const [showPassword, setShowPassword] = useState(false);
-const handleClickShowPassword = () => setShowPassword((show) => !show);
-const handleMouseDownPassword = (event) => {
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+  const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
   const handelSubmit = (values) => {
-    resetPassword.callFunction({...values , user : userID})
+    resetPassword.callFunction({ ...values, user: userID });
   };
   return (
     <Box
@@ -39,7 +43,11 @@ const handleMouseDownPassword = (event) => {
           new_password: "",
         }}
         validationSchema={yup.object({
-          new_password: yup.string().min(6).max(26).required('new password is required'),
+          new_password: yup
+            .string()
+            .min(6)
+            .max(26)
+            .required("new password is required"),
         })}
       >
         {({
@@ -53,14 +61,14 @@ const handleMouseDownPassword = (event) => {
         }) => (
           <form onSubmit={handleSubmit}>
             <Box>
-              <FormControl fullWidth sx={{ maxWidth: "500px" , mb : 2 }}>
+              <FormControl fullWidth sx={{ maxWidth: "500px", mb: 2 }}>
                 <InputLabel>
                   {t(
                     "students.student_list.student_detail.reset_password_form.password"
                   )}
                 </InputLabel>
                 <OutlinedInput
-                type={showPassword ? "text" : "password"}
+                  type={showPassword ? "text" : "password"}
                   label={t(
                     "students.student_list.student_detail.reset_password_form.password"
                   )}
@@ -69,15 +77,17 @@ const handleMouseDownPassword = (event) => {
                   value={values.new_password}
                   error={touched.new_password && errors.new_password}
                   onBlur={handleBlur}
-                  endAdornment={<InputAdornment position="end">
-                    <IconButton
-                      onClick={handleClickShowPassword}
-                      onMouseDown={handleMouseDownPassword}
-                      edge="end"
-                    >
-                      {showPassword ? <VisibilityOff /> : <Visibility />}
-                    </IconButton>
-                  </InputAdornment>}
+                  endAdornment={
+                    <InputAdornment position="end">
+                      <IconButton
+                        onClick={handleClickShowPassword}
+                        onMouseDown={handleMouseDownPassword}
+                        edge="end"
+                      >
+                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  }
                 />
                 {touched.new_password && errors.new_password && (
                   <FormHelperText error>{errors.new_password}</FormHelperText>

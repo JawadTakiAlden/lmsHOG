@@ -1,5 +1,15 @@
 import { LoadingButton } from "@mui/lab";
-import { Box, Button, Checkbox, FormControl, FormControlLabel, FormHelperText, Grid, InputLabel, OutlinedInput } from "@mui/material";
+import {
+  Box,
+  Button,
+  Checkbox,
+  FormControl,
+  FormControlLabel,
+  FormHelperText,
+  Grid,
+  InputLabel,
+  OutlinedInput,
+} from "@mui/material";
 import { Formik } from "formik";
 import React from "react";
 import * as yup from "yup";
@@ -10,10 +20,10 @@ import useCreateNews from "../../../../api/useCreateNews";
 import { useTranslation } from "react-i18next";
 
 const CreateNews = () => {
-    const createNews = useCreateNews()
-    const {t} = useTranslation()
+  const createNews = useCreateNews();
+  const { t } = useTranslation();
   const handelCreate = (values) => {
-    createNews.callFunction(values)
+    createNews.callFunction(values);
   };
   return (
     <Box
@@ -53,10 +63,12 @@ const CreateNews = () => {
               <Grid container spacing={gridSpacing}>
                 <Grid item xs={12} sm={6}>
                   <FormControl fullWidth sx={{ maxWidth: "500px" }}>
-                    <InputLabel>{t('news.create_news.labels.title')}</InputLabel>
+                    <InputLabel>
+                      {t("news.create_news.labels.title")}
+                    </InputLabel>
                     <OutlinedInput
                       type="text"
-                      label={t('news.create_news.labels.title')}
+                      label={t("news.create_news.labels.title")}
                       name="title"
                       onChange={handleChange}
                       value={values.title}
@@ -70,10 +82,12 @@ const CreateNews = () => {
                 </Grid>
                 <Grid item xs={12} sm={6}>
                   <FormControl fullWidth sx={{ maxWidth: "500px" }}>
-                    <InputLabel>{t('news.create_news.labels.position')}</InputLabel>
+                    <InputLabel>
+                      {t("news.create_news.labels.position")}
+                    </InputLabel>
                     <OutlinedInput
                       type="number"
-                      label={t('news.create_news.labels.position')}
+                      label={t("news.create_news.labels.position")}
                       name="position"
                       onChange={handleChange}
                       value={values.position}
@@ -87,7 +101,7 @@ const CreateNews = () => {
                 </Grid>
                 <Grid item xs={12} sm={6}>
                   <FormControlLabel
-                    label={t('news.create_news.labels.is_visible')}
+                    label={t("news.create_news.labels.is_visible")}
                     name="is_visible"
                     onChange={handleChange}
                     checked={values.is_visible}
@@ -95,23 +109,23 @@ const CreateNews = () => {
                   />
                 </Grid>
                 <Grid item xs={12} sm={6}>
-              <FormControl sx={{ mb: 4 }}>
-                <Button
-                  component="label"
-                  variant="contained"
-                  startIcon={<ImageOutlined />}
-                >
-                  {t('news.create_news.labels.image')}
-                  <VisuallyHiddenInput
-                    type="file"
-                    accept="image/png , image/jpg , image/jpeg"
-                    onChangeCapture={(e) => {
-                      setFieldValue("image", e.target.files[0]);
-                    }}
-                  />
-                </Button>
-              </FormControl>
-            </Grid>
+                  <FormControl sx={{ mb: 4 }}>
+                    <Button
+                      component="label"
+                      variant="contained"
+                      startIcon={<ImageOutlined />}
+                    >
+                      {t("news.create_news.labels.image")}
+                      <VisuallyHiddenInput
+                        type="file"
+                        accept="image/png , image/jpg , image/jpeg"
+                        onChangeCapture={(e) => {
+                          setFieldValue("image", e.target.files[0]);
+                        }}
+                      />
+                    </Button>
+                  </FormControl>
+                </Grid>
                 <Grid item xs={12}>
                   <Box
                     sx={{
@@ -128,11 +142,15 @@ const CreateNews = () => {
                       startIcon={<CreateOutlined />}
                       loading={createNews.isPending}
                     >
-                      {t('news.create_news.labels.create_btn')}
+                      {t("news.create_news.labels.create_btn")}
                     </LoadingButton>
-                    <Button color="warning" variant="outlined"
-                      size="large" onClick={handleReset}>
-                     {t('news.create_news.labels.reset_btn')}
+                    <Button
+                      color="warning"
+                      variant="outlined"
+                      size="large"
+                      onClick={handleReset}
+                    >
+                      {t("news.create_news.labels.reset_btn")}
                     </Button>
                   </Box>
                 </Grid>

@@ -20,7 +20,7 @@ import { useTranslation } from "react-i18next";
 
 const CreateQuestion = () => {
   const createQuestion = useCreateQuestion();
-  const {t} = useTranslation()
+  const { t } = useTranslation();
 
   const createQuestionHandler = (values) => {
     createQuestion.callFuntion(filterObjectFromNullValues(values));
@@ -42,9 +42,9 @@ const CreateQuestion = () => {
           clarification_image: yup.mixed().nullable(),
         })}
         initialValues={{
-          title: '',
+          title: "",
           image: null,
-          clarification_text: '',
+          clarification_text: "",
           clarification_image: null,
         }}
       >
@@ -62,10 +62,12 @@ const CreateQuestion = () => {
             <Grid container spacing={gridSpacing}>
               <Grid item xs={12} sm={6}>
                 <FormControl fullWidth>
-                  <InputLabel>{t('questions.create_question.labels.title')}</InputLabel>
+                  <InputLabel>
+                    {t("questions.create_question.labels.title")}
+                  </InputLabel>
                   <OutlinedInput
                     type="text"
-                    label={t('questions.create_question.labels.title')}
+                    label={t("questions.create_question.labels.title")}
                     name="title"
                     onChange={handleChange}
                     value={values.title}
@@ -84,7 +86,7 @@ const CreateQuestion = () => {
                     variant="contained"
                     startIcon={<ImageOutlined />}
                   >
-                    {t('questions.create_question.labels.image')}
+                    {t("questions.create_question.labels.image")}
                     <VisuallyHiddenInput
                       type="file"
                       onBlur={handleBlur}
@@ -127,10 +129,14 @@ const CreateQuestion = () => {
               ) : undefined}
               <Grid item xs={12} sm={6}>
                 <FormControl fullWidth>
-                  <InputLabel>{t('questions.create_question.labels.clarification_text')}</InputLabel>
+                  <InputLabel>
+                    {t("questions.create_question.labels.clarification_text")}
+                  </InputLabel>
                   <OutlinedInput
                     type="text"
-                    label={t('questions.create_question.labels.clarification_text')}
+                    label={t(
+                      "questions.create_question.labels.clarification_text"
+                    )}
                     name="clarification_text"
                     onChange={handleChange}
                     value={values.clarification_text}
@@ -153,7 +159,7 @@ const CreateQuestion = () => {
                     variant="contained"
                     startIcon={<ImageOutlined />}
                   >
-                    {t('questions.create_question.labels.clarification_image')}
+                    {t("questions.create_question.labels.clarification_image")}
                     <VisuallyHiddenInput
                       type="file"
                       onBlur={handleBlur}
@@ -210,10 +216,10 @@ const CreateQuestion = () => {
                 loading={createQuestion.isPending}
                 startIcon={<CreateOutlined />}
               >
-                {t('questions.create_question.labels.create_btn')}
+                {t("questions.create_question.labels.create_btn")}
               </LoadingButton>
               <Button onClick={handleReset} color="warning" variant="outlined">
-              {t('questions.create_question.labels.reset_btn')}
+                {t("questions.create_question.labels.reset_btn")}
               </Button>
             </Box>
           </form>

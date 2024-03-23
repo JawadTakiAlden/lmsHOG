@@ -1,21 +1,35 @@
-import { Box, Button, Checkbox, FormControl, FormControlLabel, FormHelperText, Grid, InputLabel, OutlinedInput } from '@mui/material';
-import { Formik } from 'formik';
-import React from 'react'
-import * as yup from 'yup'
-import VisuallyHiddenInput from '../../../../components/VisuallyHiddenInput/VisuallyHiddenInput';
-import { CancelOutlined, CreateOutlined, ImageOutlined } from '@mui/icons-material';
-import { LoadingButton } from '@mui/lab';
-import { gridSpacing } from '../../../../constant';
-import useCreateChoice from '../../../../api/useCreateChoice';
-import filterObjectFromNullValues from '../../../../utils/filterObjectFromNullValues';
-import { useTranslation } from 'react-i18next';
+import {
+  Box,
+  Button,
+  Checkbox,
+  FormControl,
+  FormControlLabel,
+  FormHelperText,
+  Grid,
+  InputLabel,
+  OutlinedInput,
+} from "@mui/material";
+import { Formik } from "formik";
+import React from "react";
+import * as yup from "yup";
+import VisuallyHiddenInput from "../../../../components/VisuallyHiddenInput/VisuallyHiddenInput";
+import {
+  CancelOutlined,
+  CreateOutlined,
+  ImageOutlined,
+} from "@mui/icons-material";
+import { LoadingButton } from "@mui/lab";
+import { gridSpacing } from "../../../../constant";
+import useCreateChoice from "../../../../api/useCreateChoice";
+import filterObjectFromNullValues from "../../../../utils/filterObjectFromNullValues";
+import { useTranslation } from "react-i18next";
 
-const AddChoiceForm = ({handelClose}) => {
-    const createChoice  = useCreateChoice()
-    const {t} = useTranslation()
-    const createChoiceHandler = (values) => {
-        createChoice.callFuntion(filterObjectFromNullValues(values))
-    }
+const AddChoiceForm = ({ handelClose }) => {
+  const createChoice = useCreateChoice();
+  const { t } = useTranslation();
+  const createChoiceHandler = (values) => {
+    createChoice.callFuntion(filterObjectFromNullValues(values));
+  };
   return (
     <Box>
       <Formik
@@ -25,7 +39,7 @@ const AddChoiceForm = ({handelClose}) => {
             is: null,
             then: (schema) => schema.required("title is required "),
           }),
-          image : yup.mixed().nullable()
+          image: yup.mixed().nullable(),
         })}
         initialValues={{
           title: "",
@@ -48,10 +62,16 @@ const AddChoiceForm = ({handelClose}) => {
             <Grid container spacing={gridSpacing}>
               <Grid item xs={12} sm={6}>
                 <FormControl fullWidth>
-                  <InputLabel>{t('questions.question_detials.add_choice_form.labels.title')}</InputLabel>
+                  <InputLabel>
+                    {t(
+                      "questions.question_detials.add_choice_form.labels.title"
+                    )}
+                  </InputLabel>
                   <OutlinedInput
                     type="text"
-                    label={t('questions.question_detials.add_choice_form.labels.title')}
+                    label={t(
+                      "questions.question_detials.add_choice_form.labels.title"
+                    )}
                     name="title"
                     onChange={handleChange}
                     value={values.title}
@@ -70,7 +90,9 @@ const AddChoiceForm = ({handelClose}) => {
                     variant="contained"
                     startIcon={<ImageOutlined />}
                   >
-                    {t('questions.question_detials.add_choice_form.labels.choice_image')}
+                    {t(
+                      "questions.question_detials.add_choice_form.labels.choice_image"
+                    )}
                     <VisuallyHiddenInput
                       type="file"
                       accept="image/png , image/jpg , image/jpeg"
@@ -97,33 +119,31 @@ const AddChoiceForm = ({handelClose}) => {
                       alt="clarification"
                       style={{
                         objectFit: "fill",
-                        maxWidth : '100%'
+                        maxWidth: "100%",
                       }}
                     />
                   </Box>
                 </Grid>
               ) : undefined}
               <Grid item xs={12} sm={6}>
-              <FormControlLabel
-                label={t('questions.question_detials.add_choice_form.labels.is_visible')}
-                value={values.is_visible}
-                onChange={handleChange}
-                name="is_visible"
-                control={
-                  <Checkbox
-                  />
-                }
-              />
-              <FormControlLabel
-                label={t('questions.question_detials.add_choice_form.labels.is_true')}
-                value={values.is_true}
-                onChange={handleChange}
-                name="is_true"
-                control={
-                  <Checkbox
-                  />
-                }
-              />
+                <FormControlLabel
+                  label={t(
+                    "questions.question_detials.add_choice_form.labels.is_visible"
+                  )}
+                  value={values.is_visible}
+                  onChange={handleChange}
+                  name="is_visible"
+                  control={<Checkbox />}
+                />
+                <FormControlLabel
+                  label={t(
+                    "questions.question_detials.add_choice_form.labels.is_true"
+                  )}
+                  value={values.is_true}
+                  onChange={handleChange}
+                  name="is_true"
+                  control={<Checkbox />}
+                />
               </Grid>
             </Grid>
             <Box
@@ -141,20 +161,30 @@ const AddChoiceForm = ({handelClose}) => {
                 loading={createChoice.isPending}
                 startIcon={<CreateOutlined />}
               >
-                {t('questions.question_detials.add_choice_form.labels.create_btn')}
+                {t(
+                  "questions.question_detials.add_choice_form.labels.create_btn"
+                )}
               </LoadingButton>
-              <Button startIcon={<CancelOutlined />} disabled={createChoice.isPending} onClick={() => {
-                handleReset()
-                handelClose()
-              }} color="error" variant="outlined">
-                {t('questions.question_detials.add_choice_form.labels.cancel_btn')}
+              <Button
+                startIcon={<CancelOutlined />}
+                disabled={createChoice.isPending}
+                onClick={() => {
+                  handleReset();
+                  handelClose();
+                }}
+                color="error"
+                variant="outlined"
+              >
+                {t(
+                  "questions.question_detials.add_choice_form.labels.cancel_btn"
+                )}
               </Button>
             </Box>
           </form>
         )}
       </Formik>
     </Box>
-  )
-}
+  );
+};
 
-export default AddChoiceForm
+export default AddChoiceForm;

@@ -27,14 +27,14 @@ import useAddQuestionToPreExistingQuiz from "../../../../api/useAddQuestionToPre
 import { useTranslation } from "react-i18next";
 const AddToPreExistingQuizModel = ({ open, handleClose, table }) => {
   const createQuiz = useAddQuestionToPreExistingQuiz();
-  const {t} = useTranslation()
-  const quizzes = useGetQuizzes()
+  const { t } = useTranslation();
+  const quizzes = useGetQuizzes();
   return (
     <Dialog open={open} onClose={handleClose}>
-      <DialogTitle>{t('quizzes.add_to_pre_existing_model.title')}</DialogTitle>
+      <DialogTitle>{t("quizzes.add_to_pre_existing_model.title")}</DialogTitle>
       <DialogContent>
         <DialogContentText>
-        {t('quizzes.add_to_pre_existing_model.text')}
+          {t("quizzes.add_to_pre_existing_model.text")}
         </DialogContentText>
         <Formik
           onSubmit={(values) => {
@@ -65,29 +65,38 @@ const AddToPreExistingQuizModel = ({ open, handleClose, table }) => {
           }) => (
             <form onSubmit={handleSubmit}>
               <FormControl sx={{ mb: 2, mt: 2 }} fullWidth>
-                <InputLabel>{t('quizzes.add_to_pre_existing_model.labels.quiz')}</InputLabel>
+                <InputLabel>
+                  {t("quizzes.add_to_pre_existing_model.labels.quiz")}
+                </InputLabel>
                 <Select
                   value={values.quiz_id}
-                  label={t('quizzes.add_to_pre_existing_model.labels.quiz')}
+                  label={t("quizzes.add_to_pre_existing_model.labels.quiz")}
                   onChange={handleChange}
                   onBlur={handleBlur}
                   name="quiz_id"
                   error={touched.quiz_id && errors.quiz_id}
                 >
-                    {
-                        quizzes.isLoading ?
-                        ( <Box sx={{display : 'flex' , alignItems : 'center' , justifyContent : 'center'}}>
-                            <CircularProgress />
-                        </Box>)
-                        : quizzes.isError ? (
-                            <Button fullWidth onClick={() => quizzes.refetch}>{t('quizzes.add_to_pre_existing_model.labels.refetch_btn')}</Button>
-                        )
-                        : (
-                            quizzes?.data?.data?.data?.map(quiz => (
-                                <MenuItem value={quiz.id}>{quiz.title}</MenuItem>
-                            ))
-                        )
-                    }
+                  {quizzes.isLoading ? (
+                    <Box
+                      sx={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                      }}
+                    >
+                      <CircularProgress />
+                    </Box>
+                  ) : quizzes.isError ? (
+                    <Button fullWidth onClick={() => quizzes.refetch}>
+                      {t(
+                        "quizzes.add_to_pre_existing_model.labels.refetch_btn"
+                      )}
+                    </Button>
+                  ) : (
+                    quizzes?.data?.data?.data?.map((quiz) => (
+                      <MenuItem value={quiz.id}>{quiz.title}</MenuItem>
+                    ))
+                  )}
                 </Select>
                 {touched.quiz_id && errors.quiz_id && (
                   <FormHelperText error>{errors.quiz_id}</FormHelperText>
@@ -95,7 +104,7 @@ const AddToPreExistingQuizModel = ({ open, handleClose, table }) => {
               </FormControl>
               <FormControlLabel
                 sx={{ mb: 2 }}
-                label={t('quizzes.add_to_pre_existing_model.labels.is_visible')}
+                label={t("quizzes.add_to_pre_existing_model.labels.is_visible")}
                 name="is_visible"
                 onChange={handleChange}
                 checked={values.is_visible}
@@ -116,7 +125,7 @@ const AddToPreExistingQuizModel = ({ open, handleClose, table }) => {
                   startIcon={<CreateOutlined />}
                   loading={createQuiz.isPending}
                 >
-                  {t('quizzes.add_to_pre_existing_model.labels.create_btn')}
+                  {t("quizzes.add_to_pre_existing_model.labels.create_btn")}
                 </LoadingButton>
                 {/* <Button color="warning" onClick={handleReset}>
                         Reset
@@ -133,7 +142,7 @@ const AddToPreExistingQuizModel = ({ open, handleClose, table }) => {
           variant="outlined"
           startIcon={<CancelOutlined />}
         >
-          {t('quizzes.add_to_pre_existing_model.labels.cancel_btn')}
+          {t("quizzes.add_to_pre_existing_model.labels.cancel_btn")}
         </Button>
       </DialogActions>
     </Dialog>

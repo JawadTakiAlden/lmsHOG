@@ -1,4 +1,14 @@
-import { Box, Button, Checkbox, FormControl, FormControlLabel, FormHelperText, Grid, InputLabel, OutlinedInput } from "@mui/material";
+import {
+  Box,
+  Button,
+  Checkbox,
+  FormControl,
+  FormControlLabel,
+  FormHelperText,
+  Grid,
+  InputLabel,
+  OutlinedInput,
+} from "@mui/material";
 import React from "react";
 import { gridSpacing } from "../../../../constant";
 import { Formik } from "formik";
@@ -9,10 +19,10 @@ import useCreateCategory from "../../../../api/useCreateCategory";
 import { useTranslation } from "react-i18next";
 
 const CreateCategory = () => {
-  const createCategory = useCreateCategory()
-  const {t} = useTranslation()
+  const createCategory = useCreateCategory();
+  const { t } = useTranslation();
   const handleCreate = (values) => {
-    createCategory.callFuntion(values)
+    createCategory.callFuntion(values);
   };
   return (
     <Box
@@ -43,12 +53,14 @@ const CreateCategory = () => {
         }) => (
           <form onSubmit={handleSubmit}>
             <Grid container spacing={gridSpacing}>
-            <Grid item xs={12} sm={6}>
+              <Grid item xs={12} sm={6}>
                 <FormControl fullWidth sx={{ maxWidth: "500px" }}>
-                  <InputLabel>{t('categories.create_category.labels.name')}</InputLabel>
+                  <InputLabel>
+                    {t("categories.create_category.labels.name")}
+                  </InputLabel>
                   <OutlinedInput
                     type="text"
-                    label={t('categories.create_category.labels.name')}
+                    label={t("categories.create_category.labels.name")}
                     name="name"
                     onChange={handleChange}
                     value={values.name}
@@ -62,24 +74,20 @@ const CreateCategory = () => {
               </Grid>
               <Grid item xs={12} sm={6}>
                 <FormControlLabel
-                  label={t('categories.create_category.labels.is_visible')}
+                  label={t("categories.create_category.labels.is_visible")}
                   name="is_visible"
-                      onChange={handleChange}
-                      value={values.is_visible}
-                      checked={values.is_visible}
-                  control={
-                    <Checkbox
-                      
-                    />
-                  }
+                  onChange={handleChange}
+                  value={values.is_visible}
+                  checked={values.is_visible}
+                  control={<Checkbox />}
                 />
               </Grid>
               <Grid item xs={12}>
                 <Box
                   sx={{
-                    display : 'flex',
-                    alignItems : 'center',
-                    gap : 3
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 3,
                   }}
                 >
                   <LoadingButton
@@ -90,10 +98,16 @@ const CreateCategory = () => {
                     startIcon={<CreateOutlined />}
                     loading={createCategory.isPending}
                   >
-                    {t('categories.create_category.labels.create_btn')}
+                    {t("categories.create_category.labels.create_btn")}
                   </LoadingButton>
-                  <Button color="warning" startIcon={<Restore />} variant="outlined" size="large" onClick={handleReset}>
-                  {t('categories.create_category.labels.reset_btn')}
+                  <Button
+                    color="warning"
+                    startIcon={<Restore />}
+                    variant="outlined"
+                    size="large"
+                    onClick={handleReset}
+                  >
+                    {t("categories.create_category.labels.reset_btn")}
                   </Button>
                 </Box>
               </Grid>

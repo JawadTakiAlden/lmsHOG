@@ -2,7 +2,6 @@ import {
   Autocomplete,
   Box,
   Button,
-  Checkbox,
   CircularProgress,
   FormControl,
   FormHelperText,
@@ -13,7 +12,6 @@ import {
   OutlinedInput,
   Select,
   TextField,
-  useTheme,
 } from "@mui/material";
 import { Formik } from "formik";
 import React, { useState } from "react";
@@ -25,27 +23,17 @@ import { NoteAddOutlined } from "@mui/icons-material";
 import useGenerateActivationCode from "../../../../api/useGenerateActivationCode";
 import { useTranslation } from "react-i18next";
 
-function getStyles(id, courses, theme) {
-  return {
-    fontWeight:
-      courses.indexOf(id) === -1
-        ? theme.typography.fontWeightRegular
-        : theme.typography.fontWeightMedium,
-  };
-}
-
 const ActivationCodeGenerateForm = () => {
   const courses = useGetCourses();
   const [sharedOpen, setSharedOpen] = useState(false);
-  const theme = useTheme();
   const { t } = useTranslation();
   const generateCodes = useGenerateActivationCode();
   const handelGenerate = (values) => {
     let data = {
-      ...values
-    }
-    if(values.type === 'shared'){
-      data.courses = data.courses.map(course => course.id)
+      ...values,
+    };
+    if (values.type === "shared") {
+      data.courses = data.courses.map((course) => course.id);
     }
     generateCodes.callFuntion(data);
   };

@@ -13,7 +13,7 @@ const DetailsTab = ({ data, courseDetails }) => {
   const visibleSwitcher = useSwitchCourseVisibility(courseDetails.refetch);
   const [openAddChapterForm, setOpenAddChapterForm] = useState(false);
   const { course_id } = useParams();
-  const {t} = useTranslation()
+  const { t } = useTranslation();
   const addChapterFormClick = () => {
     setOpenAddChapterForm((prev) => !prev);
   };
@@ -24,7 +24,7 @@ const DetailsTab = ({ data, courseDetails }) => {
         sx={{
           display: "flex",
           alignItems: "center",
-          flexWrap : 'wrap',
+          flexWrap: "wrap",
           justifyContent: "flex-end",
           gap: 3,
         }}
@@ -43,7 +43,7 @@ const DetailsTab = ({ data, courseDetails }) => {
             }}
             switchermutate={openSwitcher}
             checkedAttribute={"is_open"}
-            label={t('courses.detaisl.details_tab.switcher.1')}
+            label={t("courses.detaisl.details_tab.switcher.1")}
           />
         </Box>
         <Box
@@ -60,7 +60,7 @@ const DetailsTab = ({ data, courseDetails }) => {
             }}
             switchermutate={visibleSwitcher}
             checkedAttribute={"is_visible"}
-            label={t('courses.detaisl.details_tab.switcher.2')}
+            label={t("courses.detaisl.details_tab.switcher.2")}
           />
         </Box>
         <Button
@@ -68,11 +68,11 @@ const DetailsTab = ({ data, courseDetails }) => {
           color="primary"
           onClick={addChapterFormClick}
         >
-          {t('courses.detaisl.details_tab.buttons.add_chapter')}
+          {t("courses.detaisl.details_tab.buttons.add_chapter")}
         </Button>
       </Box>
       <Collapse in={openAddChapterForm}>
-      <AddChapterForm course_id={course_id} />
+        <AddChapterForm course_id={course_id} />
       </Collapse>
       <ChapterRenderer chapters={data.chapters} />
     </Box>

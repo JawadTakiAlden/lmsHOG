@@ -13,7 +13,7 @@ import { useTranslation } from "react-i18next";
 import Transition from "../../../../../components/Transition";
 import useDeleteAccountMutation from "../../../../../api/useDeleteAccountMutation";
 
-const DeleteAccountButton = ({userID}) => {
+const DeleteAccountButton = ({ userID }) => {
   const [open, setOpen] = React.useState(false);
   const { t } = useTranslation();
 
@@ -36,7 +36,7 @@ const DeleteAccountButton = ({userID}) => {
         color="error"
         size="large"
         sx={{
-            mb : 2
+          mb: 2,
         }}
       >
         Delete
@@ -64,7 +64,7 @@ const DeleteAccountButton = ({userID}) => {
             variant="contained"
             color="primary"
             onClick={() => {
-                deleteAccount.callFuntion()
+              deleteAccount.callFuntion();
             }}
             loading={deleteAccount.isPending}
           >

@@ -1,14 +1,25 @@
-import React, { useState } from 'react'
-import useDeleteCategory from '../../../../api/useDeleteCategory';
-import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField, Tooltip, Typography } from '@mui/material';
-import { LoadingButton } from '@mui/lab';
-import { useTranslation } from 'react-i18next';
+import React, { useState } from "react";
+import useDeleteCategory from "../../../../api/useDeleteCategory";
+import {
+  Box,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  TextField,
+  Tooltip,
+  Typography,
+} from "@mui/material";
+import { LoadingButton } from "@mui/lab";
+import { useTranslation } from "react-i18next";
 
-const DeleteTab = ({data}) => {
+const DeleteTab = ({ data }) => {
   const [open, setOpen] = useState(false);
   const [categoryName, setCategoryName] = useState("");
-  const deleteCategory = useDeleteCategory()
-  const {t} = useTranslation()
+  const deleteCategory = useDeleteCategory();
+  const { t } = useTranslation();
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -36,7 +47,7 @@ const DeleteTab = ({data}) => {
             textAlign: "center",
           }}
         >
-           {t('categories.detail.deleteTab.h1')}
+          {t("categories.detail.deleteTab.h1")}
         </Typography>
         <Typography
           sx={{
@@ -46,7 +57,7 @@ const DeleteTab = ({data}) => {
             mb: 2,
           }}
         >
-          {t('categories.detail.deleteTab.desc')}
+          {t("categories.detail.deleteTab.desc")}
         </Typography>
         <Box
           sx={{
@@ -58,7 +69,7 @@ const DeleteTab = ({data}) => {
         >
           <Tooltip title={"delete"}>
             <Button onClick={handleClickOpen} color="error" variant="contained">
-            {t('categories.detail.deleteTab.delete_btn')}
+              {t("categories.detail.deleteTab.delete_btn")}
             </Button>
           </Tooltip>
         </Box>
@@ -67,17 +78,19 @@ const DeleteTab = ({data}) => {
         open={open}
         onClose={handleClose}
         PaperProps={{
-          component: 'form',
+          component: "form",
           onSubmit: (event) => {
             event.preventDefault();
-            deleteCategory.callFuntion()
+            deleteCategory.callFuntion();
           },
         }}
       >
-        <DialogTitle>{t('categories.detail.deleteTab.dialog.title')} '{data.name}'</DialogTitle>
+        <DialogTitle>
+          {t("categories.detail.deleteTab.dialog.title")} '{data.name}'
+        </DialogTitle>
         <DialogContent>
           <DialogContentText>
-          {t('categories.detail.deleteTab.dialog.text')}
+            {t("categories.detail.deleteTab.dialog.text")}
           </DialogContentText>
           <TextField
             autoFocus
@@ -87,26 +100,29 @@ const DeleteTab = ({data}) => {
             name="name"
             onChange={(e) => setCategoryName(e.target.value)}
             value={categoryName}
-            label={t('categories.detail.deleteTab.dialog.input_label')}
+            label={t("categories.detail.deleteTab.dialog.input_label")}
             type="text"
             fullWidth
             variant="standard"
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}> {t('categories.detail.deleteTab.cancel_btn')}</Button>
+          <Button onClick={handleClose}>
+            {" "}
+            {t("categories.detail.deleteTab.cancel_btn")}
+          </Button>
           <LoadingButton
             color="error"
-            disabled={categoryName !== data.name} 
+            disabled={categoryName !== data.name}
             loading={deleteCategory.isPending}
             type="submit"
           >
-            {t('categories.detail.deleteTab.delete_btn')}
+            {t("categories.detail.deleteTab.delete_btn")}
           </LoadingButton>
         </DialogActions>
       </Dialog>
     </>
-  )
-}
+  );
+};
 
-export default DeleteTab
+export default DeleteTab;

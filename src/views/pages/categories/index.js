@@ -14,24 +14,24 @@ import { useTranslation } from "react-i18next";
 
 const Categories = () => {
   const categories = useGetCategories();
-  const switchermutate = useSwitchCatgeoryVisibility(categories.refetch)
-  const navigate = useNavigate()
-  const {t} = useTranslation()
+  const switchermutate = useSwitchCatgeoryVisibility(categories.refetch);
+  const navigate = useNavigate();
+  const { t } = useTranslation();
   const columns = useMemo(
     () => [
       {
         accessorKey: "id",
-        header: t('categories.categories_list.headers.id'),
+        header: t("categories.categories_list.headers.id"),
         size: 50,
       },
       {
         accessorKey: "name",
-        header: t('categories.categories_list.headers.name'),
+        header: t("categories.categories_list.headers.name"),
         size: 150,
       },
       {
         accessorKey: "is_visible",
-        header: t('categories.categories_list.headers.is_visible'),
+        header: t("categories.categories_list.headers.is_visible"),
         Cell: ({ row }) => {
           return (
             <Swicther
@@ -49,7 +49,7 @@ const Categories = () => {
     columns,
     data: categories?.data?.data?.data || [],
     renderTopToolbarCustomActions: () => (
-      <Tooltip arrow title={t('public.table.tooltip.refresh')}>
+      <Tooltip arrow title={t("public.table.tooltip.refresh")}>
         <IconButton onClick={categories.refetch}>
           <Refresh />
         </IconButton>
@@ -68,11 +68,13 @@ const Categories = () => {
         minHeight: "500px",
       },
     },
-    enableRowActions : true,
+    enableRowActions: true,
     renderRowActions: ({ row }) => (
       <Box sx={{ display: "flex", gap: "1rem" }}>
-        <Tooltip title={t('public.table.tooltip.settings')}>
-          <IconButton onClick={() => navigate(`/details/category/${row.original.id}`)}>
+        <Tooltip title={t("public.table.tooltip.settings")}>
+          <IconButton
+            onClick={() => navigate(`/details/category/${row.original.id}`)}
+          >
             <SettingsOutlined />
           </IconButton>
         </Tooltip>

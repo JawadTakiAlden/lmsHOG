@@ -1,43 +1,43 @@
 import {
-    DeleteOutlined,
-    EditOutlined,
-    InfoOutlined,
-    MoreOutlined,
-    QuizOutlined,
-  } from "@mui/icons-material";
-  import { LoadingButton } from "@mui/lab";
-  import {
-    Box,
-    Button,
-    Collapse,
-    Dialog,
-    DialogActions,
-    DialogContent,
-    DialogContentText,
-    DialogTitle,
-    IconButton,
-    List,
-    ListItem,
-    ListItemButton,
-    ListItemIcon,
-    ListItemText,
-  } from "@mui/material";
-  import React, { useState } from "react";
-  import Transition from "../../../../../../../components/BottomTranstion";
+  DeleteOutlined,
+  EditOutlined,
+  InfoOutlined,
+  MoreOutlined,
+  QuizOutlined,
+} from "@mui/icons-material";
+import { LoadingButton } from "@mui/lab";
+import {
+  Box,
+  Button,
+  Collapse,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  IconButton,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+} from "@mui/material";
+import React, { useState } from "react";
+import Transition from "../../../../../../../components/BottomTranstion";
 import { useNavigate } from "react-router";
 import useRemoveQuizFromChapter from "../../../../../../../api/useRemoveQuizFromChapter";
 import { useTranslation } from "react-i18next";
 import UpdateQuizFrom from "./UpdateQuizFrom";
 
-const QuizItem = ({quiz , last}) => {
-    const [deleteOpen, setDeleteOpen] = useState(false);
-    const [editOpen, setEditOpen] = useState(false);
+const QuizItem = ({ quiz, last }) => {
+  const [deleteOpen, setDeleteOpen] = useState(false);
+  const [editOpen, setEditOpen] = useState(false);
   const [contentOpen, setContentOpen] = useState(false);
-  const navigate = useNavigate()
-  const {t} = useTranslation()
+  const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const handelContentToggle = () => {
-    setContentOpen(prev => !prev);
+    setContentOpen((prev) => !prev);
   };
 
   const handelDeleteClick = () => {
@@ -45,12 +45,12 @@ const QuizItem = ({quiz , last}) => {
   };
 
   const handelEditToggel = () => {
-    setEditOpen((prev) => !prev)
-  }
+    setEditOpen((prev) => !prev);
+  };
 
   const handelEditClose = () => {
-    setEditOpen(false)
-  }
+    setEditOpen(false);
+  };
 
   const handelDeleteClose = () => {
     setDeleteOpen(false);
@@ -75,7 +75,7 @@ const QuizItem = ({quiz , last}) => {
             justifyContent: "space-between",
           }}
         >
-          <ListItem sx={{cursor : 'pointer'}} onClick={handelContentToggle}>
+          <ListItem sx={{ cursor: "pointer" }} onClick={handelContentToggle}>
             <ListItemIcon>
               <QuizOutlined />
             </ListItemIcon>
@@ -94,12 +94,12 @@ const QuizItem = ({quiz , last}) => {
               gap: "10px",
             }}
           >
-              <IconButton onClick={handelDeleteClick} color="error">
-                <DeleteOutlined />
-              </IconButton>
-              <IconButton onClick={handelEditToggel} color="primary">
-                <EditOutlined />
-              </IconButton>
+            <IconButton onClick={handelDeleteClick} color="error">
+              <DeleteOutlined />
+            </IconButton>
+            <IconButton onClick={handelEditToggel} color="primary">
+              <EditOutlined />
+            </IconButton>
           </Box>
         </Box>
         <Collapse in={editOpen}>
@@ -111,25 +111,45 @@ const QuizItem = ({quiz , last}) => {
               <ListItemIcon>
                 <InfoOutlined />
               </ListItemIcon>
-              <ListItemText>{t('courses.detaisl.details_tab.chapter_renderer.chapter_card.lesion_renderer.quiz_item.list.1')} : {quiz.description || 'no description'}</ListItemText>
+              <ListItemText>
+                {t(
+                  "courses.detaisl.details_tab.chapter_renderer.chapter_card.lesion_renderer.quiz_item.list.1"
+                )}{" "}
+                : {quiz.description || "no description"}
+              </ListItemText>
             </ListItem>
             <ListItem>
               <ListItemIcon>
                 <InfoOutlined />
               </ListItemIcon>
-              <ListItemText>{t('courses.detaisl.details_tab.chapter_renderer.chapter_card.lesion_renderer.quiz_item.list.2')} : {quiz.number_of_questions}</ListItemText>
+              <ListItemText>
+                {t(
+                  "courses.detaisl.details_tab.chapter_renderer.chapter_card.lesion_renderer.quiz_item.list.2"
+                )}{" "}
+                : {quiz.number_of_questions}
+              </ListItemText>
             </ListItem>
             <ListItem>
               <ListItemIcon>
                 <InfoOutlined />
               </ListItemIcon>
-              <ListItemText>{t('courses.detaisl.details_tab.chapter_renderer.chapter_card.lesion_renderer.quiz_item.list.3')} : {quiz.number_of_visible_question}</ListItemText>
+              <ListItemText>
+                {t(
+                  "courses.detaisl.details_tab.chapter_renderer.chapter_card.lesion_renderer.quiz_item.list.3"
+                )}{" "}
+                : {quiz.number_of_visible_question}
+              </ListItemText>
             </ListItem>
             <ListItem>
               <ListItemIcon>
                 <InfoOutlined />
               </ListItemIcon>
-              <ListItemText>{t('courses.detaisl.details_tab.chapter_renderer.chapter_card.lesion_renderer.quiz_item.list.4')} : {quiz.number_of_invisible_question}</ListItemText>
+              <ListItemText>
+                {t(
+                  "courses.detaisl.details_tab.chapter_renderer.chapter_card.lesion_renderer.quiz_item.list.4"
+                )}{" "}
+                : {quiz.number_of_invisible_question}
+              </ListItemText>
             </ListItem>
             <ListItem>
               <ListItemIcon>
@@ -137,10 +157,12 @@ const QuizItem = ({quiz , last}) => {
               </ListItemIcon>
               <ListItemButton
                 onClick={() => {
-                    navigate(`/details/quiz/${quiz.id}`)
+                  navigate(`/details/quiz/${quiz.id}`);
                 }}
               >
-                {t('courses.detaisl.details_tab.chapter_renderer.chapter_card.lesion_renderer.quiz_item.list.5')}
+                {t(
+                  "courses.detaisl.details_tab.chapter_renderer.chapter_card.lesion_renderer.quiz_item.list.5"
+                )}
               </ListItemButton>
             </ListItem>
           </List>
@@ -152,10 +174,16 @@ const QuizItem = ({quiz , last}) => {
         keepMounted
         onClose={handelDeleteClose}
       >
-        <DialogTitle>{t('courses.detaisl.details_tab.chapter_renderer.chapter_card.lesion_renderer.quiz_item.dialog.title')}</DialogTitle>
+        <DialogTitle>
+          {t(
+            "courses.detaisl.details_tab.chapter_renderer.chapter_card.lesion_renderer.quiz_item.dialog.title"
+          )}
+        </DialogTitle>
         <DialogContent>
           <DialogContentText>
-          {t('courses.detaisl.details_tab.chapter_renderer.chapter_card.lesion_renderer.quiz_item.dialog.text')}
+            {t(
+              "courses.detaisl.details_tab.chapter_renderer.chapter_card.lesion_renderer.quiz_item.dialog.text"
+            )}
           </DialogContentText>
         </DialogContent>
         <DialogActions>
@@ -166,7 +194,9 @@ const QuizItem = ({quiz , last}) => {
             variant="outlined"
             sx={{ borderRadius: "12px" }}
           >
-            {t('courses.detaisl.details_tab.chapter_renderer.chapter_card.lesion_renderer.quiz_item.dialog.cancel_btn')}
+            {t(
+              "courses.detaisl.details_tab.chapter_renderer.chapter_card.lesion_renderer.quiz_item.dialog.cancel_btn"
+            )}
           </Button>
           <LoadingButton
             loading={deleteQuizFromChapter.isPending}
@@ -176,15 +206,17 @@ const QuizItem = ({quiz , last}) => {
             variant="contained"
             sx={{ borderRadius: "12px" }}
             onClick={() => {
-                deleteQuizFromChapter.callFunction();
+              deleteQuizFromChapter.callFunction();
             }}
           >
-            {t('courses.detaisl.details_tab.chapter_renderer.chapter_card.lesion_renderer.quiz_item.dialog.accept_btn')}
+            {t(
+              "courses.detaisl.details_tab.chapter_renderer.chapter_card.lesion_renderer.quiz_item.dialog.accept_btn"
+            )}
           </LoadingButton>
         </DialogActions>
       </Dialog>
     </>
-  )
-}
+  );
+};
 
-export default QuizItem
+export default QuizItem;

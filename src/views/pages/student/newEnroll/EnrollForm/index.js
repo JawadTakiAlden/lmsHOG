@@ -1,136 +1,173 @@
-import { Box, Button, CircularProgress, FormControl, FormHelperText, Grid, InputLabel, MenuItem, Select } from '@mui/material'
-import React from 'react'
-import { gridSpacing } from '../../../../../constant';
-import { Formik } from 'formik';
-import * as yup from 'yup'
-import useGetStudentList from '../../../../../api/useGetStudentList';
-import useGetVisibleCourses from '../../../../../api/useGetVisibleCourses';
-import useCreateEnroll from '../../../../../api/useCreateEnroll';
-import { LoadingButton } from '@mui/lab';
-import { Save } from '@mui/icons-material';
-import { useTranslation } from 'react-i18next';
+import {
+  Autocomplete,
+  Box,
+  CircularProgress,
+  FormHelperText,
+  Grid,
+  TextField,
+} from "@mui/material";
+import React, { useState } from "react";
+import { gridSpacing } from "../../../../../constant";
+import { Formik } from "formik";
+import * as yup from "yup";
+import useGetStudentList from "../../../../../api/useGetStudentList";
+import useGetVisibleCourses from "../../../../../api/useGetVisibleCourses";
+import useCreateEnroll from "../../../../../api/useCreateEnroll";
+import { LoadingButton } from "@mui/lab";
+import { Save } from "@mui/icons-material";
+import { useTranslation } from "react-i18next";
 
 const EnrollForm = () => {
-    const studentsList = useGetStudentList()
-    const courses = useGetVisibleCourses()
-    const {t} = useTranslation()
-    const createEnroll = useCreateEnroll()
-    const handelSubmit = (values) => {
-        createEnroll.callFuntion(values)
-    };
+  const studentsList = useGetStudentList();
+  const courses = useGetVisibleCourses();
+  const { t } = useTranslation();
+  const [coursesOpen, setCoursesOpen] = useState(false);
+  const [studentsOpen, setStudentsOpen] = useState(false);
+  const createEnroll = useCreateEnroll();
+  const handelSubmit = (values) => {
+    createEnroll.callFuntion(values);
+  };
   return (
     <Box
-        sx={{
-            p : 2,
-            mt : 3
-        }}
+      sx={{
+        p: 2,
+        mt: 3,
+      }}
     >
-        <Formik
-            onSubmit={handelSubmit}
-            initialValues={initialValues}
-            validationSchema={validationSchema}
-        >
-            {
-                ({
-                    handleSubmit,
-                    values,
-                    handleChange,
-                    handleBlur,
-                    touched,
-                    errors
-                }) => (
-                    <form
-                        onSubmit={handleSubmit}
-                    >
-                        <Grid container spacing={gridSpacing} sx={{mb : 2}}>
-                            <Grid item xs={12} sm={6}>
-                                <FormControl fullWidth>
-                                <InputLabel >{t('students.new_enroll.new_enroll_form.labels.student')}</InputLabel>
-                                <Select
-                                    value={values.student_id}
-                                    label={t('students.new_enroll.new_enroll_form.labels.student')}
-                                    onBlur={handleBlur}
-                                    onChange={handleChange}
-                                    name='student_id'
-                                >
-                                    {
-                                        studentsList.isLoading && <Box sx={{display : 'flex' , justifyContent : 'center' , alignItems : 'center' , p : 2}}><CircularProgress /></Box>
-                                    }
-                                    {
-                                        studentsList.error && <Button color='error' variant='contained' onClick={studentsList.refetch}>{t('students.new_enroll.new_enroll_form.labels.refetch_btn')}</Button>
-                                    }
-                                    {
-                                        studentsList?.data?.data?.data.map(student => (
-                                            <MenuItem key={student.id} value={student.id}>{student.full_name} ---- {student.phone}</MenuItem>
-                                        ))
-                                    }
-                                </Select>
-                                {
-                                    touched.student_id && errors.student_id &&  <FormHelperText error>
-                                        {errors.student_id}
-                                    </FormHelperText>
-                                }
-                            </FormControl>
-                            </Grid>
-                            <Grid item xs={12} sm={6}>
-                                <FormControl fullWidth>
-                                <InputLabel>{t('students.new_enroll.new_enroll_form.labels.course')}</InputLabel>
-                                <Select
-                                    value={values.course_id}
-                                    label={t('students.new_enroll.new_enroll_form.labels.course')}
-                                    onBlur={handleBlur}
-                                    onChange={handleChange}
-                                    name='course_id'
-                                >
-                                    {
-                                        courses.isLoading && <Box sx={{display : 'flex' , justifyContent : 'center' , alignItems : 'center' , p : 2}}><CircularProgress /></Box>
-                                    }
-                                    {
-                                        courses.error && <Button color='error' variant='contained' onClick={courses.refetch}>{t('students.new_enroll.new_enroll_form.labels.refetch_btn')}</Button>
-                                    }
-                                    {
-                                        courses?.data?.data?.data.map(course => (
-                                            <MenuItem key={course.id} value={course.id}>{course.name}</MenuItem>
-                                        )) 
-                                    }
-                                </Select>
-                                {
-                                    touched.course_id && errors.course_id &&  <FormHelperText error>
-                                        {errors.course_id}
-                                    </FormHelperText>
-                                }
-                            </FormControl>
-                            </Grid>
-                        </Grid>
-                        {/* <Button disabled={} variant='contained' type='submit'>Create Enroll</Button> */}
-                        <LoadingButton
-                            color="primary"
-                            type='submit'
-                            loading={createEnroll.isPending}
-                            loadingPosition="start"
-                            startIcon={<Save />}
-                            variant="contained"
-                            >
-                                <span>{t('students.new_enroll.new_enroll_form.labels.create_btn')}</span>
-                            </LoadingButton>
-                    </form>
-                )
-            }
-        </Formik>
-        
-        
+      <Formik
+        onSubmit={handelSubmit}
+        initialValues={initialValues}
+        validationSchema={validationSchema}
+      >
+        {({ handleSubmit, handleBlur, touched, errors, setFieldValue }) => (
+          <form onSubmit={handleSubmit}>
+            <Grid container spacing={gridSpacing} sx={{ mb: 2 }}>
+              <Grid item xs={12} sm={6}>
+                <Autocomplete
+                  open={studentsOpen}
+                  onOpen={() => {
+                    setStudentsOpen(true);
+                  }}
+                  onClose={() => {
+                    setStudentsOpen(false);
+                  }}
+                  isOptionEqualToValue={(option, value) =>
+                    option.id === value.id
+                  }
+                  getOptionLabel={(option) => option.phone}
+                  options={studentsList?.data?.data?.data || []}
+                  loading={studentsList.isLoading}
+                  disableCloseOnSelect
+                  id="student_id"
+                  name={"student_id"}
+                  onBlur={handleBlur}
+                  onChange={(e, v) => {
+                    setFieldValue("student_id", v.id);
+                  }}
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      label={t(
+                        "students.new_enroll.new_enroll_form.labels.student"
+                      )}
+                      name="student_id"
+                      onBlur={handleBlur}
+                      error={touched.student_id && errors.student_id}
+                      InputProps={{
+                        ...params.InputProps,
+                        endAdornment: (
+                          <React.Fragment>
+                            {studentsList.isLoading ? (
+                              <CircularProgress color="inherit" size={20} />
+                            ) : null}
+                            {params.InputProps.endAdornment}
+                          </React.Fragment>
+                        ),
+                      }}
+                    />
+                  )}
+                />
+                {touched.student_id && errors.student_id && (
+                  <FormHelperText error>{errors.student_id}</FormHelperText>
+                )}
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <Autocomplete
+                  open={coursesOpen}
+                  onOpen={() => {
+                    setCoursesOpen(true);
+                  }}
+                  onClose={() => {
+                    setCoursesOpen(false);
+                  }}
+                  isOptionEqualToValue={(option, value) =>
+                    option.id === value.id
+                  }
+                  getOptionLabel={(option) => option.name}
+                  options={courses?.data?.data?.data || []}
+                  loading={courses.isLoading}
+                  disableCloseOnSelect
+                  id="course_id"
+                  name={"course_id"}
+                  onBlur={handleBlur}
+                  onChange={(e, v) => {
+                    setFieldValue("course_id", v.id);
+                  }}
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      label={t(
+                        "students.new_enroll.new_enroll_form.labels.course"
+                      )}
+                      name="course_id"
+                      onBlur={handleBlur}
+                      error={touched.course_id && errors.course_id}
+                      InputProps={{
+                        ...params.InputProps,
+                        endAdornment: (
+                          <React.Fragment>
+                            {courses.isLoading ? (
+                              <CircularProgress color="inherit" size={20} />
+                            ) : null}
+                            {params.InputProps.endAdornment}
+                          </React.Fragment>
+                        ),
+                      }}
+                    />
+                  )}
+                />
+                {touched.course_id && errors.course_id && (
+                  <FormHelperText error>{errors.course_id}</FormHelperText>
+                )}
+              </Grid>
+            </Grid>
+            <LoadingButton
+              color="primary"
+              type="submit"
+              loading={createEnroll.isPending}
+              loadingPosition="start"
+              startIcon={<Save />}
+              variant="contained"
+            >
+              <span>
+                {t("students.new_enroll.new_enroll_form.labels.create_btn")}
+              </span>
+            </LoadingButton>
+          </form>
+        )}
+      </Formik>
     </Box>
-  )
-}
+  );
+};
 
 const initialValues = {
-    student_id : '',
-    course_id : ''
-}
+  student_id: "",
+  course_id: "",
+};
 
 const validationSchema = yup.object({
-    student_id : yup.number().required('student is required'),
-    course_id : yup.number().required('course is required'),
-})
+  student_id: yup.number().required("student is required"),
+  course_id: yup.number().required("course is required"),
+});
 
-export default EnrollForm
+export default EnrollForm;
