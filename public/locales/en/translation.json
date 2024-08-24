@@ -1,0 +1,716 @@
+{
+  "sidebar" : {
+    "items" : {
+      "dashboard" : "Dashboard",
+      "students" : {
+        "group" : "Student",
+        "items" : {
+          "1" : "All",
+          "2" : "New Enroll",
+          "3" : "Enrolled Students"
+        }
+      },
+      "courses" : {
+        "group" : "Courses",
+        "items" : {
+          "1" : "All Courses",
+          "2" : "Create Course"
+        }
+      },
+      "accounts" : {
+        "group" : "Accounts",
+        "items" : {
+          "1" : "All Accounts",
+          "2" : "Create Account"
+        }
+      },
+      "categories" : {
+        "group" : "Categories",
+        "items" : {
+          "1" : "All Categories",
+          "2" : "Create Category"
+        }
+      },
+      "news" : {
+        "group" : "News",
+        "items" : {
+          "1" : "All News",
+          "2" : "Create News"
+        }
+      },
+      "statistics" : {
+        "group" : "Statistics",
+        "items" : {
+          "1" : "Reset"
+        }
+      },
+      "activation_code" : {
+        "group" : "Activation Code",
+        "items" : {
+          "1" : "All Activation Code",
+          "2" : "Check Code Status"
+        }
+      },
+      "questions" : {
+        "group" : "Questions",
+        "items" : {
+          "1" : "All Questions",
+          "2" : "Create Question"
+        }
+      },
+      "quizzes" : {
+        "group" : "Quizzes",
+        "items" : {
+          "1" : "All Quizzes"
+        }
+      }
+    }
+  },
+  "login_page": {
+    "login_keyword": {
+      "part_1": "Log",
+      "part_2": "In"
+    },
+    "login_form": {
+      "input_labels": {
+        "phone": "Phone",
+        "password": "Password"
+      },
+      "sign_in_btn": "Sign In"
+    }
+  },
+  "dashboard": {
+    "welcome_message": {
+      "part_1": "Welcome",
+      "part_2": "Have a nice day"
+    },
+    "statistics_cards": {
+      "titles": {
+        "students": "Students",
+        "subjects": "Subjects",
+        "instructor": "Instructors",
+        "enrolled": "Enrolled",
+        "codes": "Codes",
+        "active_codes": "Active Codes",
+        "accounts": "Accounts",
+        "categories": "Categories"
+      },
+      "descriptions": {
+        "students": "Number of students",
+        "subjects": "Number of subjects",
+        "instructor": "Number of instructors",
+        "enrolled": "Number of enrolled",
+        "codes": "All generated codes",
+        "active_codes": "In-use generated codes",
+        "accounts": "Blocked accounts number",
+        "categories": "Categories number"
+      }
+    },
+    "recent_enroll": {
+      "h1" : "Recent Enroll",
+      "table_headers": {
+        "course_title": "Course Title",
+        "student_name": "Student Name",
+        "phone": "Phone",
+        "created_at": "Enroll Date"
+      }
+    },
+    "notification" : {
+      "labels" : {
+        "title" : "Title",
+        "body" : "Body"
+      }
+    },
+    "enrolment_with_codes" : {
+      "labels" : {
+        "name" : "Course Name",
+        "count_by_single" : "Count By Single",
+        "count_by_shared" : "Count By Shared",
+        "count_by_shared_selected" : "Count By Shared Selected",
+        "count_by_gift" : "Count By Gift",
+        "total" : "Total",
+        "manual_enrolment" : "Manual Enrolment"
+      },
+      "h1" : "Enrolment Classification By Code type"
+    }
+  },
+  "students": {
+    "student_list": {
+      "main_header": {
+        "keyword": "Student List"
+      },
+      "headers": {
+        "full_name": "Full Name",
+        "phone": "Phone Number",
+        "is_blocked": "Blocked Status"
+      },
+      "table": {
+        "error_message": "Error loading data",
+        "refresh_tooltip": "Refresh Data"
+      },
+      "student_detail": {
+        "headers": {
+          "name": "Course Name",
+          "created_at": "Enroll Date",
+          "telegram_channel_link": "Telegram Channel"
+        },
+        "reset_password_form" : {
+          "password" : "Password",
+          "reset_password_btn" : "Reset Password"
+        }
+      }
+    },
+    "new_enroll": {
+      "requried": "Requuired Inforamtion",
+      "new_enroll_form": {
+        "labels": {
+          "student": "Student",
+          "course": "Course",
+          "refetch_btn": "Refetch",
+          "create_btn": "Create"
+        }
+      }
+    },
+    "enrolled_students": {
+      "headers": {
+        "course_title": "Course Title",
+        "name": "Student Name",
+        "phone": "Phone",
+        "enrole_date": "Enrolle Date"
+      },
+      "actions": {
+        "cancel_enroll": "Cancle Enrole",
+        "show_course": "Show Course"
+      },
+      "dialogs": {
+        "cancel_enrollement": {
+          "title": "Confirmation: Cancel Enrollment",
+          "text": "Are you sure you want to cancel this user's enrollment in the course? This action cannot be undone. Cancelling their enrollment will revoke their access to course materials and remove them from the roster. Please confirm your decision to proceed."
+        }
+      }
+    }
+  },
+  "courses": {
+    "courses_list": {
+      "headers": {
+        "name": "Course Name",
+        "telegram_channel_link": "Telegram Channel",
+        "is_open": "Is Free",
+        "is_visible": "Is Visible"
+      },
+      "table_actions": {
+        "show_course": "Show Course"
+      }
+    },
+    "create_course": {
+      "labels": {
+        "name": "Name",
+        "telegram_channel_link": "Telegram Channel Link",
+        "categories": "Categories",
+        "teachers": "Teachers",
+        "values_learned": "Values Learned",
+        "image_upload": "Upload File",
+        "is_visible": "Visibility",
+        "is_open": "Is Free",
+        "create_btn": "Create"
+      }
+    },
+    "detaisl": {
+      "h1": "Course Detals",
+      "h2": "Course | Course Details",
+      "tabs": {
+        "1": "Details",
+        "2": "Editing",
+        "3": "Delete",
+        "4": "Students",
+        "5": "Values"
+      },
+      "details_tab": {
+        "switcher": {
+          "1": "Free Course",
+          "2": "Visible Course"
+        },
+        "buttons": {
+          "add_chapter": "Add Chapter"
+        },
+        "add_chapter_form": {
+          "labels": {
+            "name": "Chapter Name",
+            "create_btn": "Create"
+          }
+        },
+        "chapter_renderer": {
+          "chapter_card": {
+            "update_chapter_form": {
+              "labels": {
+                "name": "Chapter Name",
+                "is_visible": "Visibility",
+                "update_btn": "Update",
+                "cancel_btn": "Cancel"
+              }
+            },
+            "buttons": {
+              "1": "Add Lesion",
+              "2": "Add Quiz",
+              "3": "Cancel",
+              "4": "Accept"
+            },
+            "dialog": {
+              "title": "Delete Chapter Confirmation",
+              "text": "Please confirm deletion: Do you wish to permanently remove this chapter from your document?"
+            },
+            "add_lesion_form": {
+              "labels": {
+                "type": "Type",
+                "title": "Title",
+                "time": "Estimated Time",
+                "link": "Link",
+                "refetch_btn": "Refetch",
+                "file": "Upload File",
+                "is_visible": "Visibility",
+                "is_open": "Is Free",
+                "create_btn": "Create",
+                "cancel_btn": "Cancel"
+              }
+            },
+            "add_quiz_form": {
+              "labels": {
+                "quiz": "Quiz",
+                "refetch_btn": "Refetch",
+                "is_visible": "Visibility",
+                "is_free" : "Is Free",
+                "create_btn": "Create",
+                "cancel_btn": "Cancel",
+                "update_btn" : "Update"
+              }
+            },
+            "lesion_renderer": {
+              "no_lesion_text": "No Lesion To Display",
+              "lesion_item": {
+                "free": "Free",
+                "delete_tooltip": "Delete",
+                "edit_tooltip": "Edit",
+                "list": {
+                  "1": "Time",
+                  "2": "Visiblity",
+                  "3": "Free"
+                },
+                "update_lesion_form": {
+                  "labels": {
+                    "type": "Type",
+                    "title": "Title",
+                    "time": "Estimated Time",
+                    "link": "Link",
+                    "refetch_btn": "Refetch",
+                    "file": "Upload File",
+                    "is_visible": "Visibility",
+                    "is_open": "Is Free",
+                    "create_btn": "Create",
+                    "cancel_btn": "Cancel",
+                    "description" : "Description"
+                  }
+                },
+                "dialog": {
+                  "title": "Confirm Deletion: Removing Lesion from Chapter",
+                  "text": "Are you sure you want to remove the lesion from the chapter in the course?",
+                  "cancel_btn": "Cancel",
+                  "accept_btn": "Accept"
+                }
+              },
+              "quiz_item": {
+                "list": {
+                  "1": "Description",
+                  "2": "Total Questions",
+                  "3": "Visible Questions",
+                  "4": "Invisible Questions",
+                  "5": "See More"
+                },
+                "dialog": {
+                  "title": "ٌConfirm Quiz Removing From Chapter",
+                  "text": "Are you sure you want to remove the quiz from this chapter , you can add it later if you want",
+                  "cancel_btn": "Cancel",
+                  "accept_btn": "Accept"
+                }
+              }
+            }
+          }
+        }
+      },
+      "edit_tab": {
+        "labels": {
+          "name": "Course Name",
+          "is_visible": "Visibility",
+          "is_open": "Is Free",
+          "telegram_channel_link": "Telegram Channel Link",
+          "teachers": "Teachers",
+          "categories": "Categories",
+          "save_btn": "Save",
+          "image": "Upload Image"
+        }
+      },
+      "delete_tab": {
+        "h1": "🚨 Danger Zone: Delete Course",
+        "desc": "⚠️ This action is irreversible. Ensure that you have exported or backed up any crucial information before proceeding.",
+        "delete_btn": "🔴Delete",
+        "dialog": {
+          "title": "Delete Course",
+          "text": "Please proceed with caution, as this action cannot be undone. Deleting this course will also remove all associated data. Please confirm the deletion by entering the course name below:",
+          "input_label": "Course Name",
+          "create_btn": "Create",
+          "cancel_btn": "Cancel"
+        }
+      },
+      "student_tab": {
+        "labels": {
+          "full_name": "Student Name",
+          "phone": "Phone Number",
+          "is_blocked": "Blocked Status"
+        }
+      },
+      "values_tab": {
+        "buttons": {
+          "0": "Add"
+        },
+        "no_values": "No Values To Display",
+        "dialogs": {
+          "add_dialog": {
+            "title": "Add New Value",
+            "desc": "Please enter a value learned from the course in the following input. You can cancel the operation by clicking away from the dialog or using the cancel button.",
+            "input_label": "Value",
+            "cancel_btn": "Cancel",
+            "create_btn": "Create"
+          }
+        },
+        "value_card": {
+          "dialog": {
+            "title": "Delete Value Confiramtion",
+            "desc": "Are you sure you want to delete this value , this action can't be undone , if you sure you want to delete value click on accept to proceed",
+            "accept_btn": "Accept",
+            "cancel_btn": "Cancel"
+          }
+        }
+      }
+    }
+  },
+  "accounts": {
+    "account_list": {
+      "headers": {
+        "full_name": "Full Name",
+        "phone": "Phone Number",
+        "type": "Type",
+        "is_blocked": "Blocked Status"
+      }
+    },
+    "create_account": {
+      "labels": {
+        "full_name": "Full Name",
+        "phone": "Phone Number",
+        "password": "Password",
+        "type": "Account Type",
+        "type_options": {
+          "s": "Student",
+          "t": "Teacher",
+          "a": "Admin"
+        },
+        "image": "Upload Image",
+        "create_btn": "Create Account"
+      }
+    },
+    "dialogs": {
+      "delete_account": {
+        "dialog_title": "Delete Account Confirmation",
+        "dialog_content_text": "Are you sure you want to delete this account? This action cannot be undone. By proceeding with account deletion, all associated data, including profile information, preferences, and any created or saved content, will be permanently removed. If you're certain about deleting this account, please click on the accept button.",
+        "disagree_btn": "Disagree",
+        "accept_btn": "Accept"
+      }
+    }
+  },
+  "public": {
+    "table": {
+      "tooltip": {
+        "settings": "Settings",
+        "refresh": "Refresh Data"
+      }
+    }
+  },
+  "categories": {
+    "categories_list": {
+      "headers": {
+        "id": "ID",
+        "name": "Category Name",
+        "is_visible": "Visibility"
+      }
+    },
+    "create_category": {
+      "labels": {
+        "name": "Category Name",
+        "is_visible": "Visibility",
+        "create_btn": "Create",
+        "reset_btn": "Reset"
+      }
+    },
+    "detail": {
+      "tabs": {
+        "1": "Update",
+        "2": "Delete"
+      },
+      "DetailsTab": {
+        "labels": {
+          "name": "Category Name",
+          "is_visible": "Visibility",
+          "save_btn": "Save"
+        }
+      },
+      "deleteTab": {
+        "h1": "🚨 Danger Zone: Delete Catgeory",
+        "desc": "⚠️ This action is irreversible. Ensure that you have exported or backed up any crucial information before proceeding.",
+        "delete_btn": "🔴Delete",
+        "cancel_btn": "Cancel",
+        "dialog": {
+          "title": "Confirm Category Deletion",
+          "text": "Please proceed with caution as this action cannot be undone. Deleting this category will result in the permanent removal of all associated data. To confirm deletion, please enter the name of the category in the field below.",
+          "input_label": "Category Name"
+        }
+      }
+    }
+  },
+  "news": {
+    "news_list": {
+      "headers": {
+        "id": "ID",
+        "title": "Title",
+        "image": "Image",
+        "is_visible": "Visibility"
+      }
+    },
+    "create_news": {
+      "labels": {
+        "title": "News Title",
+        "position": "News Position",
+        "is_visible": "Visibility",
+        "image": "Upload Image",
+        "create_btn": "Create",
+        "reset_btn": "Reset"
+      }
+    },
+    "detail": {
+      "tabs": {
+        "1": "Update",
+        "2": "Delete"
+      },
+      "DetailsTab": {
+        "labels": {
+          "title": "Title",
+          "position": "Position",
+          "is_visible": "Visibility",
+          "image": "Upload Image",
+          "save_btn": "Save"
+        }
+      },
+      "deleteTab": {
+        "h1": "🚨 Danger Zone: Delete News",
+        "desc": "⚠️ This action is irreversible. Ensure that you have exported or backed up any crucial information before proceeding.",
+        "delete_btn": "🔴Delete",
+        "cancel_btn": "Cancel",
+        "dialog": {
+          "title": "Confirm Deletion",
+          "text": "Are you sure you want to delete this news article? This action cannot be undone.Please verify your decision by entering the title of the news article in the field below. If the news title not found ,simply type 'I confirm' as the title.",
+          "input_label": "I confirm"
+        }
+      }
+    }
+  },
+  "reset": {
+    "h1": "Statistics Reset Page",
+    "h2": "Before proceeding with the reset of statistics, please note the following",
+    "list": {
+      "1": "Resetting statistics will result in the deletion of all activation codes.",
+      "2": "Resetting statistics will also erase all enrollments in any course."
+    },
+    "note": "Please exercise caution when initiating the reset process. A confirmation popup will be displayed for your verification. Once the reset is completed, it cannot be reversed.",
+    "reset_btn": "Reset",
+    "dialog": {
+      "title": "Reset Confirmation",
+      "text": "Are you sure you want to reset the statistics? This action will permanently delete all activation codes and enrollment records associated with the dashboard. Please proceed with caution, as this action cannot be undone.",
+      "input_label": "I Am Sure",
+      "cancel_btn": "Cancel",
+      "reset_btn": "Reset"
+    }
+  },
+  "activation_codes": {
+    "generate": {
+      "labels": {
+        "type": "Code Type",
+        "title" : "File name",
+        "type_options": {
+          "single": "Single",
+          "shared": "Shared",
+          "shared_selected": "Shared Selected",
+          "gift" : "Gift"
+        },
+        "quantity": "Quantity",
+        "num_of_courses": "Number Of Courses",
+        "courses": "Courses",
+        "refetch_btn": "Refetch",
+        "no_courses_text": "No Courses To Select",
+        "create_btn": "Create",
+        "reset_btn": "Reset"
+      }
+    },
+    "file_renderer": {
+      "no_file_message": "No Files To Display",
+      "download_btn": "Download",
+      "delete_btn": "Delete"
+    }
+  },
+  "questions": {
+    "questions_list": {
+      "headers": {
+        "id": "ID",
+        "title": "Title",
+        "image": "Title Image",
+        "clarification_text": "Clarification",
+        "clarification_image": "Clarification Image"
+      },
+      "buttons": {
+        "add_to_pre_btn": "Add To Existing Quiz",
+        "create_new_btn": "Create Quiz"
+      }
+    },
+    "create_question": {
+      "labels": {
+        "title": "Question Title",
+        "image": "Title Image",
+        "clarification_text": "Clarification",
+        "clarification_image": "Clarification Image",
+        "create_btn": "Create",
+        "reset_btn": "Reset"
+      }
+    },
+    "question_detials": {
+      "tabs": {
+        "1": "Detial",
+        "2": "Update",
+        "3": "Choices",
+        "4": "Delete"
+      },
+      "detials_tab": {
+        "untitled": "Untitled",
+        "title": "Title",
+        "unclarification": "Unclarification",
+        "clarification": "Clarification",
+        "full_image": "Open Full Image",
+        "choices": "Choices",
+        "no_choices": "No Choices To Display",
+        "title_image": "Title Image",
+        "clarification_image": "Clarification Image"
+      },
+      "choice_card": {
+        "true": "True",
+        "false": "False",
+        "visible": "Visible",
+        "hidden": "Hidden",
+        "dialog": {
+          "title": "Delete Choice Confirmation",
+          "text": "Are you sure you want to delete this choice from this question ? This action cannot be undone. Please confirm your decision to proceed.",
+          "cancel_btn": "Cancel",
+          "accept_btn": "Accept"
+        }
+      },
+      "choices_tab": {
+        "add_btn": "Add Choice"
+      },
+      "add_choice_form": {
+        "labels": {
+          "title": "Choice Title",
+          "choice_image": "Choice Image",
+          "is_visible": "Visibility",
+          "is_true": "Is True",
+          "create_btn": "Create",
+          "cancel_btn": "Cancel"
+        }
+      },
+      "delete_tab": {
+        "h1": "🚨 Danger Zone: Delete Question",
+        "desc": "⚠️ This action is irreversible. Ensure that you have exported or backed up any crucial information before proceeding.",
+        "delete_btn": "🔴Delete",
+        "cancel_btn": "Cancel",
+        "dialog": {
+          "title": "Confirm Deletion",
+          "text": "Are you sure you want to delete this question? This action cannot be undone.Please confirm your decision by click on delete button ."
+        }
+      }
+    }
+  },
+  "quizzes": {
+    "quizzes_list": {
+      "headers": {
+        "id": "ID",
+        "title": "Quiz Title",
+        "description": "Quiz Description",
+        "number_of_questions": "Number Of Questions",
+        "number_of_visible_question": "Number Of Visible Questions",
+        "number_of_invisible_question": "Number Of Invisible Questions"
+      }
+    },
+    "quiz_details": {
+      "h1": "Quiz Details",
+      "update_from": {
+        "labels": {
+          "title": "Quiz Title",
+          "description": "Quiz Description",
+          "save_btn": "Save",
+          "reset_btn": "Reset"
+        }
+      },
+      "questions_info": {
+        "headers": {
+          "id": "ID",
+          "title": "Title",
+          "is_visible": "Visiblitiy",
+          "image": "Title Image",
+          "clarification_text": "Clarification",
+          "clarification_image": "Clarification Image"
+        },
+        "sub_headers": {
+          "title": "Choice Title",
+          "image": "Choice Image",
+          "is_true": "Is True"
+        }
+      },
+      "delete_section": {
+        "h1": "🚨 Danger Zone: Delete Catgeory",
+        "desc": "⚠️ This action is irreversible. Ensure that you have exported or backed up any crucial information before proceeding.",
+        "delete_btn": "🔴Delete",
+        "cancel_btn": "Cancel",
+        "dialog": {
+          "title": "Confirm Quiz Deletion",
+          "text": "Please proceed with caution as this action cannot be undone. Deleting this quiz will result in the permanent removal of all associated data. To confirm deletion, please enter the name of the category in the field below.",
+          "input_label": "Quiz Title"
+        }
+      }
+    },
+    "create_quiz_mode": {
+      "title": "Create New Quiz",
+      "text": "Upon clicking the 'Create Quiz' button, all the selected questions will be compiled into the quiz. Please ensure that the selection accurately represents the content you wish to include in the quiz.",
+      "labels": {
+        "title": "Quiz Title",
+        "description": "Quiz Description",
+        "is_visible": "Initial Visibility Of All Question Inside Quiz",
+        "create_btn": "Create",
+        "cancel_btn": "Cancel"
+      }
+    },
+    "add_to_pre_existing_model": {
+      "title": "Add Question To Existing Quiz",
+      "text": "Upon clicking the 'Add To Quiz' button, all the selected questions will be appended to the existing quiz. Please ensure that the selection accurately represents the content you wish to include in the updated version of the quiz.",
+      "labels": {
+        "quiz": "Quiz",
+        "refetch_btn": "Refetch",
+        "is_visible": "Initial Visibility For Questions Added",
+        "create_btn": "Add To Quiz",
+        "cancel_btn": "Cancel"
+      }
+    }
+  }
+}
