@@ -1,0 +1,29 @@
+import { useMutation } from "@tanstack/react-query";
+import { useSnackbar } from "notistack";
+import { request } from "./request";
+const useResetDeviceID = () => {
+    const { enqueueSnackbar } = useSnackbar();
+    const resetDeviceIDRequest  = (data) => {
+        return request({
+            url : `/users/resetDeviceID/${data.user}`,
+            method : 'patch',
+        })
+    }
+
+    const mutation = useMutation({
+        mutationKey : [`reset-device-id`],
+        mutationFn : resetDeviceIDRequest,
+        onSuccess : (data) => {
+            enqueueSnackbar(data?.data?.message , {variant : 'success'})
+        },
+        onError : (error) => {
+            if(error.response){
+                enqueueSnackbar(error?.response?.data?.message , {variant : 'error'})
+            }
+        }
+    })
+
+    return mutation
+}
+
+export default useResetDeviceID

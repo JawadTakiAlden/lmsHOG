@@ -17,7 +17,7 @@ import { useTranslation } from "react-i18next";
 const DeleteTab = ({ data }) => {
   const deleteNews = useDeleteNews();
   const [open, setOpen] = useState(false);
-  const [newsName, setNewsName] = useState("");
+  // const [newsName, setNewsName] = useState("");
   const { t } = useTranslation();
 
   const handleClickOpen = () => {
@@ -92,7 +92,7 @@ const DeleteTab = ({ data }) => {
           <DialogContentText>
             {t("news.detail.deleteTab.dialog.text")}
           </DialogContentText>
-          <TextField
+          {/* <TextField
             autoFocus
             required
             margin="dense"
@@ -106,7 +106,7 @@ const DeleteTab = ({ data }) => {
             type="text"
             fullWidth
             variant="standard"
-          />
+          /> */}
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>
@@ -114,11 +114,11 @@ const DeleteTab = ({ data }) => {
           </Button>
           <LoadingButton
             color="error"
-            disabled={
-              data.title
-                ? newsName !== data.title
-                : newsName !== t("news.detail.deleteTab.dialog.input_label")
-            }
+            // disabled={
+            //   data.title
+            //     ? newsName !== data.title
+            //     : newsName !== t("news.detail.deleteTab.dialog.input_label")
+            // }
             loading={deleteNews.isPending}
             type="submit"
           >
