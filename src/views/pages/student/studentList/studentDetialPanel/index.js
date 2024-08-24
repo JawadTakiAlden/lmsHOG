@@ -9,6 +9,7 @@ import { useTranslation } from "react-i18next";
 import { Box } from "@mui/material";
 import ResetPasswordForm from "./ResetPasswordForm";
 import DeleteAccountButton from "./DeleteAccountButton";
+import ResetDeviceToken from "./ResetDeviceToken";
 
 const StudentDetialPanel = ({ originalRow }) => {
   const { data, isLoading, isError, isRefetching } = useGetCoursesOfStudent(
@@ -70,6 +71,7 @@ const StudentDetialPanel = ({ originalRow }) => {
         <MaterialReactTable table={table} />
       </TableWrapper>
       <ResetPasswordForm userID={originalRow.id} />
+      <ResetDeviceToken userID={originalRow.id} />
     </Box>
   );
 };
