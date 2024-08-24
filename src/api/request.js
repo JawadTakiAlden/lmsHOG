@@ -3,7 +3,7 @@ import axios from "axios";
 import CryptoJS from 'crypto-js';
 import i18next from "i18next";
 
-const baseURl = 'https://api.houseofgeniuses.tech/api/v1'
+const baseURl = "https://api.houseofgeniuses.tech/api/v1"
 // const baseURl = "http://127.0.0.1:8000/api/v1"
 
 const client = axios.create({ baseURl });
