@@ -128,19 +128,13 @@ const AddLesionForm = ({ chapter, handelClose }) => {
           {values.type === "video" && (
             <Grid item xs={12} sm={6}>
               <FormControl fullWidth>
-                <InputLabel>
-                  {t(
-                    "courses.detaisl.details_tab.chapter_renderer.chapter_card.add_lesion_form.labels.source"
-                  )}
-                </InputLabel>
+                <InputLabel>{t("source")}</InputLabel>
                 <Select
                   value={values.source}
                   onChange={handleChange}
                   onBlur={handleBlur}
                   name="source"
-                  label={t(
-                    "courses.detaisl.details_tab.chapter_renderer.chapter_card.add_lesion_form.labels.source"
-                  )}
+                  label={t("source")}
                   error={touched.source && errors.source}
                 >
                   {lesionSource.map((source) => (

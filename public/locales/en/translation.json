@@ -1,4 +1,5 @@
 {
+  "source" : "source of video",
   "sidebar" : {
     "items" : {
       "dashboard" : "Dashboard",
