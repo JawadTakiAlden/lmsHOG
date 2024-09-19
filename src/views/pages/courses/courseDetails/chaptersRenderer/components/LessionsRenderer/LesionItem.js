@@ -90,6 +90,7 @@ const LesionItem = ({ last, lesion }) => {
             <ListItemText
               sx={{
                 textTransform: "capitalize",
+                width : 'fit-content'
               }}
             >
               {lesion.title} &#9;{" "}
