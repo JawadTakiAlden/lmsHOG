@@ -101,19 +101,13 @@ const AddLesionForm = ({ chapter, handelClose }) => {
         <Grid container spacing={gridSpacing}>
           <Grid item xs={12} sm={6}>
             <FormControl fullWidth>
-              <InputLabel>
-                {t(
-                  "courses.detaisl.details_tab.chapter_renderer.chapter_card.add_lesion_form.labels.type"
-                )}
-              </InputLabel>
+              <InputLabel>{t("source")}</InputLabel>
               <Select
                 value={values.type}
                 onChange={handleChange}
                 onBlur={handleBlur}
                 name="type"
-                label={t(
-                  "courses.detaisl.details_tab.chapter_renderer.chapter_card.add_lesion_form.labels.type"
-                )}
+                label={t("source")}
                 error={touched.type && errors.type}
               >
                 {lesionTypes.map((type) => (
