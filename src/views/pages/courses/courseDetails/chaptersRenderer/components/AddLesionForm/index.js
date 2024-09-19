@@ -14,7 +14,7 @@ import {
   Switch,
   TextField,
 } from "@mui/material";
-import { Formik } from "formik";
+import { Formik, useFormik } from "formik";
 import React, { useEffect, useState } from "react";
 import { gridSpacing } from "../../../../../../../constant";
 import {
@@ -30,15 +30,14 @@ import VisuallyHiddenInput from "../../../../../../../components/VisuallyHiddenI
 import { useTranslation } from "react-i18next";
 import useDebounce from "../../../../../../../utils/useDebounce";
 
-
-
 const lesionTypes = ["video", "pdf"];
+const lesionSource = ["vimeo-1", "vimeo-2", "youtube"];
 
 const AddLesionForm = ({ chapter, handelClose }) => {
   const [videoUriOpen, setVideoUriOpen] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const createLesion = useCreateLesion();
-  const videos = useGetVideos(inputValue);
+
   const { t } = useTranslation();
   const handleCreateNewLesion = (values) => {
     let valuesToSubmit = {
@@ -56,6 +55,31 @@ const AddLesionForm = ({ chapter, handelClose }) => {
     }
     createLesion.callFunction(valuesToSubmit);
   };
+  const {
+    handleSubmit,
+    values,
+    touched,
+    errors,
+    handleChange,
+    handleBlur,
+    setFieldValue,
+  } = useFormik({
+    onSubmit: handleCreateNewLesion,
+    validationSchema: validationSchema,
+    initialValues: {
+      videoURI: "",
+      pdfFile: null,
+      is_visible: true,
+      is_open: false,
+      type: "video",
+      source: "vimeo-1",
+      chapter_id: chapter.id,
+      title: "",
+      time: 0,
+    },
+  });
+  const videos = useGetVideos(inputValue ,values.source);
+  
 
   const handelRefetchOnSearch = useDebounce(() => {
     videos.refetch();
@@ -74,251 +98,254 @@ const AddLesionForm = ({ chapter, handelClose }) => {
         mt: 2,
       }}
     >
-      <Formik
-        onSubmit={handleCreateNewLesion}
-        validationSchema={validationSchema}
-        initialValues={{
-          videoURI: "",
-          pdfFile: null,
-          is_visible: true,
-          is_open: false,
-          type: "video",
-          chapter_id: chapter.id,
-          title: "",
-          time: 0,
-        }}
-      >
-        {({
-          handleSubmit,
-          values,
-          touched,
-          errors,
-          handleChange,
-          handleBlur,
-          setFieldValue,
-        }) => (
-          <form onSubmit={handleSubmit}>
-            <Grid container spacing={gridSpacing}>
-              <Grid item xs={12} sm={6}>
-                <FormControl fullWidth>
-                  <InputLabel>
-                    {t(
-                      "courses.detaisl.details_tab.chapter_renderer.chapter_card.add_lesion_form.labels.type"
-                    )}
-                  </InputLabel>
-                  <Select
-                    value={values.type}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    name="type"
-                    label={t(
-                      "courses.detaisl.details_tab.chapter_renderer.chapter_card.add_lesion_form.labels.type"
-                    )}
-                    error={touched.type && errors.type}
-                  >
-                    {lesionTypes.map((type) => (
-                      <MenuItem value={type}>{type}</MenuItem>
-                    ))}
-                  </Select>
-                  {touched.type && errors.type && (
-                    <FormHelperText error>{errors.type}</FormHelperText>
-                  )}
-                </FormControl>
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <FormControl fullWidth>
-                  <InputLabel>
-                    {t(
-                      "courses.detaisl.details_tab.chapter_renderer.chapter_card.add_lesion_form.labels.title"
-                    )}
-                  </InputLabel>
-                  <OutlinedInput
-                    type="text"
-                    label={t(
-                      "courses.detaisl.details_tab.chapter_renderer.chapter_card.add_lesion_form.labels.title"
-                    )}
-                    name="title"
-                    onChange={handleChange}
-                    value={values.title}
-                    error={touched.title && errors.title}
-                    onBlur={handleBlur}
-                  />
-                  {touched.title && errors.title && (
-                    <FormHelperText error>{errors.title}</FormHelperText>
-                  )}
-                </FormControl>
-              </Grid>
-              {values.type === "pdf" && (
-                <Grid item xs={12} sm={6}>
-                  <FormControl fullWidth>
-                    <InputLabel>
-                      {t(
-                        "courses.detaisl.details_tab.chapter_renderer.chapter_card.add_lesion_form.labels.time"
-                      )}
-                    </InputLabel>
-                    <OutlinedInput
-                      type="number"
-                      label={t(
-                        "courses.detaisl.details_tab.chapter_renderer.chapter_card.add_lesion_form.labels.time"
-                      )}
-                      name="time"
-                      onChange={handleChange}
-                      value={values.time}
-                      error={touched.time && errors.time}
-                      onBlur={handleBlur}
-                      inputProps={{
-                        min: 0,
-                      }}
-                    />
-                    {touched.time && errors.time && (
-                      <FormHelperText error>{errors.time}</FormHelperText>
-                    )}
-                  </FormControl>
-                </Grid>
+      <form onSubmit={handleSubmit}>
+        <Grid container spacing={gridSpacing}>
+          <Grid item xs={12} sm={6}>
+            <FormControl fullWidth>
+              <InputLabel>
+                {t(
+                  "courses.detaisl.details_tab.chapter_renderer.chapter_card.add_lesion_form.labels.type"
+                )}
+              </InputLabel>
+              <Select
+                value={values.type}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                name="type"
+                label={t(
+                  "courses.detaisl.details_tab.chapter_renderer.chapter_card.add_lesion_form.labels.type"
+                )}
+                error={touched.type && errors.type}
+              >
+                {lesionTypes.map((type) => (
+                  <MenuItem value={type}>{type}</MenuItem>
+                ))}
+              </Select>
+              {touched.type && errors.type && (
+                <FormHelperText error>{errors.type}</FormHelperText>
               )}
-              {values.type === "video" ? (
-                <Grid item xs={12} sm={6}>
-                    <Autocomplete
-                      open={videoUriOpen}
-                      onOpen={() => {
-                        setVideoUriOpen(true);
-                      }}
-                      onClose={() => {
-                        setVideoUriOpen(false);
-                      }}
-                      filterOptions={(x) => x}
-                      disableCloseOnSelect
-                      isOptionEqualToValue={(option, value) =>
-                        option.uri === value.uri
-                      }
-                      id="videoURI"
-                      name={"videoURI"}
-                      onBlur={handleBlur}
-                      getOptionLabel={(option) => option.name}
-                      options={videos?.data?.data?.data || []}
-                      loading={videos.isLoading || videos.isRefetching}
-                      onChange={(event, newValue) => {
-                        setFieldValue("videoURI", newValue);
-                      }}
-                      onInputChange={(event, newInputValue) => {
-                        setInputValue(newInputValue);
-                      }}
-                      renderInput={(params) => (
-                        <TextField
-                          {...params}
-                          label={t(
-                            "courses.detaisl.details_tab.chapter_renderer.chapter_card.add_lesion_form.labels.link"
-                          )}
-                          name="videoURI"
-                          onBlur={handleBlur}
-                          error={touched.videoURI && errors.videoURI}
-                          InputProps={{
-                            ...params.InputProps,
-                            endAdornment: (
-                              <React.Fragment>
-                                {videos.isLoading || videos.isRefetching ? (
-                                  <CircularProgress color="inherit" size={20} />
-                                ) : null}
-                                {params.InputProps.endAdornment}
-                              </React.Fragment>
-                            ),
-                          }}
-                        />
-                      )}
-                    />
-                    {touched.videoURI && errors.videoURI && (
-                      <FormHelperText error>{errors.videoURI}</FormHelperText>
-                    )}
-                </Grid>
-              ) : (
-                <Grid item xs={12} sm={6}>
-                  <Button
-                    component="label"
-                    variant="contained"
-                    startIcon={<PictureAsPdfOutlined />}
-                  >
-                    {t(
-                      "courses.detaisl.details_tab.chapter_renderer.chapter_card.add_lesion_form.labels.file"
-                    )}
-                    <VisuallyHiddenInput
-                      type="file"
-                      name="pdfFile"
-                      onBlur={handleBlur}
-                      accept="application/pdf"
-                      onChange={(e) => {
-                        setFieldValue("pdfFile", e.target.files[0]);
-                      }}
-                    />
-                  </Button>
-                  {touched.pdfFile && errors.pdfFile && (
-                    <FormHelperText error>{errors.pdfFile}</FormHelperText>
+            </FormControl>
+          </Grid>
+          {values.type === "video" && (
+            <Grid item xs={12} sm={6}>
+              <FormControl fullWidth>
+                <InputLabel>
+                  {t(
+                    "courses.detaisl.details_tab.chapter_renderer.chapter_card.add_lesion_form.labels.source"
                   )}
-                </Grid>
-              )}
-
-              <Grid item xs={12} sm={6}>
-                <FormControlLabel
-                  control={
-                    <Switch
-                      name="is_visible"
-                      value={values.is_visible}
-                      onChange={handleChange}
-                      defaultChecked={values.is_visible}
-                    />
-                  }
+                </InputLabel>
+                <Select
+                  value={values.source}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  name="source"
                   label={t(
-                    "courses.detaisl.details_tab.chapter_renderer.chapter_card.add_lesion_form.labels.is_visible"
+                    "courses.detaisl.details_tab.chapter_renderer.chapter_card.add_lesion_form.labels.source"
                   )}
-                />
-                <FormControlLabel
-                  control={
-                    <Switch
-                      name="is_open"
-                      value={values.is_open}
-                      onChange={handleChange}
-                      defaultChecked={values.is_open}
-                    />
-                  }
-                  label={t(
-                    "courses.detaisl.details_tab.chapter_renderer.chapter_card.add_lesion_form.labels.is_open"
-                  )}
-                />
-              </Grid>
+                  error={touched.source && errors.source}
+                >
+                  {lesionSource.map((source) => (
+                    <MenuItem value={source}>{source}</MenuItem>
+                  ))}
+                </Select>
+                {touched.source && errors.source && (
+                  <FormHelperText error>{errors.source}</FormHelperText>
+                )}
+              </FormControl>
             </Grid>
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "flex-end",
-                gap: "10px",
-                mt: 2,
-              }}
-            >
-              <LoadingButton
-                variant="contained"
-                type="submit"
-                color="primary"
-                loading={createLesion.isPending}
-                startIcon={<CreateOutlined />}
-              >
+          )}
+          <Grid item xs={12} sm={6}>
+            <FormControl fullWidth>
+              <InputLabel>
                 {t(
-                  "courses.detaisl.details_tab.chapter_renderer.chapter_card.add_lesion_form.labels.create_btn"
+                  "courses.detaisl.details_tab.chapter_renderer.chapter_card.add_lesion_form.labels.title"
                 )}
-              </LoadingButton>
+              </InputLabel>
+              <OutlinedInput
+                type="text"
+                label={t(
+                  "courses.detaisl.details_tab.chapter_renderer.chapter_card.add_lesion_form.labels.title"
+                )}
+                name="title"
+                onChange={handleChange}
+                value={values.title}
+                error={touched.title && errors.title}
+                onBlur={handleBlur}
+              />
+              {touched.title && errors.title && (
+                <FormHelperText error>{errors.title}</FormHelperText>
+              )}
+            </FormControl>
+          </Grid>
+          {values.type === "pdf" && (
+            <Grid item xs={12} sm={6}>
+              <FormControl fullWidth>
+                <InputLabel>
+                  {t(
+                    "courses.detaisl.details_tab.chapter_renderer.chapter_card.add_lesion_form.labels.time"
+                  )}
+                </InputLabel>
+                <OutlinedInput
+                  type="number"
+                  label={t(
+                    "courses.detaisl.details_tab.chapter_renderer.chapter_card.add_lesion_form.labels.time"
+                  )}
+                  name="time"
+                  onChange={handleChange}
+                  value={values.time}
+                  error={touched.time && errors.time}
+                  onBlur={handleBlur}
+                  inputProps={{
+                    min: 0,
+                  }}
+                />
+                {touched.time && errors.time && (
+                  <FormHelperText error>{errors.time}</FormHelperText>
+                )}
+              </FormControl>
+            </Grid>
+          )}
+          {values.type === "video" ? (
+            <Grid item xs={12} sm={6}>
+              <Autocomplete
+                open={videoUriOpen}
+                onOpen={() => {
+                  setVideoUriOpen(true);
+                }}
+                onClose={() => {
+                  setVideoUriOpen(false);
+                }}
+                filterOptions={(x) => x}
+                disableCloseOnSelect
+                isOptionEqualToValue={(option, value) =>
+                  option.uri === value.uri
+                }
+                id="videoURI"
+                name={"videoURI"}
+                onBlur={handleBlur}
+                getOptionLabel={(option) => option.name}
+                options={videos?.data?.data?.data || []}
+                loading={videos.isLoading || videos.isRefetching}
+                onChange={(event, newValue) => {
+                  setFieldValue("videoURI", newValue);
+                }}
+                onInputChange={(event, newInputValue) => {
+                  setInputValue(newInputValue);
+                }}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label={t(
+                      "courses.detaisl.details_tab.chapter_renderer.chapter_card.add_lesion_form.labels.link"
+                    )}
+                    name="videoURI"
+                    onBlur={handleBlur}
+                    error={touched.videoURI && errors.videoURI}
+                    InputProps={{
+                      ...params.InputProps,
+                      endAdornment: (
+                        <React.Fragment>
+                          {videos.isLoading || videos.isRefetching ? (
+                            <CircularProgress color="inherit" size={20} />
+                          ) : null}
+                          {params.InputProps.endAdornment}
+                        </React.Fragment>
+                      ),
+                    }}
+                  />
+                )}
+              />
+              {touched.videoURI && errors.videoURI && (
+                <FormHelperText error>{errors.videoURI}</FormHelperText>
+              )}
+            </Grid>
+          ) : (
+            <Grid item xs={12} sm={6}>
               <Button
+                component="label"
                 variant="contained"
-                color="error"
-                startIcon={<CancelOutlined />}
-                onClick={handelClose}
+                startIcon={<PictureAsPdfOutlined />}
               >
                 {t(
-                  "courses.detaisl.details_tab.chapter_renderer.chapter_card.add_lesion_form.labels.cancel_btn"
+                  "courses.detaisl.details_tab.chapter_renderer.chapter_card.add_lesion_form.labels.file"
                 )}
+                <VisuallyHiddenInput
+                  type="file"
+                  name="pdfFile"
+                  onBlur={handleBlur}
+                  accept="application/pdf"
+                  onChange={(e) => {
+                    setFieldValue("pdfFile", e.target.files[0]);
+                  }}
+                />
               </Button>
-            </Box>
-          </form>
-        )}
-      </Formik>
+              {touched.pdfFile && errors.pdfFile && (
+                <FormHelperText error>{errors.pdfFile}</FormHelperText>
+              )}
+            </Grid>
+          )}
+
+          <Grid item xs={12} sm={6}>
+            <FormControlLabel
+              control={
+                <Switch
+                  name="is_visible"
+                  value={values.is_visible}
+                  onChange={handleChange}
+                  defaultChecked={values.is_visible}
+                />
+              }
+              label={t(
+                "courses.detaisl.details_tab.chapter_renderer.chapter_card.add_lesion_form.labels.is_visible"
+              )}
+            />
+            <FormControlLabel
+              control={
+                <Switch
+                  name="is_open"
+                  value={values.is_open}
+                  onChange={handleChange}
+                  defaultChecked={values.is_open}
+                />
+              }
+              label={t(
+                "courses.detaisl.details_tab.chapter_renderer.chapter_card.add_lesion_form.labels.is_open"
+              )}
+            />
+          </Grid>
+        </Grid>
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "flex-end",
+            gap: "10px",
+            mt: 2,
+          }}
+        >
+          <LoadingButton
+            variant="contained"
+            type="submit"
+            color="primary"
+            loading={createLesion.isPending}
+            startIcon={<CreateOutlined />}
+          >
+            {t(
+              "courses.detaisl.details_tab.chapter_renderer.chapter_card.add_lesion_form.labels.create_btn"
+            )}
+          </LoadingButton>
+          <Button
+            variant="contained"
+            color="error"
+            startIcon={<CancelOutlined />}
+            onClick={handelClose}
+          >
+            {t(
+              "courses.detaisl.details_tab.chapter_renderer.chapter_card.add_lesion_form.labels.cancel_btn"
+            )}
+          </Button>
+        </Box>
+      </form>
     </Box>
   );
 };

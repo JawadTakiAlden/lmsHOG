@@ -262,6 +262,7 @@
             "add_lesion_form": {
               "labels": {
                 "type": "Type",
+                "source" : "Source",
                 "title": "Title",
                 "time": "Estimated Time",
                 "link": "Link",
