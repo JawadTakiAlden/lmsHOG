@@ -9,7 +9,9 @@ import {
   FormHelperText,
   Grid,
   InputLabel,
+  MenuItem,
   OutlinedInput,
+  Select,
   Switch,
   TextField,
 } from "@mui/material";
@@ -27,6 +29,8 @@ import { useTranslation } from "react-i18next";
 import useGetVideos from "../../../../../../../api/useGetVideos";
 import VisuallyHiddenInput from "../../../../../../../components/VisuallyHiddenInput/VisuallyHiddenInput";
 import useDebounce from "../../../../../../../utils/useDebounce";
+
+const lesionSource = ["vimeo-1", "vimeo-2", "youtube"];
 
 const UpdateLesionForm = ({ lesion, handelClose }) => {
   const { t } = useTranslation();
