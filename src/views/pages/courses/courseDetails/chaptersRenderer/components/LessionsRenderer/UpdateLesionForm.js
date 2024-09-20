@@ -41,7 +41,10 @@ const UpdateLesionForm = ({ lesion, handelClose }) => {
   const handleUpdateLesion = (values) => {
     let dataChangedToSend = {
       ...(values.pdfFile && { pdfFile: values.pdfFile }),
-      ...(values.videoURI && { videoURI: values.link_uri.uri }),
+      ...(values.link_uri && {
+        videoURI: values.link_uri.uri,
+        original_video_name: values.link_uri.name,
+      }),
       is_visible: +values.is_visible,
       is_open: +values.is_open,
       title: values.title,
@@ -73,7 +76,7 @@ const UpdateLesionForm = ({ lesion, handelClose }) => {
       source: lesion.source,
       link_uri: {
         uri: lesion.link_uri,
-        name : lesion.title
+        name: lesion.title,
       },
     },
   });
