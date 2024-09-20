@@ -76,7 +76,7 @@ const UpdateLesionForm = ({ lesion, handelClose }) => {
       source: lesion.source,
       link_uri: {
         uri: lesion.link_uri,
-        name: lesion.title,
+        name: lesion.original_video_name || lesion.title,
       },
     },
   });
