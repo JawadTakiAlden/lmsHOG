@@ -43,6 +43,7 @@ const UpdateLesionForm = ({ lesion, handelClose }) => {
       title: values.title,
       time: values.time,
       description: values.description,
+      source: values.source,
     };
     updateLesion.callFunction(dataChangedToSend);
   };
@@ -75,6 +76,7 @@ const UpdateLesionForm = ({ lesion, handelClose }) => {
           time: lesion.time,
           type: lesion.type,
           description: lesion.description,
+          source: lesion.source,
         }}
       >
         {({
@@ -182,6 +184,28 @@ const UpdateLesionForm = ({ lesion, handelClose }) => {
                       <FormHelperText error>
                         {errors.description}
                       </FormHelperText>
+                    )}
+                  </FormControl>
+                </Grid>
+              )}
+              {values.type === "video" && (
+                <Grid item xs={12} sm={6}>
+                  <FormControl fullWidth>
+                    <InputLabel>{t("source")}</InputLabel>
+                    <Select
+                      value={values.source}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      name="source"
+                      label={t("source")}
+                      error={touched.source && errors.source}
+                    >
+                      {lesionSource.map((source) => (
+                        <MenuItem value={source}>{source}</MenuItem>
+                      ))}
+                    </Select>
+                    {touched.source && errors.source && (
+                      <FormHelperText error>{errors.source}</FormHelperText>
                     )}
                   </FormControl>
                 </Grid>
