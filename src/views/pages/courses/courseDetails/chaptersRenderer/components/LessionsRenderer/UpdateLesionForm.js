@@ -41,7 +41,7 @@ const UpdateLesionForm = ({ lesion, handelClose }) => {
   const handleUpdateLesion = (values) => {
     let dataChangedToSend = {
       ...(values.pdfFile && { pdfFile: values.pdfFile }),
-      ...(values.videoURI && { videoURI: values.videoURI.uri }),
+      ...(values.videoURI && { videoURI: values.link_uri.uri }),
       is_visible: +values.is_visible,
       is_open: +values.is_open,
       title: values.title,
@@ -71,6 +71,10 @@ const UpdateLesionForm = ({ lesion, handelClose }) => {
       type: lesion.type,
       description: lesion.description,
       source: lesion.source,
+      link_uri: {
+        uri: lesion.link_uri,
+        name : lesion.title
+      },
     },
   });
 
@@ -234,14 +238,15 @@ const UpdateLesionForm = ({ lesion, handelClose }) => {
                   isOptionEqualToValue={(option, value) =>
                     option.uri === value.uri
                   }
-                  id="videoURI"
-                  name={"videoURI"}
+                  id="link_uri"
+                  name={"link_uri"}
                   onBlur={handleBlur}
                   getOptionLabel={(option) => option.name}
                   options={videos?.data?.data?.data || []}
                   loading={videos.isLoading || videos.isRefetching}
+                  value={values.link_uri}
                   onChange={(event, newValue) => {
-                    setFieldValue("videoURI", newValue);
+                    setFieldValue("link_uri", newValue);
                   }}
                   onInputChange={(event, newInputValue) => {
                     setInputValue(newInputValue);
@@ -252,9 +257,9 @@ const UpdateLesionForm = ({ lesion, handelClose }) => {
                       label={t(
                         "courses.detaisl.details_tab.chapter_renderer.chapter_card.lesion_renderer.lesion_item.update_lesion_form.labels.link"
                       )}
-                      name="videoURI"
+                      name="link_uri"
                       onBlur={handleBlur}
-                      error={touched.videoURI && errors.videoURI}
+                      error={touched.link_uri && errors.link_uri}
                       InputProps={{
                         ...params.InputProps,
                         endAdornment: (
