@@ -32,6 +32,11 @@ const CourseList = () => {
   const columns = useMemo(
     () => [
       {
+        accessorKey: "id",
+        header: 'ID',
+        size : 50
+      },
+      {
         accessorKey: "name",
         header: t("courses.courses_list.headers.name"),
       },
