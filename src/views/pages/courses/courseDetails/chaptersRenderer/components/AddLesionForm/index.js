@@ -53,6 +53,7 @@ const AddLesionForm = ({ chapter, handelClose }) => {
     } else {
       valuesToSubmit.videoURI = values.videoURI.uri;
       valuesToSubmit.original_video_name = values.videoURI.name
+      valuesToSubmit.source = values.source
     }
     createLesion.callFunction(valuesToSubmit);
   };
