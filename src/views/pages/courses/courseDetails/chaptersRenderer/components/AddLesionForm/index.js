@@ -52,8 +52,8 @@ const AddLesionForm = ({ chapter, handelClose }) => {
       valuesToSubmit.pdfFile = values.pdfFile;
     } else {
       valuesToSubmit.videoURI = values.videoURI.uri;
-      valuesToSubmit.original_video_name = values.videoURI.name
-      valuesToSubmit.source = values.source
+      valuesToSubmit.original_video_name = values.videoURI.name;
+      valuesToSubmit.source = values.source;
     }
     createLesion.callFunction(valuesToSubmit);
   };
@@ -83,8 +83,8 @@ const AddLesionForm = ({ chapter, handelClose }) => {
   const videos = useGetVideos(inputValue, values.source);
 
   useEffect(() => {
-    videos.refetch()
-  } , [values.source])
+    videos.refetch();
+  }, [values.source]);
 
   const handelRefetchOnSearch = useDebounce(() => {
     videos.refetch();
