@@ -5,7 +5,7 @@ import i18next from "i18next";
 
 // const baseURL = "https://api.houseofgeniuses.tech/api/v1"
 // const baseURL = "https://api.houseofgeniuses.tech/api/v2"
-const baseURL = "https://api.houseofgeniuses.tech/api/v3";
+const baseURL = "https://api.houseofgeniuses.tech/api/v4";
 // const baseURL = "http://127.0.0.1:8000/api/v1"
 
 const client = axios.create({ baseURL });
