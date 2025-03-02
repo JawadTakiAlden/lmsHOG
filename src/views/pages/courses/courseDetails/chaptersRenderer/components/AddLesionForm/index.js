@@ -31,7 +31,7 @@ import { useTranslation } from "react-i18next";
 import useDebounce from "../../../../../../../utils/useDebounce";
 
 const lesionTypes = ["video", "pdf"];
-const lesionSource = ["vimeo-1", "vimeo-2"];
+const lesionSource = ["vimeo-1", "vimeo-2", "vimeo-3"];
 
 const AddLesionForm = ({ chapter, handelClose }) => {
   const [videoUriOpen, setVideoUriOpen] = useState(false);

@@ -30,7 +30,7 @@ import useGetVideos from "../../../../../../../api/useGetVideos";
 import VisuallyHiddenInput from "../../../../../../../components/VisuallyHiddenInput/VisuallyHiddenInput";
 import useDebounce from "../../../../../../../utils/useDebounce";
 
-const lesionSource = ["vimeo-1", "vimeo-2", "youtube"];
+const lesionSource = ["vimeo-1", "vimeo-2", "vimeo-3"];
 
 const UpdateLesionForm = ({ lesion, handelClose }) => {
   const { t } = useTranslation();
