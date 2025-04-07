@@ -1,5 +1,5 @@
 {
-  "source" : "مصدر الفيديو",
+  "source": "مصدر الفيديو",
   "sidebar": {
     "items": {
       "dashboard": "لوحة التحكم",
@@ -135,6 +135,7 @@
         "headers": {
           "name": "اسم الدورة",
           "created_at": "تاريخ التسجيل",
+          "type": "النوع",
           "telegram_channel_link": "رابط قناة التيليجرام"
         }
       }
@@ -243,7 +244,7 @@
               "labels": {
                 "type": "النوع",
                 "title": "العنوان",
-                "source" : "المصدر",
+                "source": "المصدر",
                 "time": "الوقت المقدر",
                 "link": "الرابط",
                 "refetch_btn": "إعادة جلب",

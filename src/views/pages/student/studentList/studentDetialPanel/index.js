@@ -27,6 +27,10 @@ const StudentDetialPanel = ({ originalRow }) => {
         header: t("students.student_list.student_detail.headers.created_at"),
       },
       {
+        accessorKey: "activation_code.type",
+        header: t("students.student_list.student_detail.headers.type"),
+      },
+      {
         accessorKey: "telegram_channel_link",
         header: t(
           "students.student_list.student_detail.headers.telegram_channel_link"

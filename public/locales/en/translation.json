@@ -1,68 +1,68 @@
 {
-  "source" : "source of video",
-  "sidebar" : {
-    "items" : {
-      "dashboard" : "Dashboard",
-      "students" : {
-        "group" : "Student",
-        "items" : {
-          "1" : "All",
-          "2" : "New Enroll",
-          "3" : "Enrolled Students"
+  "source": "source of video",
+  "sidebar": {
+    "items": {
+      "dashboard": "Dashboard",
+      "students": {
+        "group": "Student",
+        "items": {
+          "1": "All",
+          "2": "New Enroll",
+          "3": "Enrolled Students"
         }
       },
-      "courses" : {
-        "group" : "Courses",
-        "items" : {
-          "1" : "All Courses",
-          "2" : "Create Course"
+      "courses": {
+        "group": "Courses",
+        "items": {
+          "1": "All Courses",
+          "2": "Create Course"
         }
       },
-      "accounts" : {
-        "group" : "Accounts",
-        "items" : {
-          "1" : "All Accounts",
-          "2" : "Create Account"
+      "accounts": {
+        "group": "Accounts",
+        "items": {
+          "1": "All Accounts",
+          "2": "Create Account"
         }
       },
-      "categories" : {
-        "group" : "Categories",
-        "items" : {
-          "1" : "All Categories",
-          "2" : "Create Category"
+      "categories": {
+        "group": "Categories",
+        "items": {
+          "1": "All Categories",
+          "2": "Create Category"
         }
       },
-      "news" : {
-        "group" : "News",
-        "items" : {
-          "1" : "All News",
-          "2" : "Create News"
+      "news": {
+        "group": "News",
+        "items": {
+          "1": "All News",
+          "2": "Create News"
         }
       },
-      "statistics" : {
-        "group" : "Statistics",
-        "items" : {
-          "1" : "Reset"
+      "statistics": {
+        "group": "Statistics",
+        "items": {
+          "1": "Reset"
         }
       },
-      "activation_code" : {
-        "group" : "Activation Code",
-        "items" : {
-          "1" : "All Activation Code",
-          "2" : "Check Code Status"
+      "activation_code": {
+        "group": "Activation Code",
+        "items": {
+          "1": "All Activation Code",
+          "2": "Check Code Status"
         }
       },
-      "questions" : {
-        "group" : "Questions",
-        "items" : {
-          "1" : "All Questions",
-          "2" : "Create Question"
+      "questions": {
+        "group": "Questions",
+        "items": {
+          "1": "All Questions",
+          "2": "Create Question"
         }
       },
-      "quizzes" : {
-        "group" : "Quizzes",
-        "items" : {
-          "1" : "All Quizzes"
+      "quizzes": {
+        "group": "Quizzes",
+        "items": {
+          "1": "All Quizzes"
         }
       }
     }
@@ -108,7 +108,7 @@
       }
     },
     "recent_enroll": {
-      "h1" : "Recent Enroll",
+      "h1": "Recent Enroll",
       "table_headers": {
         "course_title": "Course Title",
         "student_name": "Student Name",
@@ -116,23 +116,23 @@
         "created_at": "Enroll Date"
       }
     },
-    "notification" : {
-      "labels" : {
-        "title" : "Title",
-        "body" : "Body"
+    "notification": {
+      "labels": {
+        "title": "Title",
+        "body": "Body"
       }
     },
-    "enrolment_with_codes" : {
-      "labels" : {
-        "name" : "Course Name",
-        "count_by_single" : "Count By Single",
-        "count_by_shared" : "Count By Shared",
-        "count_by_shared_selected" : "Count By Shared Selected",
-        "count_by_gift" : "Count By Gift",
-        "total" : "Total",
-        "manual_enrolment" : "Manual Enrolment"
+    "enrolment_with_codes": {
+      "labels": {
+        "name": "Course Name",
+        "count_by_single": "Count By Single",
+        "count_by_shared": "Count By Shared",
+        "count_by_shared_selected": "Count By Shared Selected",
+        "count_by_gift": "Count By Gift",
+        "total": "Total",
+        "manual_enrolment": "Manual Enrolment"
       },
-      "h1" : "Enrolment Classification By Code type"
+      "h1": "Enrolment Classification By Code type"
     }
   },
   "students": {
@@ -153,11 +153,12 @@
         "headers": {
           "name": "Course Name",
           "created_at": "Enroll Date",
+          "type": "Code Type",
           "telegram_channel_link": "Telegram Channel"
         },
-        "reset_password_form" : {
-          "password" : "Password",
-          "reset_password_btn" : "Reset Password"
+        "reset_password_form": {
+          "password": "Password",
+          "reset_password_btn": "Reset Password"
         }
       }
     },
@@ -263,7 +264,7 @@
             "add_lesion_form": {
               "labels": {
                 "type": "Type",
-                "source" : "Source",
+                "source": "Source",
                 "title": "Title",
                 "time": "Estimated Time",
                 "link": "Link",
@@ -280,10 +281,10 @@
                 "quiz": "Quiz",
                 "refetch_btn": "Refetch",
                 "is_visible": "Visibility",
-                "is_free" : "Is Free",
+                "is_free": "Is Free",
                 "create_btn": "Create",
                 "cancel_btn": "Cancel",
-                "update_btn" : "Update"
+                "update_btn": "Update"
               }
             },
             "lesion_renderer": {
@@ -309,7 +310,7 @@
                     "is_open": "Is Free",
                     "create_btn": "Create",
                     "cancel_btn": "Cancel",
-                    "description" : "Description"
+                    "description": "Description"
                   }
                 },
                 "dialog": {
@@ -543,12 +544,12 @@
     "generate": {
       "labels": {
         "type": "Code Type",
-        "title" : "File name",
+        "title": "File name",
         "type_options": {
           "single": "Single",
           "shared": "Shared",
           "shared_selected": "Shared Selected",
-          "gift" : "Gift"
+          "gift": "Gift"
         },
         "quantity": "Quantity",
         "num_of_courses": "Number Of Courses",
