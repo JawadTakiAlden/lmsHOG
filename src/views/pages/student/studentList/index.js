@@ -12,14 +12,14 @@ import StudentDetialPanel from "./studentDetialPanel";
 import TableWrapper from "../../../../components/TableWrapper";
 import { useTranslation } from "react-i18next";
 import { MRT_Localization_AR } from "material-react-table/locales/ar";
-import { MRT_Localization_EN} from 'material-react-table/locales/en';
+import { MRT_Localization_EN } from "material-react-table/locales/en";
 
 const StudentList = () => {
   const { data, isLoading, isError, isRefetching, refetch } =
     useGetStudentList();
   const switchermutate = useSwitchBlockedStatus(refetch);
-  const { t  , i18n} = useTranslation();
-  const {language} = i18n
+  const { t, i18n } = useTranslation();
+  const { language } = i18n;
   const columns = useMemo(() => {
     return [
       {
@@ -81,7 +81,7 @@ const StudentList = () => {
         {t("students.student_list.main_header.keyword")}
       </Typography>
       <TableWrapper>
-        <MaterialReactTable  table={table} />
+        <MaterialReactTable table={table} />
       </TableWrapper>
     </Box>
   );

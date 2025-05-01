@@ -24,6 +24,7 @@ import Transition from "../../../../components/Transition";
 import { LoadingButton } from "@mui/lab";
 import useDeleteAccountMutation from "../../../../api/useDeleteAccountMutation";
 import { useTranslation } from "react-i18next";
+import AccountDetailPanel from "./AccountDetailPanel";
 
 const AllAccounts = () => {
   const { data, isError, isLoading, isRefetching, refetch } = useGetAccounts();
@@ -32,7 +33,7 @@ const AllAccounts = () => {
     status: false,
     row: null,
   });
-  const { t , i18n} = useTranslation();
+  const { t, i18n } = useTranslation();
 
   const handleClickOpen = (id) => {
     setOpen({ row: id, status: true });
@@ -137,6 +138,9 @@ const AllAccounts = () => {
         </Tooltip>
       </Box>
     ),
+    renderDetailPanel: ({ row }) => {
+      return <AccountDetailPanel originalRow={row.original} />;
+    },
     state: {
       isLoading,
       showAlertBanner: isError,
